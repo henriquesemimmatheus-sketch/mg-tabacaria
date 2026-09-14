@@ -40,11 +40,43 @@ export function Products() {
   return (
     <section id="produtos" className="relative overflow-hidden border-b border-line py-20 sm:py-24">
       <Container>
-        <SectionHeading
-          eyebrow="Catálogo"
-          title="O que tem pra você aqui"
-          description="Sempre rolando novidade. Chama no WhatsApp pra saber o que tá disponível e o preço."
-        />
+        <div className="relative">
+          <SectionHeading
+            eyebrow="Catálogo"
+            title="O que tem pra você aqui"
+            description="Sempre rolando novidade. Chama no WhatsApp pra saber o que tá disponível e o preço."
+          />
+
+          <div className="pointer-events-none absolute top-9 right-2 z-20 block sm:hidden">
+            <div className="relative w-16 rotate-[6deg] bg-[#f4efe4] p-1.5 pb-4 shadow-2xl">
+              <div className="absolute -top-1.5 left-1/2 h-4 w-8 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
+              <div className="relative aspect-square w-full overflow-hidden">
+                <Image
+                  src="/jack-redbull.jpg"
+                  alt="Jack Daniel's com Red Bull na MG Tabacaria"
+                  fill
+                  sizes="64px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="pointer-events-none absolute top-1 right-7 z-10 block sm:hidden">
+            <div className="relative w-16 rotate-[-8deg] bg-[#f4efe4] p-1.5 pb-4 shadow-2xl">
+              <div className="absolute -top-1.5 left-1/2 h-4 w-8 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
+              <div className="relative aspect-square w-full overflow-hidden">
+                <Image
+                  src="/heineken.jpg"
+                  alt="Heineken gelada na MG Tabacaria"
+                  fill
+                  sizes="64px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="relative mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map(({ icon: Icon, title, text }) => (
             <a
@@ -87,36 +119,6 @@ export function Products() {
                   alt="Jack Daniel's com Red Bull na MG Tabacaria"
                   fill
                   sizes="96px"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="pointer-events-none absolute -top-10 -right-8 z-10 block sm:hidden">
-            <div className="relative w-20 rotate-[6deg] bg-[#f4efe4] p-1.5 pb-5 shadow-2xl">
-              <div className="absolute -top-2 left-1/2 h-5 w-9 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
-              <div className="relative aspect-square w-full overflow-hidden">
-                <Image
-                  src="/jack-redbull.jpg"
-                  alt="Jack Daniel's com Red Bull na MG Tabacaria"
-                  fill
-                  sizes="80px"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="pointer-events-none absolute -top-10 -left-8 z-10 block sm:hidden">
-            <div className="relative w-20 rotate-[-6deg] bg-[#f4efe4] p-1.5 pb-5 shadow-2xl">
-              <div className="absolute -top-2 left-1/2 h-5 w-9 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
-              <div className="relative aspect-square w-full overflow-hidden">
-                <Image
-                  src="/heineken.jpg"
-                  alt="Heineken gelada na MG Tabacaria"
-                  fill
-                  sizes="80px"
                   className="object-cover"
                 />
               </div>
