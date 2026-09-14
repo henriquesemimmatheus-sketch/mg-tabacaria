@@ -65,15 +65,15 @@ export function Products() {
         </div>
       </Container>
 
-      <div className="pointer-events-none absolute top-8 right-2 z-10 hidden sm:top-10 sm:right-6 sm:block">
-        <div className="relative w-32 rotate-[5deg] bg-[#f4efe4] p-2.5 pb-8 shadow-2xl sm:w-44 sm:p-3 sm:pb-10">
-          <div className="absolute -top-2.5 left-1/2 h-6 w-14 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px] sm:-top-3 sm:h-7 sm:w-16" />
+      <div className="pointer-events-none absolute top-6 right-2 z-10 hidden sm:top-2 sm:right-6 sm:block">
+        <div className="relative w-32 rotate-[6deg] bg-[#f4efe4] p-2.5 pb-8 shadow-2xl sm:w-52 sm:p-3 sm:pb-11">
+          <div className="absolute -top-2.5 left-1/2 h-6 w-14 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px] sm:-top-3 sm:h-8 sm:w-20" />
           <div className="relative aspect-square w-full overflow-hidden">
             <Image
               src="/heineken.jpg"
               alt="Heineken gelada na MG Tabacaria"
               fill
-              sizes="224px"
+              sizes="240px"
               className="object-cover"
             />
           </div>
