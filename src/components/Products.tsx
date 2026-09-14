@@ -62,7 +62,7 @@ export function Products() {
             </div>
           </div>
 
-          <div className="pointer-events-none absolute -top-10 right-4 z-10 block sm:hidden">
+          <div className="pointer-events-none absolute -top-[72px] right-14 z-10 block sm:hidden">
             <div className="relative w-20 rotate-[-8deg] bg-[#f4efe4] p-1.5 pb-5 shadow-2xl">
               <div className="absolute -top-2 left-1/2 h-5 w-10 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
               <div className="relative aspect-square w-full overflow-hidden">
