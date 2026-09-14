@@ -22,7 +22,7 @@ const categories = [
   {
     icon: GlassIcon,
     title: "Destilados selecionados",
-    text: "Whisky, licor e rótulo especial pra qualquer ocasião — ou pra nenhuma.",
+    text: "Whisky, licor e rótulo especial pra qualquer ocasião, com novidade sempre chegando.",
   },
   {
     icon: GiftIcon,
