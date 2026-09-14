@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container, SectionHeading } from "./Container";
 import { HookahIcon, LeafIcon, GlassIcon, GiftIcon, SparkleIcon } from "./icons";
 import { whatsappLink } from "@/lib/business";
@@ -32,7 +33,7 @@ const categories = [
 
 export function Products() {
   return (
-    <section id="produtos" className="border-b border-line py-20 sm:py-24">
+    <section id="produtos" className="relative border-b border-line py-20 sm:py-24">
       <Container>
         <SectionHeading
           eyebrow="Catálogo"
@@ -58,6 +59,21 @@ export function Products() {
           ))}
         </div>
       </Container>
+
+      <div className="pointer-events-none absolute -bottom-12 right-4 z-10 hidden sm:-bottom-16 sm:right-8 sm:block">
+        <div
+          className="relative h-32 w-32 overflow-hidden rounded-full border border-gold/30 sm:h-44 sm:w-44"
+          style={{ boxShadow: "inset 0 0 40px 12px rgba(11,10,9,0.85)" }}
+        >
+          <Image
+            src="/budweiser.png"
+            alt="Destilados e bebidas geladas na MG Tabacaria"
+            fill
+            sizes="176px"
+            className="object-cover"
+          />
+        </div>
+      </div>
     </section>
   );
 }
