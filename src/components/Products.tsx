@@ -38,7 +38,7 @@ const categories = [
 
 export function Products() {
   return (
-    <section id="produtos" className="relative border-b border-line py-20 sm:py-24">
+    <section id="produtos" className="relative overflow-hidden border-b border-line py-20 sm:py-24">
       <Container>
         <SectionHeading
           eyebrow="Catálogo"
@@ -65,7 +65,7 @@ export function Products() {
         </div>
       </Container>
 
-      <div className="pointer-events-none absolute top-12 right-4 z-10 hidden sm:top-14 sm:right-10 sm:block">
+      <div className="pointer-events-none absolute top-8 right-2 z-10 hidden sm:top-10 sm:right-6 sm:block">
         <div className="relative w-32 rotate-[5deg] bg-[#f4efe4] p-2.5 pb-8 shadow-2xl sm:w-44 sm:p-3 sm:pb-10">
           <div className="absolute -top-2.5 left-1/2 h-6 w-14 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px] sm:-top-3 sm:h-7 sm:w-16" />
           <div className="relative aspect-square w-full overflow-hidden">
@@ -74,6 +74,21 @@ export function Products() {
               alt="Heineken gelada na MG Tabacaria"
               fill
               sizes="224px"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute top-14 -right-8 z-10 block sm:hidden">
+        <div className="relative w-28 rotate-[-6deg] bg-[#f4efe4] p-2 pb-6 shadow-2xl">
+          <div className="absolute -top-2 left-1/2 h-5 w-11 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
+          <div className="relative aspect-square w-full overflow-hidden">
+            <Image
+              src="/jack-redbull.jpg"
+              alt="Jack Daniel's com Red Bull na MG Tabacaria"
+              fill
+              sizes="112px"
               className="object-cover"
             />
           </div>
