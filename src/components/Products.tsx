@@ -84,7 +84,9 @@ export function Products() {
               href={whatsappLink(`Olá! Gostaria de saber mais sobre ${title.toLowerCase()}.`)}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col rounded-2xl border border-line bg-surface p-7 transition-colors hover:border-gold/40"
+              className={`group flex flex-col rounded-2xl border border-line bg-surface p-7 transition-colors hover:border-gold/40 ${
+                title === "Destilados selecionados" ? "relative" : ""
+              }`}
             >
               <Icon className="h-8 w-8 text-gold-bright" />
               <h3 className="mt-5 font-display text-xl text-ink">{title}</h3>
@@ -92,6 +94,23 @@ export function Products() {
               <span className="mt-5 text-xs uppercase tracking-[0.15em] text-gold transition-colors group-hover:text-gold-bright">
                 Chamar no WhatsApp →
               </span>
+
+              {title === "Destilados selecionados" && (
+                <div className="pointer-events-none absolute -top-8 -right-6 z-10 hidden sm:block">
+                  <div className="relative w-20 rotate-[-6deg] bg-[#f4efe4] p-1.5 pb-5 shadow-2xl sm:w-24 sm:p-2 sm:pb-6">
+                    <div className="absolute -top-2 left-1/2 h-5 w-10 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
+                    <div className="relative aspect-square w-full overflow-hidden">
+                      <Image
+                        src="/jack-redbull.jpg"
+                        alt="Jack Daniel's com Red Bull na MG Tabacaria"
+                        fill
+                        sizes="96px"
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </a>
           ))}
 
@@ -102,21 +121,6 @@ export function Products() {
                 <Image
                   src="/heineken.jpg"
                   alt="Heineken gelada na MG Tabacaria"
-                  fill
-                  sizes="96px"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="pointer-events-none absolute -top-16 left-2 z-10 hidden sm:-top-[42px] sm:left-6 sm:block">
-            <div className="relative w-20 rotate-[-6deg] bg-[#f4efe4] p-1.5 pb-5 shadow-2xl sm:w-24 sm:p-2 sm:pb-6">
-              <div className="absolute -top-2 left-1/2 h-5 w-10 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
-              <div className="relative aspect-square w-full overflow-hidden">
-                <Image
-                  src="/jack-redbull.jpg"
-                  alt="Jack Daniel's com Red Bull na MG Tabacaria"
                   fill
                   sizes="96px"
                   className="object-cover"
