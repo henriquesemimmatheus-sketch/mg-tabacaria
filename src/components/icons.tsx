@@ -59,6 +59,17 @@ export function GlassIcon({ className }: { className?: string }) {
   );
 }
 
+export function BeerMugIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M6 8h10v11a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 6 19V8z" />
+      <path d="M6 11h-1.5A1.5 1.5 0 0 0 3 12.5v3A1.5 1.5 0 0 0 4.5 17H6" />
+      <path d="M6 8c0-2.2 1.8-4 4-4 1.7 0 3.1 1.1 3.7 2.6.3-.1.5-.1.8-.1 1.4 0 2.5 1.1 2.5 2.5 0 .3-.1.6-.1.9" />
+      <path d="M9 11.5v6M12 11.5v6" strokeWidth="1.1" />
+    </svg>
+  );
+}
+
 export function LeafIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" className={className} aria-hidden="true">

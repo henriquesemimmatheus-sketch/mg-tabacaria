@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Container, SectionHeading } from "./Container";
-import { HookahIcon, LeafIcon, GlassIcon, GiftIcon, SparkleIcon } from "./icons";
+import { HookahIcon, LeafIcon, GlassIcon, BeerMugIcon, GiftIcon, SparkleIcon } from "./icons";
 import { whatsappLink } from "@/lib/business";
 
 const categories = [
@@ -18,6 +18,11 @@ const categories = [
     icon: GlassIcon,
     title: "Destilados selecionados",
     text: "Whisky, licor e rótulo especial pra qualquer ocasião — ou pra nenhuma.",
+  },
+  {
+    icon: BeerMugIcon,
+    title: "Cerveja geladinha",
+    text: "Sempre na régua certa de temperatura — pega e já abre, sem enrolação.",
   },
   {
     icon: GiftIcon,
@@ -60,9 +65,9 @@ export function Products() {
         </div>
       </Container>
 
-      <div className="pointer-events-none absolute -bottom-2 right-4 z-10 sm:-bottom-14 sm:right-10">
-        <div className="relative w-24 rotate-[5deg] bg-[#f4efe4] p-2 pb-6 shadow-2xl sm:w-56 sm:p-3.5 sm:pb-12">
-          <div className="absolute -top-2 left-1/2 h-5 w-10 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px] sm:-top-3 sm:h-8 sm:w-20" />
+      <div className="pointer-events-none absolute -top-16 right-4 z-10 hidden sm:-top-20 sm:right-10 sm:block">
+        <div className="relative w-32 rotate-[5deg] bg-[#f4efe4] p-2.5 pb-8 shadow-2xl sm:w-44 sm:p-3 sm:pb-10">
+          <div className="absolute -top-2.5 left-1/2 h-6 w-14 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px] sm:-top-3 sm:h-7 sm:w-16" />
           <div className="relative aspect-square w-full overflow-hidden">
             <Image
               src="/heineken.jpg"
