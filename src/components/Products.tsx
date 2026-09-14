@@ -80,6 +80,21 @@ export function Products() {
         </div>
       </div>
 
+      <div className="pointer-events-none absolute -top-28 left-2 z-10 hidden sm:-top-[104px] sm:left-6 sm:block">
+        <div className="relative w-32 rotate-[-6deg] bg-[#f4efe4] p-2.5 pb-8 shadow-2xl sm:w-40 sm:p-2.5 sm:pb-7">
+          <div className="absolute -top-2.5 left-1/2 h-6 w-14 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px] sm:-top-2.5 sm:h-6 sm:w-14" />
+          <div className="relative aspect-square w-full overflow-hidden">
+            <Image
+              src="/jack-redbull.jpg"
+              alt="Jack Daniel's com Red Bull na MG Tabacaria"
+              fill
+              sizes="176px"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="pointer-events-none absolute top-14 -right-8 z-10 block sm:hidden">
         <div className="relative w-28 rotate-[6deg] bg-[#f4efe4] p-2 pb-6 shadow-2xl">
           <div className="absolute -top-2 left-1/2 h-5 w-11 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
@@ -87,6 +102,21 @@ export function Products() {
             <Image
               src="/jack-redbull.jpg"
               alt="Jack Daniel's com Red Bull na MG Tabacaria"
+              fill
+              sizes="112px"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute -top-16 -left-8 z-10 block sm:hidden">
+        <div className="relative w-28 rotate-[-6deg] bg-[#f4efe4] p-2 pb-6 shadow-2xl">
+          <div className="absolute -top-2 left-1/2 h-5 w-11 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
+          <div className="relative aspect-square w-full overflow-hidden">
+            <Image
+              src="/heineken.jpg"
+              alt="Heineken gelada na MG Tabacaria"
               fill
               sizes="112px"
               className="object-cover"
