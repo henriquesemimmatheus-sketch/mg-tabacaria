@@ -60,18 +60,18 @@ export function Products() {
         </div>
       </Container>
 
-      <div className="pointer-events-none absolute -bottom-12 right-4 z-10 hidden sm:-bottom-16 sm:right-8 sm:block">
-        <div
-          className="relative h-32 w-32 overflow-hidden rounded-full border border-gold/30 sm:h-44 sm:w-44"
-          style={{ boxShadow: "inset 0 0 40px 12px rgba(11,10,9,0.85)" }}
-        >
-          <Image
-            src="/budweiser.png"
-            alt="Destilados e bebidas geladas na MG Tabacaria"
-            fill
-            sizes="176px"
-            className="object-cover"
-          />
+      <div className="pointer-events-none absolute -bottom-10 right-4 z-10 hidden sm:-bottom-14 sm:right-10 sm:block">
+        <div className="relative w-40 rotate-[5deg] bg-[#f4efe4] p-3 pb-10 shadow-2xl sm:w-56 sm:p-3.5 sm:pb-12">
+          <div className="absolute -top-3 left-1/2 h-7 w-16 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px] sm:h-8 sm:w-20" />
+          <div className="relative aspect-square w-full overflow-hidden">
+            <Image
+              src="/heineken.jpg"
+              alt="Heineken gelada na MG Tabacaria"
+              fill
+              sizes="224px"
+              className="object-cover"
+            />
+          </div>
         </div>
       </div>
     </section>
