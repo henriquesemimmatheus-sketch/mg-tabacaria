@@ -60,9 +60,9 @@ export function Products() {
         </div>
       </Container>
 
-      <div className="pointer-events-none absolute -bottom-10 right-4 z-10 hidden sm:-bottom-14 sm:right-10 sm:block">
-        <div className="relative w-40 rotate-[5deg] bg-[#f4efe4] p-3 pb-10 shadow-2xl sm:w-56 sm:p-3.5 sm:pb-12">
-          <div className="absolute -top-3 left-1/2 h-7 w-16 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px] sm:h-8 sm:w-20" />
+      <div className="pointer-events-none absolute -bottom-2 right-4 z-10 sm:-bottom-14 sm:right-10">
+        <div className="relative w-24 rotate-[5deg] bg-[#f4efe4] p-2 pb-6 shadow-2xl sm:w-56 sm:p-3.5 sm:pb-12">
+          <div className="absolute -top-2 left-1/2 h-5 w-10 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px] sm:-top-3 sm:h-8 sm:w-20" />
           <div className="relative aspect-square w-full overflow-hidden">
             <Image
               src="/heineken.jpg"
