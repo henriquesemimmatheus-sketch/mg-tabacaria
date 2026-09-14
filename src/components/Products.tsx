@@ -45,7 +45,7 @@ export function Products() {
           title="O que tem pra você aqui"
           description="Sempre rolando novidade. Chama no WhatsApp pra saber o que tá disponível e o preço."
         />
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="relative mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map(({ icon: Icon, title, text }) => (
             <a
               key={title}
@@ -62,68 +62,68 @@ export function Products() {
               </span>
             </a>
           ))}
+
+          <div className="pointer-events-none absolute -top-16 right-2 z-10 hidden sm:-top-[42px] sm:right-6 sm:block">
+            <div className="relative w-20 rotate-[6deg] bg-[#f4efe4] p-1.5 pb-5 shadow-2xl sm:w-24 sm:p-2 sm:pb-6">
+              <div className="absolute -top-2 left-1/2 h-5 w-10 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
+              <div className="relative aspect-square w-full overflow-hidden">
+                <Image
+                  src="/heineken.jpg"
+                  alt="Heineken gelada na MG Tabacaria"
+                  fill
+                  sizes="96px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="pointer-events-none absolute -top-16 left-2 z-10 hidden sm:-top-[42px] sm:left-6 sm:block">
+            <div className="relative w-20 rotate-[-6deg] bg-[#f4efe4] p-1.5 pb-5 shadow-2xl sm:w-24 sm:p-2 sm:pb-6">
+              <div className="absolute -top-2 left-1/2 h-5 w-10 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
+              <div className="relative aspect-square w-full overflow-hidden">
+                <Image
+                  src="/jack-redbull.jpg"
+                  alt="Jack Daniel's com Red Bull na MG Tabacaria"
+                  fill
+                  sizes="96px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="pointer-events-none absolute -top-10 -right-8 z-10 block sm:hidden">
+            <div className="relative w-20 rotate-[6deg] bg-[#f4efe4] p-1.5 pb-5 shadow-2xl">
+              <div className="absolute -top-2 left-1/2 h-5 w-9 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
+              <div className="relative aspect-square w-full overflow-hidden">
+                <Image
+                  src="/jack-redbull.jpg"
+                  alt="Jack Daniel's com Red Bull na MG Tabacaria"
+                  fill
+                  sizes="80px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="pointer-events-none absolute -top-10 -left-8 z-10 block sm:hidden">
+            <div className="relative w-20 rotate-[-6deg] bg-[#f4efe4] p-1.5 pb-5 shadow-2xl">
+              <div className="absolute -top-2 left-1/2 h-5 w-9 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
+              <div className="relative aspect-square w-full overflow-hidden">
+                <Image
+                  src="/heineken.jpg"
+                  alt="Heineken gelada na MG Tabacaria"
+                  fill
+                  sizes="80px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </Container>
-
-      <div className="pointer-events-none absolute top-6 right-2 z-10 hidden sm:top-2 sm:right-6 sm:block">
-        <div className="relative w-32 rotate-[6deg] bg-[#f4efe4] p-2.5 pb-8 shadow-2xl sm:w-52 sm:p-3 sm:pb-11">
-          <div className="absolute -top-2.5 left-1/2 h-6 w-14 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px] sm:-top-3 sm:h-8 sm:w-20" />
-          <div className="relative aspect-square w-full overflow-hidden">
-            <Image
-              src="/heineken.jpg"
-              alt="Heineken gelada na MG Tabacaria"
-              fill
-              sizes="240px"
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="pointer-events-none absolute -top-28 left-2 z-10 hidden sm:-top-[104px] sm:left-6 sm:block">
-        <div className="relative w-32 rotate-[-6deg] bg-[#f4efe4] p-2.5 pb-8 shadow-2xl sm:w-40 sm:p-2.5 sm:pb-7">
-          <div className="absolute -top-2.5 left-1/2 h-6 w-14 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px] sm:-top-2.5 sm:h-6 sm:w-14" />
-          <div className="relative aspect-square w-full overflow-hidden">
-            <Image
-              src="/jack-redbull.jpg"
-              alt="Jack Daniel's com Red Bull na MG Tabacaria"
-              fill
-              sizes="176px"
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="pointer-events-none absolute top-14 -right-8 z-10 block sm:hidden">
-        <div className="relative w-28 rotate-[6deg] bg-[#f4efe4] p-2 pb-6 shadow-2xl">
-          <div className="absolute -top-2 left-1/2 h-5 w-11 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
-          <div className="relative aspect-square w-full overflow-hidden">
-            <Image
-              src="/jack-redbull.jpg"
-              alt="Jack Daniel's com Red Bull na MG Tabacaria"
-              fill
-              sizes="112px"
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="pointer-events-none absolute -top-16 -left-8 z-10 block sm:hidden">
-        <div className="relative w-28 rotate-[-6deg] bg-[#f4efe4] p-2 pb-6 shadow-2xl">
-          <div className="absolute -top-2 left-1/2 h-5 w-11 -translate-x-1/2 rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
-          <div className="relative aspect-square w-full overflow-hidden">
-            <Image
-              src="/heineken.jpg"
-              alt="Heineken gelada na MG Tabacaria"
-              fill
-              sizes="112px"
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </div>
     </section>
   );
 }
