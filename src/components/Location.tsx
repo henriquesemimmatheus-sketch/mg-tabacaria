@@ -52,6 +52,9 @@ export function Location() {
                 </div>
               ))}
             </dl>
+            <p className="mt-3 text-xs text-ink-muted">
+              Horário pode variar em feriados e datas especiais — confirme com a gente no WhatsApp antes de vir.
+            </p>
             <a
               href={whatsappLink()}
               target="_blank"
