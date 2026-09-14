@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ground: #131110;
+  --color-surface: #1c1916;
+  --color-surface-2: #221e1a;
+  --color-ink: #f1ece2;
+  --color-ink-muted: #a89e8d;
+  --color-gold: #c9a24b;
+  --color-gold-bright: #e7c877;
+  --color-silver: #cfd3d6;
+  --color-line: #322c25;
+
+  --font-display: var(--font-cinzel);
+  --font-sans: var(--font-jost);
+}
+
+@layer base {
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ground);
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.rule-gold {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold) 20%,
+    var(--color-gold-bright) 50%,
+    var(--color-gold) 80%,
+    transparent
+  );
+}
