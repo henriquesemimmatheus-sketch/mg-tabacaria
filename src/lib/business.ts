@@ -2,8 +2,8 @@
 export const business = {
   name: "MG Tabacaria",
   city: "Cascavel - PR",
-  whatsappNumber: "554591337191",
-  whatsappDisplay: "(45) 9133-7191",
+  whatsappNumber: "5545991337191",
+  whatsappDisplay: "(45) 99133-7191",
   whatsappMessage: "Olá! Vi o site da MG Tabacaria e queria saber mais.",
   instagramUrl: "https://www.instagram.com/mgtabacaria1/",
   instagramHandle: "@mgtabacaria1",
