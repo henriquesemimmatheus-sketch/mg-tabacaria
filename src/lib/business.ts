@@ -1,10 +1,10 @@
-// Placeholders below (city, phone, address, hours) need the real data from MG Tabacaria before this goes live.
+// Placeholders below (city, phone, address, hours) need the real data from MG Bebidas & Tabacaria before this goes live.
 export const business = {
-  name: "MG Tabacaria",
+  name: "MG Bebidas & Tabacaria",
   city: "Cascavel - PR",
   whatsappNumber: "5545991337191",
   whatsappDisplay: "(45) 99133-7191",
-  whatsappMessage: "Olá! Vi o site da MG Tabacaria e queria saber mais.",
+  whatsappMessage: "Olá! Vi o site da MG Bebidas & Tabacaria e queria saber mais.",
   instagramUrl: "https://www.instagram.com/mgtabacaria1/",
   instagramHandle: "@mgtabacaria1",
   address: "Av. Gralha Azul, 680 – Guarujá",

@@ -1,26 +1,38 @@
 import { AgeGate } from "@/components/AgeGate";
+import { PromoBar } from "@/components/PromoBar";
+import { Marquee } from "@/components/Marquee";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Differentials } from "@/components/Differentials";
-import { Products } from "@/components/Products";
+import { Beverages, Tobacco } from "@/components/Products";
+import { WhiskyCatalog } from "@/components/WhiskyCatalog";
 import { About } from "@/components/About";
 import { Location } from "@/components/Location";
 import { Footer } from "@/components/Footer";
+import { CartBar } from "@/components/CartBar";
+import { CartDrawer } from "@/components/CartDrawer";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
 
 export default function Home() {
   return (
     <>
       <AgeGate />
+      <PromoBar />
       <Header />
       <main>
         <Hero />
-        <Differentials />
-        <Products />
+        <Marquee phrases={["MG Bebidas", "MG Tabacaria", "Presentes", "Bom papo", "A loja da noite boa"]} />
+        <Beverages />
+        <WhiskyCatalog />
+        <Marquee phrases={["Whisky", "Cerveja gelada", "Narguilé", "Essências", "Acessórios"]} />
+        <Tobacco />
         <About />
         <Location />
+        <Differentials />
       </main>
       <Footer />
+      <CartBar />
+      <CartDrawer />
       <WhatsAppFab />
     </>
   );

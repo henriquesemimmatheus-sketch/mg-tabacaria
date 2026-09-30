@@ -2,23 +2,26 @@
 
 import { useState } from "react";
 import { Container } from "./Container";
-import { MenuIcon, CloseIcon, WhatsAppIcon } from "./icons";
+import { MenuIcon, CloseIcon, WhatsAppIcon, CartIcon } from "./icons";
 import { business, whatsappLink } from "@/lib/business";
+import { useCart } from "@/lib/cart";
 
 const links = [
-  { href: "#produtos", label: "Produtos" },
+  { href: "#bebidas", label: "Bebidas" },
+  { href: "#tabacaria", label: "Tabacaria" },
   { href: "#sobre", label: "Sobre" },
   { href: "#localizacao", label: "Localização" },
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const cart = useCart();
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-ground/90 backdrop-blur">
       <Container className="flex items-center justify-between py-4">
         <a href="#" className="font-display text-xl tracking-wide text-ink">
-          <span className="text-gold-bright">MG</span> Tabacaria
+          <span className="text-gold-bright">MG</span> Bebidas & Tabacaria
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -43,6 +46,18 @@ export function Header() {
             <WhatsAppIcon className="h-4 w-4" />
             {business.whatsappDisplay}
           </a>
+          <button
+            onClick={cart.open}
+            aria-label={`Abrir carrinho${cart.count ? `, ${cart.count} itens` : ""}`}
+            className="relative flex h-11 w-11 items-center justify-center text-ink hover:text-gold-bright"
+          >
+            <CartIcon className="h-6 w-6" />
+            {cart.count > 0 && (
+              <span className="absolute right-0 top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1 text-[11px] font-medium text-ground">
+                {cart.count}
+              </span>
+            )}
+          </button>
           <button
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             onClick={() => setOpen((v) => !v)}

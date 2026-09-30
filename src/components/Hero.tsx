@@ -3,6 +3,46 @@ import { Container } from "./Container";
 import { WhatsAppIcon } from "./icons";
 import { business, whatsappLink } from "@/lib/business";
 
+// Garrafas cortadas pelas bordas. No celular ficam discretas pra não brigar com o texto.
+const floaters = [
+  {
+    src: "/whisky/jack7.webp",
+    w: 360,
+    h: 1000,
+    className: "-left-5 top-[34%] w-20 opacity-50 sm:hidden lg:left-auto lg:right-[26%] lg:top-[30%] lg:block lg:w-32 lg:opacity-95",
+    rotate: "-12deg",
+    dur: "8s",
+    delay: "0s",
+  },
+  {
+    src: "/whisky/jw-red.webp",
+    w: 264,
+    h: 1000,
+    className: "-right-4 top-[26%] w-16 opacity-50 sm:-right-5 sm:w-20 sm:opacity-90 lg:right-[7%] lg:top-[24%] lg:w-28 lg:opacity-95",
+    rotate: "14deg",
+    dur: "9.5s",
+    delay: "-3s",
+  },
+  {
+    src: "/whisky/buchanans.webp",
+    w: 514,
+    h: 1000,
+    className: "hidden lg:right-[15%] lg:bottom-[8%] lg:block lg:w-40",
+    rotate: "8deg",
+    dur: "10s",
+    delay: "-5s",
+  },
+  {
+    src: "/whisky/chivas.webp",
+    w: 388,
+    h: 1000,
+    className: "hidden lg:-right-4 lg:bottom-[22%] lg:block lg:w-32",
+    rotate: "-10deg",
+    dur: "8.5s",
+    delay: "-1.5s",
+  },
+];
+
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-line">
@@ -13,13 +53,47 @@ export function Hero() {
             "radial-gradient(60% 50% at 80% 0%, rgba(201,162,75,0.16), transparent 60%), radial-gradient(45% 40% at 10% 100%, rgba(201,162,75,0.1), transparent 60%)",
         }}
       />
-      <Container className="relative py-24 sm:py-32">
-        <div className="grid items-center gap-16 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        {floaters.map((f) => (
+          <div key={f.src} className={`absolute ${f.className}`}>
+            <div
+              className="float-bottle"
+              style={{ "--r": f.rotate, "--dur": f.dur, "--delay": f.delay } as React.CSSProperties}
+            >
+              <Image src={f.src} alt="" width={f.w} height={f.h} className="h-auto w-full drop-shadow-[0_18px_24px_rgba(0,0,0,0.6)]" />
+            </div>
+          </div>
+        ))}
+      </div>
+      <Container className="relative pb-24 pt-6 sm:pb-32 sm:pt-10">
+        <div className="mb-10 flex items-start justify-between sm:mb-14">
+          <a href="#bebidas" aria-label="Ver MG Bebidas" className="-ml-2 block sm:-ml-4">
+            <Image
+              src="/logo-mg-bebidas.webp"
+              alt="MG Bebidas"
+              width={740}
+              height={550}
+              priority
+              className="h-auto w-36 sm:w-56 lg:w-64"
+            />
+          </a>
+          <a href="#tabacaria" aria-label="Ver MG Tabacaria" className="-mr-2 block sm:-mr-4">
+            <Image
+              src="/logo-mg-tabacaria.webp"
+              alt="MG Tabacaria"
+              width={740}
+              height={550}
+              priority
+              className="h-auto w-36 sm:w-56 lg:w-64"
+            />
+          </a>
+        </div>
+        <div>
+          <div className="lg:w-[58%]">
             <span className="font-sans text-xs uppercase tracking-[0.25em] text-gold">
               Narguilé · Destilados · Rolê de fim de semana
             </span>
-            <h1 className="mt-5 font-display text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.08] font-semibold text-ink text-balance">
+            <h1 className="mt-5 font-condensed text-5xl uppercase leading-[0.98] tracking-tight text-ink text-balance sm:text-7xl lg:text-[5.25rem]">
               Tudo pronto pra iniciar o fim de semana
             </h1>
             <p className="mt-6 max-w-lg text-ink-muted leading-relaxed">
@@ -31,13 +105,13 @@ export function Hero() {
                 href={whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 font-medium text-ground transition-colors hover:bg-gold-bright"
+                className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 font-medium text-ground"
               >
                 <WhatsAppIcon className="h-4.5 w-4.5" />
                 Chamar no WhatsApp
               </a>
               <a
-                href="#produtos"
+                href="#bebidas"
                 className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 font-medium text-ink transition-colors hover:border-gold hover:text-gold-bright"
               >
                 Ver produtos
@@ -45,40 +119,6 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="relative mx-auto flex h-72 w-72 items-center justify-center sm:h-96 sm:w-96">
-            <div className="absolute inset-0 rounded-full border border-gold/30" />
-            <div className="absolute inset-6 rounded-full border border-gold/20" />
-            <div
-              className="absolute inset-12 overflow-hidden rounded-full border border-line"
-              style={{
-                boxShadow: "inset 0 0 40px 10px rgba(11,10,9,0.85)",
-              }}
-            >
-              <Image
-                src="/narguile-hero.jpg"
-                alt="Narguilé montado na MG Tabacaria"
-                fill
-                sizes="(min-width: 640px) 320px, 256px"
-                className="object-cover"
-                priority
-              />
-            </div>
-
-            <div className="absolute -bottom-6 -left-4 z-10 sm:-bottom-8 sm:-left-8">
-              <div className="relative w-28 rotate-[-6deg] bg-[#f4efe4] p-2.5 pb-8 shadow-2xl sm:w-40 sm:p-3 sm:pb-10">
-                <div className="absolute -top-3 left-1/2 h-6 w-14 -translate-x-1/2 rotate-3 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px] sm:h-7 sm:w-16" />
-                <div className="relative aspect-square w-full overflow-hidden">
-                  <Image
-                    src="/woody-jack.jpg"
-                    alt="Cliente brindando com Jack Daniel's na MG Tabacaria"
-                    fill
-                    sizes="160px"
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </Container>
     </section>

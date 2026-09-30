@@ -31,7 +31,7 @@ export function Location() {
                 <div className="relative aspect-square w-full overflow-hidden">
                   <Image
                     src="/woody-narguile.jpg"
-                    alt="Cliente satisfeito com o narguilé da MG Tabacaria"
+                    alt="Cliente satisfeito com o narguilé da MG Bebidas & Tabacaria"
                     fill
                     sizes="160px"
                     className="object-cover"

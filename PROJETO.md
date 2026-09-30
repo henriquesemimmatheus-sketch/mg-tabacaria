@@ -1,7 +1,7 @@
-# MG Tabacaria — Site institucional
+# MG Bebidas & Tabacaria — Site institucional
 
 ## Sobre o negócio
-- Nome: MG Tabacaria
+- Nome: MG Bebidas & Tabacaria
 - Ramo: narguilé, essências/carvões, destilados selecionados, kits de presente
 - Localização: Av. Gralha Azul, 680 – Guarujá, Cascavel - PR
 - Horário: todos os dias, 14h às 01h

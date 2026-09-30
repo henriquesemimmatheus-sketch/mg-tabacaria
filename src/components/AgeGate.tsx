@@ -32,7 +32,7 @@ export function AgeGate() {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-ground p-6">
       <div className="w-full max-w-sm rounded-2xl border border-line bg-surface p-8 text-center">
         <p className="font-display text-2xl text-ink">
-          <span className="text-gold-bright">MG</span> Tabacaria
+          <span className="text-gold-bright">MG</span> Bebidas & Tabacaria
         </p>
 
         {status === "gate" && (

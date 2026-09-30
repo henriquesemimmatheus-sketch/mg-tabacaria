@@ -14,9 +14,9 @@ export function SectionHeading({
   align?: "left" | "center";
 }) {
   return (
-    <div className={align === "center" ? "text-center mx-auto max-w-2xl" : "max-w-2xl"}>
+    <div className={align === "center" ? "text-center mx-auto max-w-3xl" : "max-w-3xl"}>
       <span className="font-sans text-xs uppercase tracking-[0.2em] text-gold">{eyebrow}</span>
-      <h2 className="mt-3 font-display text-3xl sm:text-4xl font-semibold text-ink text-balance">
+      <h2 className="mt-3 font-condensed text-4xl uppercase leading-[1.02] tracking-tight text-ink text-balance sm:text-6xl">
         {title}
       </h2>
       {description && <p className="mt-4 text-ink-muted leading-relaxed">{description}</p>}

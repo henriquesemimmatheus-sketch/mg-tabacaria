@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
-import { Cinzel, Jost } from "next/font/google";
+import { Anton, Cinzel, Jost } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/lib/cart";
 
 const cinzel = Cinzel({
   variable: "--font-cinzel",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
+});
+
+const anton = Anton({
+  variable: "--font-anton",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
 });
 
 const jost = Jost({
@@ -14,15 +22,15 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "MG Tabacaria",
+  title: "MG Bebidas & Tabacaria",
   description:
-    "Narguilé, essência boa, destilado e presente pra quem também merece. MG Tabacaria, em Cascavel - PR.",
+    "Narguilé, essência boa, destilado e presente pra quem também merece. MG Bebidas & Tabacaria, em Cascavel - PR.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${cinzel.variable} ${jost.variable}`}>
-      <body className="bg-ground text-ink font-sans antialiased">{children}</body>
+    <html lang="pt-BR" className={`${cinzel.variable} ${jost.variable} ${anton.variable}`}>
+      <body className="bg-ground text-ink font-sans antialiased"><CartProvider>{children}</CartProvider></body>
     </html>
   );
 }

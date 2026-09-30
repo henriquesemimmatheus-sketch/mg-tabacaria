@@ -8,7 +8,7 @@ export function Footer() {
       <Container className="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
         <div>
           <p className="font-display text-lg text-ink">
-            <span className="text-gold-bright">MG</span> Tabacaria
+            <span className="text-gold-bright">MG</span> Bebidas & Tabacaria
           </p>
           <p className="mt-1 text-xs text-ink-muted">
             Venda proibida para menores de 18 anos. Se beber, não dirija.
@@ -20,7 +20,7 @@ export function Footer() {
             href={business.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Instagram da MG Tabacaria"
+            aria-label="Instagram da MG Bebidas & Tabacaria"
             className="text-ink-muted transition-colors hover:text-gold-bright"
           >
             <InstagramIcon className="h-5 w-5" />
@@ -29,7 +29,7 @@ export function Footer() {
             href={whatsappLink()}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="WhatsApp da MG Tabacaria"
+            aria-label="WhatsApp da MG Bebidas & Tabacaria"
             className="text-ink-muted transition-colors hover:text-gold-bright"
           >
             <WhatsAppIcon className="h-5 w-5" />

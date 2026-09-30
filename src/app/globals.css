@@ -12,6 +12,7 @@
   --color-line: #322c25;
 
   --font-display: var(--font-cinzel);
+  --font-condensed: var(--font-anton);
   --font-sans: var(--font-jost);
 }
 
@@ -36,4 +37,98 @@
     var(--color-gold) 80%,
     transparent
   );
+}
+
+@property --glow {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #b8651b;
+}
+
+.whisky-stage {
+  transition: --glow 0.7s ease;
+}
+
+.whisky-glow {
+  background: radial-gradient(closest-side, var(--glow), transparent 75%);
+  opacity: 0.5;
+}
+
+.whisky-bottle {
+  animation: bottle-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  transform: translate3d(var(--tilt-x, 0), var(--tilt-y, 0), 0) rotate(var(--tilt-r, 0deg));
+  transition: transform 0.3s ease-out;
+}
+
+.whisky-info {
+  animation: info-in 0.5s ease-out both;
+}
+
+@keyframes bottle-in {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0);
+  }
+}
+
+@keyframes info-in {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* Garrafas flutuando no hero: só transform, bem devagar */
+.float-bottle {
+  animation: float-bottle var(--dur, 8s) ease-in-out var(--delay, 0s) infinite;
+  will-change: transform;
+}
+
+@keyframes float-bottle {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r, 0deg));
+  }
+  50% {
+    transform: translateY(-14px) rotate(calc(var(--r, 0deg) + 2.5deg));
+  }
+}
+
+/* Faixa rolando */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-dur, 40s) linear infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whisky-bottle,
+  .whisky-info,
+  .float-bottle,
+  .marquee-track {
+    animation: none;
+  }
+  .float-bottle {
+    transform: rotate(var(--r, 0deg));
+  }
+  .whisky-bottle,
+  .whisky-stage {
+    transition: none;
+  }
 }

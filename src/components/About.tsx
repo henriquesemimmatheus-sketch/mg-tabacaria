@@ -11,7 +11,7 @@ export function About() {
             <span className="font-sans text-xs uppercase tracking-[0.2em] text-gold">
               Sobre a loja
             </span>
-            <h2 className="mt-3 font-display text-3xl sm:text-4xl font-semibold text-ink text-balance">
+            <h2 className="mt-3 font-condensed text-4xl uppercase leading-[1.02] tracking-tight text-ink text-balance sm:text-6xl">
               O point de quem sabe curtir o fim de semana
             </h2>
             <p className="mt-5 text-ink-muted leading-relaxed">
@@ -33,7 +33,7 @@ export function About() {
             >
               <Image
                 src="/bebida-icon.jpg"
-                alt="Destilados selecionados na MG Tabacaria"
+                alt="Destilados selecionados na MG Bebidas & Tabacaria"
                 fill
                 sizes="(min-width: 640px) 224px, 192px"
                 className="object-cover"
