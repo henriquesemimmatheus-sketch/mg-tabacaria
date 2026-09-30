@@ -8,6 +8,7 @@ export const fotos: Record<string, string> = {
   "essencia-nay-chiclete-de-canela": "/essencias/essencia-nay-chiclete-de-canela.webp",
   "essencia-nay-maracuja-blend": "/essencias/essencia-nay-maracuja-blend.webp",
   "essencia-nay-melancia": "/essencias/essencia-nay-melancia.webp",
+  "essencia-nay-maracuja-goiaba": "/essencias/essencia-nay-maracuja-goiaba.webp",
   "essencia-nay-melao-e-melancia": "/essencias/essencia-nay-melao-e-melancia.webp",
   "essencia-nay-melon-blend": "/essencias/essencia-nay-melon-blend.webp",
   "essencia-nay-mint": "/essencias/essencia-nay-mint.webp",

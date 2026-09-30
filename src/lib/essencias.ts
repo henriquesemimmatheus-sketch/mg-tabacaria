@@ -73,6 +73,7 @@ Nay;Mythos;especiais;nao;12,00;0;conferir descricao do sabor
 Nay;Néctar Blend;frutas_outras;nao;12,00;1;
 Nay;Mint;mentolado;sim;12,00;0;
 Nay;Melon Blend;uvas;nao;12,00;1;
+Nay;Maracujá Goiaba;tropicais;nao;12,00;1;item novo adicionado com a foto enviada; conferir perfil e gelado
 Ônix;Apple;frutas_outras;nao;12,00;0;
 Ônix;Pear;frutas_outras;nao;12,00;0;
 Ônix;Strawberry Ice;vermelhas;sim;12,00;0;
