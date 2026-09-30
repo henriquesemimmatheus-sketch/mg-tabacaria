@@ -75,6 +75,7 @@ export const fotos: Record<string, string> = {
   "essencia-ziggy-berry": "/essencias/essencia-ziggy-berry.webp",
   "essencia-ziggy-burley-mint": "/essencias/essencia-ziggy-burley-mint.webp",
   "essencia-ziggy-cherry": "/essencias/essencia-ziggy-cherry.webp",
+  "essencia-ziggy-chocomenta": "/essencias/essencia-ziggy-chocomenta.webp",
   "essencia-ziggy-coffee-cream": "/essencias/essencia-ziggy-coffee-cream.webp",
   "essencia-ziggy-duas-goiabas": "/essencias/essencia-ziggy-duas-goiabas.webp",
   "essencia-ziggy-duas-macas-verdes": "/essencias/essencia-ziggy-duas-macas-verdes.webp",
