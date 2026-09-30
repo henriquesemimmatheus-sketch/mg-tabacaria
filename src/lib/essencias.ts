@@ -8,7 +8,6 @@ export type Familia =
   | "citricos"
   | "mentolado"
   | "doces"
-  | "bebidas"
   | "especiais";
 
 export type Essencia = {
@@ -37,7 +36,6 @@ export const familias: { id: Familia; label: string }[] = [
   { id: "citricos", label: "Cítricos" },
   { id: "mentolado", label: "Mentolados" },
   { id: "doces", label: "Doces" },
-  { id: "bebidas", label: "Bebidas" },
   { id: "especiais", label: "Especiais e misturas" },
 ];
 
@@ -129,7 +127,7 @@ Ziggy;Duas Maçãs Verdes;frutas_outras;nao;12,00;1;
 Ziggy;Manga Tropical;tropicais;nao;12,00;1;
 Ziggy;Yogurt;doces;nao;12,00;0;
 Ziggy;Berry;vermelhas;nao;12,00;0;
-Ziggy;Red Lemonade;bebidas;nao;12,00;0;
+Ziggy;Red Lemonade;citricos;nao;12,00;0;
 Ziggy;Burley Mint;mentolado;sim;12,00;0;
 Ziggy;Hapocalyx Mint;mentolado;sim;12,00;0;
 Ziggy;Frutti;frutas_outras;nao;12,00;0;
@@ -147,7 +145,7 @@ Ziggy;Watermelon Bomb;uvas;nao;12,00;0;
 Ziggy;Yellow;frutas_outras;nao;12,00;0;
 Ziggy;Chocomenta;doces;sim;12,00;0;
 Ziggy;Coffee Cream;doces;nao;12,00;0;
-Ziggy;Pink Lemonade;bebidas;nao;12,00;0;
+Ziggy;Pink Lemonade;citricos;nao;12,00;0;
 Smyrna;Melancia e Morango;vermelhas;nao;13,00;1;
 Smyrna;Uva Menta;uvas;sim;13,00;0;
 Smyrna;Abacaxi Limão;citricos;nao;13,00;0;

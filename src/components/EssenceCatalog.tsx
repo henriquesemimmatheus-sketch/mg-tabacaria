@@ -76,7 +76,7 @@ const PERGUNTAS: { k: keyof Respostas; t: string; o: [string, string][] }[] = [
   {
     k: "perfil",
     t: "Qual perfil combina mais?",
-    o: [["fruta", "Frutas"], ["doce", "Doces"], ["menta", "Mentolado"], ["citrico", "Cítricos"], ["bebida", "Bebidas"], ["any", "Surpreenda"]],
+    o: [["fruta", "Frutas"], ["doce", "Doces"], ["menta", "Mentolado"], ["citrico", "Cítricos"], ["any", "Surpreenda"]],
   },
   { k: "mix", t: "Um sabor só ou uma mistura?", o: [["unico", "Sabor único"], ["mix", "Mistura"], ["any", "Tanto faz"]] },
 ];
@@ -86,7 +86,6 @@ const PERFIL_FAMILIAS: Record<string, Familia[]> = {
   doce: ["doces"],
   menta: ["mentolado"],
   citrico: ["citricos"],
-  bebida: ["bebidas"],
 };
 
 function perfilOk(e: Essencia, p: string | null) {
@@ -315,9 +314,9 @@ export function EssenceCatalog() {
       onClick={(ev) => abrirProduto(e, ev.currentTarget)}
       className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-line bg-surface text-left transition-colors hover:border-gold/60"
     >
-      <div className="relative flex aspect-square items-center justify-center border-b border-line bg-surface-2">
+      <div className="relative flex aspect-square items-center justify-center border-b border-line bg-[radial-gradient(circle_at_50%_40%,#2b2620,#171412)]">
         {e.foto ? (
-          <Image src={e.foto} alt="" fill sizes="(min-width: 1280px) 200px, (min-width: 640px) 30vw, 45vw" className="object-cover" />
+          <Image src={e.foto} alt="" fill sizes="(min-width: 1280px) 200px, (min-width: 640px) 30vw, 45vw" className="object-contain drop-shadow-[0_8px_10px_rgba(0,0,0,0.5)]" />
         ) : (
           <span className="px-3 text-center font-condensed text-2xl uppercase leading-none tracking-wide text-gold-bright">{e.marca}</span>
         )}
@@ -337,7 +336,7 @@ export function EssenceCatalog() {
       className="flex min-h-14 w-full items-center gap-3 rounded-xl border border-line bg-surface px-3 py-2 text-left transition-colors hover:border-gold/60"
     >
       <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-surface-2">
-        {e.foto && <Image src={e.foto} alt="" fill sizes="40px" className="object-cover" />}
+        {e.foto && <Image src={e.foto} alt="" fill sizes="40px" className="object-contain" />}
       </span>
       <span className="min-w-0 flex-1">
         <span className="block truncate text-sm font-medium text-ink">{e.nome}</span>
@@ -670,7 +669,7 @@ export function EssenceCatalog() {
             >
               <CloseIcon className="h-6 w-6" />
             </button>
-            <div className="relative flex aspect-square w-full items-center justify-center bg-surface-2">
+            <div className="relative flex aspect-square w-full items-center justify-center bg-[radial-gradient(circle_at_50%_40%,#2b2620,#171412)]">
               {produto.foto ? (
                 <Image src={produto.foto} alt={`${produto.marca} ${produto.nome}`} fill sizes="448px" className="object-contain" />
               ) : (
