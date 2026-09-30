@@ -125,4 +125,15 @@ export const whiskies: Whisky[] = [
     image: "/whisky/passport.webp",
     glow: "#6aa83a",
   },
+  {
+    id: "white-horse",
+    name: "White Horse",
+    kind: "Blended Scotch",
+    origin: "Escócia",
+    price: 89.9,
+    notes: ["Malte", "Mel", "Fumaça leve"],
+    blurb: "Escocês clássico, leve e equilibrado, com um toque sutil de fumaça. Bom pra tomar com gelo ou misturar.",
+    image: "/whisky/whitehorse.webp",
+    glow: "#e0b020",
+  },
 ];
