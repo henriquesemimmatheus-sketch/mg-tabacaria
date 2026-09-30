@@ -3,6 +3,7 @@ import { PromoBar } from "@/components/PromoBar";
 import { Marquee } from "@/components/Marquee";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { Promotions } from "@/components/Promotions";
 import { Differentials } from "@/components/Differentials";
 import { Beverages, Tobacco } from "@/components/Products";
 import { WhiskyCatalog } from "@/components/WhiskyCatalog";
@@ -24,6 +25,7 @@ export default function Home() {
       <main>
         <Hero />
         <Marquee phrases={["MG Bebidas", "MG Tabacaria", "Presentes", "Bom papo", "A loja da noite boa"]} />
+        <Promotions />
         <Beverages />
         <WhiskyCatalog />
         <Marquee phrases={["Whisky", "Cerveja gelada", "Narguilé", "Essências", "Acessórios"]} />
