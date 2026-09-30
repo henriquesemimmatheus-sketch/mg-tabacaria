@@ -7,6 +7,7 @@ import { Promotions } from "@/components/Promotions";
 import { Differentials } from "@/components/Differentials";
 import { Beverages, Tobacco } from "@/components/Products";
 import { WhiskyCatalog } from "@/components/WhiskyCatalog";
+import { EssenceCatalog } from "@/components/EssenceCatalog";
 import { About } from "@/components/About";
 import { Location } from "@/components/Location";
 import { Footer } from "@/components/Footer";
@@ -30,6 +31,7 @@ export default function Home() {
         <WhiskyCatalog />
         <Marquee phrases={["Whisky", "Cerveja gelada", "Narguilé", "Essências", "Acessórios"]} />
         <Tobacco />
+        <EssenceCatalog />
         <About />
         <Location />
         <Differentials />
