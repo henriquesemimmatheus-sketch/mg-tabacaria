@@ -19,8 +19,8 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-ground/90 backdrop-blur">
-      <Container className="flex items-center justify-between py-4">
-        <a href="#" className="font-display text-xl tracking-wide text-ink">
+      <Container className="flex items-center justify-between py-2.5 sm:py-4">
+        <a href="#" className="font-display text-base tracking-wide text-ink sm:text-xl">
           <span className="text-gold-bright">MG</span> Bebidas & Tabacaria
         </a>
 

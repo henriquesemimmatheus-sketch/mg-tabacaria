@@ -17,8 +17,10 @@ export default function Home() {
   return (
     <>
       <AgeGate />
-      <PromoBar />
-      <Header />
+      <div className="sticky top-0 z-40">
+        <PromoBar />
+        <Header />
+      </div>
       <main>
         <Hero />
         <Marquee phrases={["MG Bebidas", "MG Tabacaria", "Presentes", "Bom papo", "A loja da noite boa"]} />
