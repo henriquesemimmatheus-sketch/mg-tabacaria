@@ -96,6 +96,7 @@ export const fotos: Record<string, string> = {
   "essencia-zomo-hype": "/essencias/essencia-zomo-hype.webp",
   "essencia-zomo-ice-gum": "/essencias/essencia-zomo-ice-gum.webp",
   "essencia-zomo-maracuja": "/essencias/essencia-zomo-maracuja.webp",
+  "essencia-zomo-melancia": "/essencias/essencia-zomo-melancia.webp",
   "essencia-zomo-melao": "/essencias/essencia-zomo-melao.webp",
   "essencia-zomo-milkshake-de-banana": "/essencias/essencia-zomo-milkshake-de-banana.webp",
   "essencia-zomo-mint": "/essencias/essencia-zomo-mint.webp",
