@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Container } from "./Container";
 import { WhatsAppIcon } from "./icons";
 import { HeroFloaters } from "./HeroFloaters";
+import { HeroSmoke } from "./HeroSmoke";
 import { business, whatsappLink } from "@/lib/business";
 
 
@@ -16,6 +17,7 @@ export function Hero() {
         }}
       />
       <HeroFloaters />
+      <HeroSmoke />
       <Container className="relative pb-24 pt-6 sm:pb-32 sm:pt-10">
         <div className="mb-10 flex items-start justify-between sm:mb-14">
           <a href="#bebidas" aria-label="Ver MG Bebidas" className="-ml-2 block sm:-ml-4">
