@@ -47,6 +47,7 @@ export const fotos: Record<string, string> = {
   "essencia-onix-yellow-drops": "/essencias/essencia-onix-yellow-drops.webp",
   "essencia-primal-blueberry-ice": "/essencias/essencia-primal-blueberry-ice.webp",
   "essencia-primal-laranja-com-manga": "/essencias/essencia-primal-laranja-com-manga.webp",
+  "essencia-primal-menta": "/essencias/essencia-primal-menta.webp",
   "essencia-sense-absolut-mint": "/essencias/essencia-sense-absolut-mint.webp",
   "essencia-sense-banana": "/essencias/essencia-sense-banana.webp",
   "essencia-sense-baunilha-mix": "/essencias/essencia-sense-baunilha-mix.webp",
