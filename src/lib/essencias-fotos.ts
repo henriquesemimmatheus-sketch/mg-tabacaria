@@ -2,6 +2,7 @@
 export const fotos: Record<string, string> = {
   "essencia-adalya-love-66": "/essencias/essencia-adalya-love-66.webp",
   "essencia-fm-menta-verde": "/essencias/essencia-fm-menta-verde.webp",
+  "essencia-nay-66": "/essencias/essencia-nay-66.webp",
   "essencia-nay-blueberry-mint": "/essencias/essencia-nay-blueberry-mint.webp",
   "essencia-nay-bubble-grape": "/essencias/essencia-nay-bubble-grape.webp",
   "essencia-nay-chiclete-de-canela": "/essencias/essencia-nay-chiclete-de-canela.webp",
