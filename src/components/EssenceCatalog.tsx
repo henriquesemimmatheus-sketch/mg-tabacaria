@@ -399,8 +399,26 @@ export function EssenceCatalog() {
           description={`${essencias.length} sabores de ${marcas.length} marcas. Escolha pelo perfil, filtre por marca ou deixe o guia sugerir algumas opções.`}
         />
 
+        {/* Me ajude a escolher */}
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-gold/40 bg-surface p-5">
+          <div>
+            <p className="font-condensed text-3xl uppercase leading-none text-ink">Me ajude a escolher</p>
+            <p className="mt-2 max-w-md text-sm text-ink-muted">Três perguntas rápidas e o guia mostra até 6 sabores da lista.</p>
+          </div>
+          <button
+            onClick={() => {
+              setResp({ gel: null, perfil: null, mix: null });
+              setSemente(0);
+              setGuiaPasso(0);
+            }}
+            className="inline-flex min-h-12 items-center rounded-full bg-gold px-6 font-medium text-ground hover:bg-gold-bright"
+          >
+            Começar o guia
+          </button>
+        </div>
+
         {/* Entradas rápidas por perfil */}
-        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5" role="group" aria-label="Explorar por perfil">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5" role="group" aria-label="Explorar por perfil">
           {familias.map((fa) => {
             const ativo = f.familias.length === 1 && f.familias[0] === fa.id;
             return (
@@ -420,24 +438,6 @@ export function EssenceCatalog() {
               </button>
             );
           })}
-        </div>
-
-        {/* Me ajude a escolher */}
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-gold/40 bg-surface p-5">
-          <div>
-            <p className="font-condensed text-3xl uppercase leading-none text-ink">Me ajude a escolher</p>
-            <p className="mt-2 max-w-md text-sm text-ink-muted">Três perguntas rápidas e o guia mostra até 6 sabores da lista.</p>
-          </div>
-          <button
-            onClick={() => {
-              setResp({ gel: null, perfil: null, mix: null });
-              setSemente(0);
-              setGuiaPasso(0);
-            }}
-            className="inline-flex min-h-12 items-center rounded-full bg-gold px-6 font-medium text-ground hover:bg-gold-bright"
-          >
-            Começar o guia
-          </button>
         </div>
 
         <div ref={topoLista} className="mt-10 scroll-mt-36 lg:grid lg:grid-cols-[16rem_1fr] lg:gap-10">
