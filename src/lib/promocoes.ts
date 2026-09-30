@@ -9,7 +9,7 @@ export type Promocao = {
 };
 
 // Lista vazia = a barra do topo não aparece.
-export const promocoes: Promocao[] = [{ id: "promo-1010", texto: "promo 1010" }];
+export const promocoes: Promocao[] = [{ id: "cerveja-quente", texto: "cerveja quente, muié gelada!" }];
 
 export function promocoesAtivas(hoje: Date = new Date()): Promocao[] {
   const dia = hoje.toISOString().slice(0, 10);
