@@ -8,7 +8,9 @@ import { business, whatsappLink } from "@/lib/business";
 
 type Passo = "carrinho" | "dados";
 type Modo = "entrega" | "retirada";
-type Erros = { nome?: string; endereco?: string };
+type Erros = { nome?: string; endereco?: string; pagamento?: string };
+
+const FORMAS = ["Pix", "Cartão", "Dinheiro"] as const;
 
 const campo =
   "min-h-12 w-full rounded-xl border bg-surface-2 px-4 text-ink placeholder:text-ink-muted focus:border-gold focus:outline-none";
@@ -20,6 +22,9 @@ export function CartDrawer() {
   const [nome, setNome] = useState("");
   const [endereco, setEndereco] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [pagamentos, setPagamentos] = useState<string[]>([]);
+  const [troco, setTroco] = useState("");
+  const [divisao, setDivisao] = useState("");
   const [erros, setErros] = useState<Erros>({});
 
   useEffect(() => {
@@ -49,10 +54,19 @@ export function CartDrawer() {
     const novos: Erros = {};
     if (nome.trim().length < 2) novos.nome = "Informe seu nome.";
     if (modo === "entrega" && endereco.trim().length < 6) novos.endereco = "Informe o endereço completo, com rua, número e bairro.";
+    if (pagamentos.length === 0) novos.pagamento = "Escolha ao menos uma forma de pagamento.";
     setErros(novos);
-    if (novos.nome || novos.endereco) return;
+    if (novos.nome || novos.endereco || novos.pagamento) return;
 
-    const url = whatsappLink(mensagemPedido(items, total, { nome, modo, endereco, telefone }));
+    const url = whatsappLink(mensagemPedido(items, total, {
+        nome,
+        modo,
+        endereco,
+        telefone,
+        pagamentos: FORMAS.filter((f) => pagamentos.includes(f)),
+        troco,
+        divisao,
+      }));
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
@@ -247,6 +261,67 @@ export function CartDrawer() {
                     )}
                   </div>
                   )}
+
+                  <fieldset>
+                    <legend className="text-sm font-medium text-ink">Como você vai pagar?</legend>
+                    <p className="mb-2 text-xs text-ink-muted">
+                      Marque uma ou duas formas. O pagamento é combinado com a loja na conversa.
+                    </p>
+                    <div className="grid grid-cols-3 gap-2">
+                      {FORMAS.map((f) => {
+                        const marcada = pagamentos.includes(f);
+                        return (
+                          <button
+                            key={f}
+                            type="button"
+                            aria-pressed={marcada}
+                            onClick={() => {
+                              setPagamentos((atual) => (marcada ? atual.filter((x) => x !== f) : [...atual, f]));
+                              setErros((e) => ({ ...e, pagamento: undefined }));
+                            }}
+                            className={`min-h-12 rounded-xl border px-2 text-base font-medium transition-colors ${
+                              marcada ? "border-gold bg-gold text-ground" : "border-line text-ink hover:border-gold/60"
+                            }`}
+                          >
+                            {marcada ? "✓ " : ""}
+                            {f}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {erros.pagamento && <p className="mt-1 text-sm text-red-300">{erros.pagamento}</p>}
+
+                    {pagamentos.includes("Dinheiro") && (
+                      <div className="mt-3">
+                        <label htmlFor="ck-troco" className="mb-1.5 block text-sm font-medium text-ink">
+                          Precisa de troco? <span className="font-normal text-ink-muted">(opcional)</span>
+                        </label>
+                        <input
+                          id="ck-troco"
+                          inputMode="decimal"
+                          value={troco}
+                          onChange={(e) => setTroco(e.target.value)}
+                          placeholder="Troco para quanto? Ex.: R$ 100"
+                          className={`${campo} border-line`}
+                        />
+                      </div>
+                    )}
+
+                    {pagamentos.length > 1 && (
+                      <div className="mt-3">
+                        <label htmlFor="ck-divisao" className="mb-1.5 block text-sm font-medium text-ink">
+                          Como quer dividir? <span className="font-normal text-ink-muted">(opcional)</span>
+                        </label>
+                        <input
+                          id="ck-divisao"
+                          value={divisao}
+                          onChange={(e) => setDivisao(e.target.value)}
+                          placeholder="Ex.: R$ 30 no Pix e o resto em dinheiro"
+                          className={`${campo} border-line`}
+                        />
+                      </div>
+                    )}
+                  </fieldset>
 
                   <div>
                     <label htmlFor="ck-telefone" className="mb-1.5 block text-sm font-medium text-ink">

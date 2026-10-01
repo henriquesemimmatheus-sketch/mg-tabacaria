@@ -124,12 +124,24 @@ export type DadosEntrega = {
   modo: "entrega" | "retirada";
   endereco?: string;
   telefone?: string;
+  /** Formas de pagamento escolhidas (uma ou mais). */
+  pagamentos: string[];
+  /** Só quando Dinheiro está entre as formas: troco para quanto. */
+  troco?: string;
+  /** Só quando há duas formas: como dividir o valor. */
+  divisao?: string;
 };
 
 /** Texto do pedido pronto, para abrir no WhatsApp da loja. */
 export function mensagemPedido(items: CartItem[], total: number, dados?: DadosEntrega) {
   const linhas = items.map((i) => `• ${i.qty}x ${i.name} - ${formatBRL(i.price * i.qty)}`);
   const telefone = dados?.telefone?.trim() ? [`Telefone: ${dados.telefone.trim()}`] : [];
+  const pagamento: string[] = [];
+  if (dados && dados.pagamentos.length > 0) {
+    pagamento.push(`Pagamento: ${dados.pagamentos.join(" + ")}`);
+    if (dados.pagamentos.includes("Dinheiro") && dados.troco?.trim()) pagamento.push(`Troco para: ${dados.troco.trim()}`);
+    if (dados.pagamentos.length > 1 && dados.divisao?.trim()) pagamento.push(`Divisão: ${dados.divisao.trim()}`);
+  }
   let cliente: string[];
   if (!dados) {
     cliente = ["", "Pode confirmar a disponibilidade e como faço a retirada ou o pagamento?"];
@@ -139,6 +151,7 @@ export function mensagemPedido(items: CartItem[], total: number, dados?: DadosEn
       `Nome: ${dados.nome.trim()}`,
       ...telefone,
       "Forma de recebimento: retirar na loja",
+      ...pagamento,
       "",
       "Podem confirmar a disponibilidade dos produtos e quando posso retirar?",
     ];
@@ -154,6 +167,7 @@ export function mensagemPedido(items: CartItem[], total: number, dados?: DadosEn
       `Endereço: ${endereco}`,
       ...telefone,
       "Forma de recebimento: entrega por motoboy",
+      ...pagamento,
       "",
       "Vocês conseguem entregar neste endereço? Podem confirmar também a disponibilidade dos produtos e o valor da entrega?",
     ];
