@@ -533,10 +533,10 @@ export function EssenceCatalog() {
         </ol>
 
         {/* Me ajude a escolher */}
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gold/40 bg-surface p-4 sm:mt-8 sm:gap-4 sm:p-5">
+        <div className="neon-card mt-5 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-surface p-5 sm:mt-8 sm:p-6">
           <div>
-            <p className="font-condensed text-3xl uppercase leading-none text-ink">Me ajude a escolher</p>
-            <p className="mt-1 max-w-md text-sm text-ink-muted sm:mt-2">Três perguntas e o guia sugere até 6 sabores.</p>
+            <p className="neon-text font-condensed text-4xl uppercase leading-none text-gold-bright sm:text-5xl">Me ajude a escolher</p>
+            <p className="mt-2 max-w-md text-sm text-ink sm:text-base">Responda três perguntas rápidas e o guia sugere até 6 sabores para você.</p>
           </div>
           <button
             onClick={() => {
@@ -544,7 +544,7 @@ export function EssenceCatalog() {
               setSemente(0);
               setGuiaPasso(0);
             }}
-            className="inline-flex min-h-12 items-center rounded-full bg-gold px-6 font-medium text-ground hover:bg-gold-bright"
+            className="neon-btn inline-flex min-h-14 w-full items-center justify-center rounded-full bg-gold-bright px-8 text-lg font-semibold text-ground sm:w-auto"
           >
             Começar o guia
           </button>
