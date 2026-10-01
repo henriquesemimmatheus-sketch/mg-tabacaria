@@ -33,6 +33,42 @@ function passa(e: Essencia, f: Filtros, ignorar?: "familia" | "marca" | "gelado"
 }
 
 const rotulo = (f: Familia) => familias.find((x) => x.id === f)?.label ?? f;
+
+// Explicação curta de cada perfil, em linguagem simples, e uma cor pra reconhecer rápido.
+const PERFIL_INFO: Record<Familia, { cor: string; texto: string }> = {
+  vermelhas: { cor: "#e0556a", texto: "Morango, cereja, framboesa, blueberry e misturas de frutas vermelhas." },
+  tropicais: { cor: "#f0a93a", texto: "Maracujá, manga, abacaxi, goiaba e banana: gosto de fruta do verão." },
+  uvas: { cor: "#a98bff", texto: "Uva, melão e melancia, sozinhas ou combinadas." },
+  frutas_outras: { cor: "#7cc47f", texto: "Maçã, pera, kiwi e outras frutas." },
+  citricos: { cor: "#e3d84a", texto: "Limão, laranja e mexerica: gosto azedinho e fresco." },
+  mentolado: { cor: "#4fc3d9", texto: "Menta e hortelã: sensação refrescante, sem gosto de fruta." },
+  doces: { cor: "#e8895c", texto: "Chiclete, iogurte, café, chocolate e outras sobremesas." },
+  especiais: { cor: "#d9c7a3", texto: "Misturas exclusivas das marcas, com nomes próprios." },
+};
+
+const DEF_GELADO = "Sabor com sensação refrescante, como gelo ou menta. A fumaça não fica fria de verdade.";
+const DEF_MISTURA = "Combina dois ou mais sabores num só. O contrário é o sabor único.";
+
+const PAISES = ["França", "Argentina", "Brasil", "Espanha", "Itália", "Inglaterra", "Alemanha", "Uruguai"];
+// "França (Ruby Crush)" vira "Ruby Crush"; "Mint (Strong Mint)" vira "Mint".
+function nomeCurto(nome: string) {
+  const m = nome.match(/^(.*?)\s*\((.*)\)\s*$/);
+  if (!m) return nome.trim();
+  return PAISES.includes(m[1].trim()) ? m[2].trim() : m[1].trim();
+}
+
+// Três exemplos reais de cada perfil, tirados da própria lista (nomes curtos e sem parênteses).
+const EXEMPLOS: Record<string, string[]> = Object.fromEntries(
+  familias.map((fa) => {
+    const nomes = essencias
+      .filter((e) => e.familia === fa.id)
+      .map((e) => nomeCurto(e.nome))
+      .filter((n, i, arr) => n.length <= 16 && arr.indexOf(n) === i && !/^\d+$/.test(n))
+      .sort((x, y) => x.length - y.length)
+      .slice(0, 3);
+    return [fa.id, nomes];
+  }),
+);
 const alternar = <T,>(lista: T[], item: T) => (lista.includes(item) ? lista.filter((x) => x !== item) : [...lista, item]);
 
 function Opcao({
@@ -251,7 +287,8 @@ export function EssenceCatalog() {
       </div>
 
       <fieldset>
-        <legend className="mb-1 text-sm font-medium text-ink">Perfil de sabor</legend>
+        <legend className="text-sm font-medium text-ink">Perfil de sabor</legend>
+        <p className="mb-1 text-xs text-ink-muted">O tipo de gosto da essência.</p>
         {familias.map((fa) => (
           <Opcao key={fa.id} ativo={f.familias.includes(fa.id)} contagem={contFamilia.get(fa.id) ?? 0} onClick={() => mudar({ familias: alternar(f.familias, fa.id) })}>
             {fa.label}
@@ -260,7 +297,8 @@ export function EssenceCatalog() {
       </fieldset>
 
       <fieldset>
-        <legend className="mb-1 text-sm font-medium text-ink">Marca</legend>
+        <legend className="text-sm font-medium text-ink">Marca</legend>
+        <p className="mb-1 text-xs text-ink-muted">Quem fabrica.</p>
         {marcas.map((m) => (
           <Opcao key={m} ativo={f.marcas.includes(m)} contagem={contMarca.get(m) ?? 0} onClick={() => mudar({ marcas: alternar(f.marcas, m) })}>
             {m}
@@ -269,7 +307,8 @@ export function EssenceCatalog() {
       </fieldset>
 
       <fieldset>
-        <legend className="mb-1 text-sm font-medium text-ink">Gelado</legend>
+        <legend className="text-sm font-medium text-ink">Gelado</legend>
+        <p className="mb-1 text-xs text-ink-muted">Com sensação refrescante, como gelo ou menta.</p>
         {(
           [
             ["todos", "Todos"],
@@ -309,6 +348,28 @@ export function EssenceCatalog() {
       : []),
   ];
 
+  const parecidos = produto
+    ? essencias
+        .filter((e) => e.id !== produto.id && e.familia === produto.familia)
+        .sort(
+          (x, y) =>
+            Number(y.gelado === produto.gelado) - Number(x.gelado === produto.gelado) ||
+            Number(!!y.foto) - Number(!!x.foto) ||
+            x.nome.localeCompare(y.nome, "pt-BR"),
+        )
+        .slice(0, 4)
+    : [];
+
+  const partesResumo = [
+    f.familias.length ? `do perfil ${f.familias.map(rotulo).join(" ou ").toLowerCase()}` : "",
+    f.marcas.length ? `da marca ${f.marcas.join(" ou ")}` : "",
+    f.gelado === "sim" ? "só gelados" : f.gelado === "nao" ? "sem gelo" : "",
+    f.busca ? `que combinam com “${f.busca}”` : "",
+  ].filter(Boolean);
+  const resumo = filtrando
+    ? `Mostrando ${lista.length} ${lista.length === 1 ? "sabor" : "sabores"} ${partesResumo.join(", ")}.`
+    : `Mostrando todos os ${lista.length} sabores. Use os grupos acima ou os filtros para reduzir a lista.`;
+
   const cartao = (e: Essencia) => (
     <button
       onClick={(ev) => abrirProduto(e, ev.currentTarget)}
@@ -320,12 +381,17 @@ export function EssenceCatalog() {
         ) : (
           <span className="px-3 text-center font-condensed text-2xl uppercase leading-none tracking-wide text-gold-bright">{e.marca}</span>
         )}
-        {e.gelado && <span className="absolute right-2 top-2 rounded-full bg-ground/85 px-2 py-0.5 text-xs text-gold-bright">Gelado</span>}
+        <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5" style={{ background: PERFIL_INFO[e.familia].cor }} />
+        {e.gelado && <span className="absolute right-2 top-3 rounded-full bg-ground/85 px-2 py-0.5 text-xs text-gold-bright">Gelado</span>}
       </div>
       <div className="p-3 sm:p-4">
         <p className="text-xs text-gold">{e.marca}</p>
         <h3 className="mt-0.5 text-sm font-medium leading-snug text-ink sm:text-base">{e.nome}</h3>
-        <p className="mt-1 text-xs text-ink-muted">{rotulo(e.familia)}</p>
+        <p className="mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs text-ink-muted">
+          <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full" style={{ background: PERFIL_INFO[e.familia].cor }} />
+          {rotulo(e.familia)}
+          {e.mistura && <span className="rounded border border-line px-1.5 text-[11px]">Mistura</span>}
+        </p>
       </div>
     </button>
   );
@@ -396,8 +462,24 @@ export function EssenceCatalog() {
         <SectionHeading
           eyebrow="Tabacaria"
           title="Essências"
-          description={`${essencias.length} sabores de ${marcas.length} marcas. Escolha pelo perfil, filtre por marca ou deixe o guia sugerir algumas opções.`}
+          description={`${essencias.length} sabores de ${marcas.length} marcas. Em três passos você encontra a essência certa.`}
         />
+
+        <ol className="mt-8 grid gap-3 sm:grid-cols-3">
+          {[
+            ["Escolha um perfil", "Toque num dos grupos abaixo para ver o tipo de gosto. Ou deixe o guia ajudar."],
+            ["Refine, se quiser", "Filtre por marca ou só os gelados. Cada opção mostra quantos sabores sobram."],
+            ["Toque no sabor", "Veja os detalhes e fale com a loja pelo WhatsApp."],
+          ].map(([t, d], i) => (
+            <li key={t} className="flex gap-3 rounded-2xl border border-line bg-surface p-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold font-condensed text-lg text-ground">{i + 1}</span>
+              <div>
+                <p className="font-medium text-ink">{t}</p>
+                <p className="mt-0.5 text-sm leading-snug text-ink-muted">{d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
 
         {/* Me ajude a escolher */}
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-gold/40 bg-surface p-5">
@@ -417,10 +499,13 @@ export function EssenceCatalog() {
           </button>
         </div>
 
-        {/* Entradas rápidas por perfil */}
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5" role="group" aria-label="Explorar por perfil">
+        {/* Perfis de sabor: cada grupo explicado, com exemplos e cor própria */}
+        <h3 className="mt-10 font-condensed text-3xl uppercase leading-none text-ink">Escolha o perfil de sabor</h3>
+        <p className="mt-2 max-w-xl text-sm text-ink-muted">Cada grupo reúne sabores parecidos. Toque num deles para ver só esses sabores.</p>
+        <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4" role="group" aria-label="Escolher perfil de sabor">
           {familias.map((fa) => {
             const ativo = f.familias.length === 1 && f.familias[0] === fa.id;
+            const info = PERFIL_INFO[fa.id];
             return (
               <button
                 key={fa.id}
@@ -429,12 +514,19 @@ export function EssenceCatalog() {
                   mudar({ familias: ativo ? [] : [fa.id] });
                   if (!ativo) setTimeout(irParaLista, 50);
                 }}
-                className={`flex min-h-20 flex-col justify-between rounded-2xl border p-3 text-left transition-colors ${
+                className={`relative flex min-h-32 flex-col overflow-hidden rounded-2xl border p-3 pt-4 text-left transition-colors sm:p-4 sm:pt-5 ${
                   ativo ? "border-gold bg-gold/15" : "border-line bg-surface hover:border-gold/60"
                 }`}
               >
-                <span className="font-condensed text-xl uppercase leading-none tracking-wide text-ink">{fa.label}</span>
-                <span className="mt-2 text-xs text-ink-muted">{totalPorFamilia.get(fa.id) ?? 0} sabores</span>
+                <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5" style={{ background: info.cor }} />
+                <span className="font-condensed text-xl uppercase leading-none tracking-wide text-ink sm:text-2xl">{fa.label}</span>
+                <span className="mt-2 text-xs leading-snug text-ink-muted sm:text-sm">{info.texto}</span>
+                {EXEMPLOS[fa.id]?.length > 0 && (
+                  <span className="mt-2 hidden text-xs text-ink sm:block">Ex.: {EXEMPLOS[fa.id].join(", ")}</span>
+                )}
+                <span className="mt-auto pt-3 text-xs font-medium" style={{ color: info.cor }}>
+                  {totalPorFamilia.get(fa.id) ?? 0} sabores
+                </span>
               </button>
             );
           })}
@@ -501,6 +593,21 @@ export function EssenceCatalog() {
                 </button>
               )}
             </div>
+
+            <p className="mt-3 text-sm text-ink">{resumo}</p>
+            <details className="mt-2 rounded-xl border border-line bg-surface px-4">
+              <summary className="min-h-11 cursor-pointer py-3 text-sm text-gold">O que significa “gelado” e “mistura”?</summary>
+              <dl className="grid gap-3 pb-4 text-sm sm:grid-cols-2">
+                <div>
+                  <dt className="font-medium text-ink">Gelado</dt>
+                  <dd className="mt-0.5 text-ink-muted">{DEF_GELADO}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-ink">Mistura</dt>
+                  <dd className="mt-0.5 text-ink-muted">{DEF_MISTURA}</dd>
+                </div>
+              </dl>
+            </details>
 
             {lista.length === 0 ? (
               <div className="mt-6 rounded-2xl border border-dashed border-line bg-surface p-8 text-center">
@@ -682,16 +789,38 @@ export function EssenceCatalog() {
               <p className="mt-3 text-sm leading-relaxed text-ink-muted">
                 Essência de narguilé sabor {produto.nome}, da marca {produto.marca}.
               </p>
-              <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5 text-sm">
-                <dt className="text-ink-muted">Marca</dt>
-                <dd className="text-ink">{produto.marca}</dd>
-                <dt className="text-ink-muted">Perfil</dt>
-                <dd className="text-ink">{rotulo(produto.familia)}</dd>
-                <dt className="text-ink-muted">Gelado</dt>
-                <dd className="text-ink">{produto.gelado ? "Sim" : "Não"}</dd>
-                <dt className="text-ink-muted">Composição</dt>
-                <dd className="text-ink">{produto.mistura ? "Mistura de sabores" : "Sabor único"}</dd>
+              <dl className="mt-4 space-y-3 text-sm">
+                <div>
+                  <dt className="font-medium text-ink">Perfil: {rotulo(produto.familia)}</dt>
+                  <dd className="mt-0.5 text-ink-muted">{PERFIL_INFO[produto.familia].texto}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-ink">{produto.gelado ? "Gelado: sim" : "Gelado: não"}</dt>
+                  <dd className="mt-0.5 text-ink-muted">{produto.gelado ? DEF_GELADO : "Sem sensação de gelo: o gosto é só o do sabor."}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-ink">{produto.mistura ? "Mistura de sabores" : "Sabor único"}</dt>
+                  <dd className="mt-0.5 text-ink-muted">{produto.mistura ? DEF_MISTURA : "Um sabor só, sem combinação."}</dd>
+                </div>
               </dl>
+              {parecidos.length > 0 && (
+                <div className="mt-5">
+                  <p className="text-sm font-medium text-ink">Sabores parecidos</p>
+                  <ul className="mt-2 grid grid-cols-2 gap-2">
+                    {parecidos.map((e) => (
+                      <li key={e.id}>
+                        <button
+                          onClick={() => setProduto(e)}
+                          className="min-h-14 w-full rounded-xl border border-line bg-surface-2 px-3 py-2 text-left hover:border-gold/60"
+                        >
+                          <span className="block text-xs text-gold">{e.marca}</span>
+                          <span className="block text-sm leading-snug text-ink">{e.nome}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <a
                 href={whatsappLink(`Olá! Quero saber sobre a essência ${produto.marca} ${produto.nome}.`)}
                 target="_blank"
