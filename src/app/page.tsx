@@ -4,7 +4,6 @@ import { Marquee } from "@/components/Marquee";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Promotions } from "@/components/Promotions";
-import { Differentials } from "@/components/Differentials";
 import { Beverages, Tobacco } from "@/components/Products";
 import { WhiskyCatalog } from "@/components/WhiskyCatalog";
 import { EssenceCatalog } from "@/components/EssenceCatalog";
@@ -34,7 +33,6 @@ export default function Home() {
         <EssenceCatalog />
         <About />
         <Location />
-        <Differentials />
       </main>
       <Footer />
       <CartBar />
