@@ -4,6 +4,10 @@ import { Container } from "./Container";
 import { GlassIcon, BeerMugIcon, GiftIcon } from "./icons";
 import { whatsappLink } from "@/lib/business";
 
+// Medidas da imagem da placa de humor (public/placa-narguileiros.webp)
+const PLACA_W = 600;
+const PLACA_H = 876;
+
 type Category = {
   icon: ComponentType<{ className?: string }>;
   title: string;
@@ -160,6 +164,18 @@ export function Tobacco() {
       items={[]}
       message="Gostaria de saber mais sobre"
       cta={{ href: "#essencias", label: "Conheça as essências" }}
-    />
+    >
+      {/* Placa de humor, inclinada como se estivesse colada */}
+      <div className="pointer-events-none absolute right-0 top-0 z-10 w-24 rotate-6 rounded-sm bg-white p-1 shadow-2xl sm:w-36 lg:w-44">
+        <Image
+          src="/placa-narguileiros.webp"
+          alt="Placa de humor: atenção, área restrita, somente narguileiros"
+          width={PLACA_W}
+          height={PLACA_H}
+          sizes="176px"
+          className="h-auto w-full"
+        />
+      </div>
+    </Block>
   );
 }
