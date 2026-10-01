@@ -11,7 +11,7 @@ type Portal = {
   foto?: string;
   posicao?: string;
   /** Recortes de produto sobre um fundo colorido, quando não há foto de loja. */
-  recortes?: { src: string; className: string }[];
+  recortes?: { src: string; className: string; w?: number; h?: number }[];
   fundo: string;
   grande?: boolean;
 };
@@ -22,11 +22,7 @@ const portais: Portal[] = [
     titulo: "Essências",
     legenda: `${essencias.length} sabores, de frutados a mentolados`,
     fundo: "radial-gradient(80% 90% at 50% 30%, #6b2a3a, #1c1218 80%)",
-    recortes: [
-      { src: "/essencias/essencia-onix-strawberry-ice.webp", className: "left-[8%] top-[6%] w-[26%] -rotate-6" },
-      { src: "/essencias/essencia-ziggy-watermelon-bomb.webp", className: "left-[36%] top-[0%] w-[30%] z-10" },
-      { src: "/essencias/essencia-sense-maracuja-ice.webp", className: "right-[8%] top-[6%] w-[26%] rotate-6" },
-    ],
+    recortes: [{ src: "/essencias-capa.webp", className: "right-[3%] top-[6%] w-[58%] -rotate-3", w: 900, h: 732 }],
     grande: true,
   },
   {
@@ -100,9 +96,9 @@ export function HomePortals() {
                     key={r.src}
                     src={r.src}
                     alt=""
-                    width={300}
-                    height={450}
-                    sizes="200px"
+                    width={r.w ?? 300}
+                    height={r.h ?? 450}
+                    sizes={r.w ? "(min-width: 1024px) 340px, 60vw" : "200px"}
                     className={`absolute h-auto object-contain drop-shadow-[0_10px_14px_rgba(0,0,0,0.55)] ${r.className}`}
                   />
                 ))}
