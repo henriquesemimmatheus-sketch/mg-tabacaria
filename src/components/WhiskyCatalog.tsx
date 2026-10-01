@@ -62,7 +62,7 @@ export function WhiskyCatalog() {
           description="Deslize para o lado e escolha o rótulo. Adicione ao carrinho o que quiser levar."
         />
 
-        <div className="mt-10 grid items-center gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+        <div className="mt-6 grid items-center gap-4 sm:mt-10 sm:gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
           <div className="relative mx-auto w-full max-w-md">
             <div
               ref={scroller}
@@ -80,7 +80,7 @@ export function WhiskyCatalog() {
                   role="group"
                   aria-roledescription="slide"
                   aria-label={`${i + 1} de ${whiskies.length}: ${w.name}`}
-                  className="relative flex h-[24rem] min-w-full snap-center items-end justify-center sm:h-[32rem]"
+                  className="relative flex h-[17rem] min-w-full snap-center items-end justify-center sm:h-[32rem]"
                 >
                   {w.photo ? (
                     <div className="relative mb-2 h-[96%] w-[88%] overflow-hidden rounded-2xl border border-line">
@@ -150,33 +150,27 @@ export function WhiskyCatalog() {
             </div>
           </div>
 
-          <div key={whisky.id} className="whisky-info">
-            <p className="text-sm text-ink-muted">
+          <div key={whisky.id} className="whisky-info flex flex-col">
+            <p className="order-1 text-sm text-ink-muted">
               {whisky.kind} · {whisky.origin}
               {whisky.age ? ` · ${whisky.age}` : ""}
             </p>
-            <h3 className="mt-2 font-display text-3xl font-semibold text-ink text-balance sm:text-4xl">
+            <h3 className="order-2 mt-1 font-display text-2xl font-semibold text-ink text-balance sm:mt-2 sm:text-4xl">
               {whisky.name}
             </h3>
-            <p className="mt-4 max-w-md leading-relaxed text-ink-muted">{whisky.blurb}</p>
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {whisky.notes.map((n) => (
-                <li key={n} className="rounded-full border border-line px-3 py-1 text-sm text-ink">
-                  {n}
-                </li>
-              ))}
-            </ul>
 
             {whisky.price !== undefined ? (
               <>
-                <p className="mt-6 font-display text-3xl text-gold-bright">{formatBRL(whisky.price)}</p>
-                <button
-                  onClick={addToCart}
-                  className="mt-4 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-gold px-8 text-base font-medium text-ground transition-colors hover:bg-gold-bright sm:w-auto"
-                >
-                  {justAdded === whisky.id ? "Adicionado ao carrinho" : "Adicionar ao carrinho"}
-                </button>
-                <p className="mt-2 min-h-5 text-sm text-ink-muted" aria-live="polite">
+                <div className="order-3 mt-3 flex items-center justify-between gap-3 lg:order-5 lg:mt-6 lg:block">
+                  <p className="font-display text-3xl text-gold-bright">{formatBRL(whisky.price)}</p>
+                  <button
+                    onClick={addToCart}
+                    className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-gold px-5 text-base font-medium text-ground transition-colors hover:bg-gold-bright lg:mt-4 lg:px-8"
+                  >
+                    {justAdded === whisky.id ? "Adicionado" : "Adicionar ao carrinho"}
+                  </button>
+                </div>
+                <p className="order-4 mt-1 min-h-5 text-sm text-ink-muted lg:order-6 lg:mt-2" aria-live="polite">
                   {inCart > 0 ? `${inCart} no carrinho` : ""}
                 </p>
               </>
@@ -185,12 +179,21 @@ export function WhiskyCatalog() {
                 href={whatsappLink(`Olá! Quero saber o preço e a disponibilidade do ${whisky.name}.`)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full border border-gold px-6 text-gold hover:text-gold-bright"
+                className="order-3 mt-3 inline-flex min-h-12 items-center gap-2 self-start rounded-full border border-gold px-6 text-gold hover:text-gold-bright lg:order-5 lg:mt-6"
               >
                 <WhatsAppIcon className="h-4 w-4" />
                 Consultar preço
               </a>
             )}
+
+            <p className="order-5 mt-3 max-w-md leading-relaxed text-ink-muted lg:order-3 lg:mt-4">{whisky.blurb}</p>
+            <ul className="order-6 mt-4 flex flex-wrap gap-2 lg:order-4 lg:mt-5">
+              {whisky.notes.map((n) => (
+                <li key={n} className="rounded-full border border-line px-3 py-1 text-sm text-ink">
+                  {n}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </Container>
