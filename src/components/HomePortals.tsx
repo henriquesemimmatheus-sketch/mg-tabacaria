@@ -22,7 +22,7 @@ const portais: Portal[] = [
     titulo: "Essências",
     legenda: `${essencias.length} sabores, de frutados a mentolados`,
     fundo: "radial-gradient(80% 90% at 50% 30%, #6b2a3a, #1c1218 80%)",
-    recortes: [{ src: "/essencias-capa.webp", className: "right-[3%] top-[6%] w-[58%] -rotate-3", w: 900, h: 732 }],
+    recortes: [{ src: "/essencias-capa-v2.webp", className: "left-[2%] top-[4%] w-[96%]", w: 883, h: 462 }],
     grande: true,
   },
   {
