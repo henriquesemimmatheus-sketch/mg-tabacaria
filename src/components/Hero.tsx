@@ -45,7 +45,7 @@ export function Hero() {
         <div>
           <div className="lg:w-[58%]">
             <span className="font-sans text-xs uppercase tracking-[0.25em] text-gold">
-              Narguilé · Essências · Destilados · Cervejas · Escolhas com bom gosto
+              Narguilé · Destilados · Cervejas · Escolhas com bom gosto
             </span>
             <h1 className="mt-5 font-condensed text-5xl uppercase leading-[0.98] tracking-tight text-ink text-balance sm:text-7xl lg:text-[5.25rem]">
               Tudo pronto pra iniciar o fim de semana
