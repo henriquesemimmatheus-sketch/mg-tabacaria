@@ -460,6 +460,25 @@ export function EssenceCatalog() {
         </div>
       );
     }
+    if (vista === "grade" && f.marcas.length > 0) {
+      const duasFileiras = lista.length > 6;
+      return (
+        <div className="mt-5">
+          <p className="mb-2 text-sm text-ink-muted">Deslize para o lado para ver todos os sabores →</p>
+          <ul
+            className={`-mx-6 grid snap-x auto-cols-[10rem] grid-flow-col gap-3 overflow-x-auto px-6 pb-3 [scrollbar-width:none] sm:mx-0 sm:auto-cols-[12rem] sm:px-0 [&::-webkit-scrollbar]:hidden ${
+              duasFileiras ? "grid-rows-2" : "grid-rows-1"
+            }`}
+          >
+            {lista.map((e) => (
+              <li key={e.id} className="snap-start">
+                {cartao(e)}
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
     const parte = lista.slice(0, visiveis);
     return vista === "lista" ? (
       <ul className="mt-5 space-y-2">
@@ -693,7 +712,7 @@ export function EssenceCatalog() {
               corpoLista()
             )}
 
-            {vista !== "marca" && lista.length > visiveis && (
+            {vista !== "marca" && !(vista === "grade" && f.marcas.length > 0) && lista.length > visiveis && (
               <div className="mt-8 text-center">
                 <button
                   onClick={() => setVisiveis((v) => v + passo)}
