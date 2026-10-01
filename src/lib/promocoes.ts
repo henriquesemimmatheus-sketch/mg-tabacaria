@@ -23,6 +23,8 @@ export type Promocao = {
     /** Preço promocional em reais. Sem preço, o card só mostra o botão do WhatsApp. */
     preco?: number;
     precoAntigo?: number;
+    /** "whatsapp" mostra o preço mas o botão leva à conversa (ex.: consumo no local). Padrão: "carrinho". */
+    acao?: "carrinho" | "whatsapp";
   };
 };
 
@@ -38,6 +40,8 @@ export const promocoes: Promocao[] = [
       imagem: "/promo-hoje-litrao.webp",
       largura: 900,
       altura: 1230,
+      preco: 50,
+      acao: "whatsapp",
     },
   },
   {

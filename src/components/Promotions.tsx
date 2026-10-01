@@ -41,7 +41,7 @@ export function Promotions() {
 
   const acao = (p: Item) => {
     const { card } = p;
-    if (card.preco !== undefined) {
+    if (card.preco !== undefined && card.acao !== "whatsapp") {
       return (
         <button
           onClick={() => addToCart(p)}
@@ -138,16 +138,18 @@ export function Promotions() {
             </div>
           </div>
         ) : (
-          <ul className="mt-14 flex snap-x snap-mandatory gap-8 overflow-x-auto px-1 pb-8 pt-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <ul className="mt-14 flex snap-x snap-mandatory items-stretch gap-8 overflow-x-auto px-1 pb-8 pt-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {lista.map((p) => (
-              <li key={p.id} className="w-[84%] shrink-0 snap-center sm:w-[24rem]">
+              <li key={p.id} className="flex w-[84%] shrink-0 snap-center flex-col sm:w-[24rem]">
                 {arte(p)}
                 <h3 className="mt-6 font-condensed text-3xl uppercase leading-tight tracking-tight text-ink">
                   {p.card.titulo}
                 </h3>
                 {validade(p.ate)}
-                {preco(p)}
-                {acao(p)}
+                <div className="mt-auto">
+                  {preco(p)}
+                  {acao(p)}
+                </div>
               </li>
             ))}
           </ul>
