@@ -117,3 +117,17 @@ export function useCart() {
   if (!ctx) throw new Error("useCart precisa estar dentro de CartProvider");
   return ctx;
 }
+
+/** Texto do pedido pronto, para abrir no WhatsApp da loja. */
+export function mensagemPedido(items: CartItem[], total: number) {
+  const linhas = items.map((i) => `• ${i.qty}x ${i.name} - ${formatBRL(i.price * i.qty)}`);
+  return [
+    "Olá! Quero fazer este pedido pelo site:",
+    "",
+    ...linhas,
+    "",
+    `Total: ${formatBRL(total)}`,
+    "",
+    "Pode confirmar a disponibilidade e como faço a retirada ou o pagamento?",
+  ].join(String.fromCharCode(10));
+}

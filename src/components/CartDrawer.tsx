@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import { useEffect } from "react";
-import { useCart, formatBRL } from "@/lib/cart";
+import { useCart, formatBRL, mensagemPedido } from "@/lib/cart";
 import { CloseIcon, CartIcon, WhatsAppIcon } from "./icons";
 import { whatsappLink } from "@/lib/business";
 
 export function CartDrawer() {
-  const { items, count, total, isOpen, close, setQty, remove } = useCart();
+  const { items, count, total, isOpen, close, setQty, remove, clear } = useCart();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -99,18 +99,31 @@ export function CartDrawer() {
                 <span className="text-ink-muted">Total</span>
                 <span className="font-display text-2xl text-ink">{formatBRL(total)}</span>
               </div>
-              <p className="mt-3 text-xs leading-relaxed text-ink-muted">
-                A finalização do pedido chega em breve. Seus itens ficam guardados neste aparelho.
-              </p>
               <a
-                href={whatsappLink("Olá! Tenho uma dúvida sobre os produtos do site.")}
+                href={whatsappLink(mensagemPedido(items, total))}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm text-gold hover:text-gold-bright"
+                className="mt-4 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-gold text-lg font-semibold text-ground transition-colors hover:bg-gold-bright"
               >
-                <WhatsAppIcon className="h-4 w-4" />
-                Tirar dúvidas no WhatsApp
+                <WhatsAppIcon className="h-5 w-5" />
+                Enviar pedido pelo WhatsApp
               </a>
+              <p className="mt-2 text-center text-xs leading-relaxed text-ink-muted">
+                O pedido vai pronto na conversa, com os itens e o total. A loja confirma a disponibilidade.
+              </p>
+              <div className="mt-1 flex items-center justify-between">
+                <button onClick={clear} className="min-h-11 text-sm text-ink-muted underline hover:text-ink">
+                  Esvaziar carrinho
+                </button>
+                <a
+                  href={whatsappLink("Olá! Tenho uma dúvida sobre os produtos do site.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center text-sm text-gold hover:text-gold-bright"
+                >
+                  Tirar dúvidas
+                </a>
+              </div>
             </div>
           </>
         )}
