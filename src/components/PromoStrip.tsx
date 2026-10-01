@@ -37,7 +37,7 @@ export function PromoStrip() {
       <Container>
         <div className="overflow-hidden rounded-2xl border-2 border-gold-bright bg-surface shadow-[0_0_30px_rgba(201,162,75,0.25)]">
           <p className="bg-gold px-4 py-2 font-condensed text-xl uppercase tracking-wide text-ground">
-            Combos da casa <span className="hidden text-sm normal-case tracking-normal opacity-80 sm:inline">· disponibilidade no WhatsApp</span>
+            Promos da casa <span className="hidden text-sm normal-case tracking-normal opacity-80 sm:inline">· disponibilidade no WhatsApp</span>
           </p>
           <ul className="divide-y divide-line sm:grid sm:grid-cols-2 sm:divide-x sm:divide-y-0">
             {lista.map((p) => {
