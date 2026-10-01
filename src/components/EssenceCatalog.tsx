@@ -433,8 +433,8 @@ export function EssenceCatalog() {
             .filter((m) => porMarca.has(m))
             .map((m) => (
               <div key={m}>
-                <div className="mb-3 flex items-baseline justify-between gap-3 border-b border-line pb-2">
-                  <h3 className="flex items-baseline gap-3 font-condensed text-3xl uppercase tracking-wide text-ink">
+                <div className="mb-3 flex items-end justify-between gap-3 border-b-2 border-gold pb-2">
+                  <h3 className="flex flex-wrap items-baseline gap-x-3 font-condensed text-5xl uppercase leading-none tracking-wide text-ink sm:text-6xl">
                     {m}
                     <small className="font-sans text-sm normal-case tracking-normal text-gold">{porMarca.get(m)!.length} {porMarca.get(m)!.length === 1 ? "sabor" : "sabores"}</small>
                   </h3>
@@ -464,6 +464,12 @@ export function EssenceCatalog() {
       const duasFileiras = lista.length > 6;
       return (
         <div className="mt-5">
+          <div className="mb-3 flex flex-wrap items-baseline gap-x-3 border-b-2 border-gold pb-2">
+            <h3 className="font-condensed text-5xl uppercase leading-none tracking-wide text-ink sm:text-6xl">{f.marcas.join(" + ")}</h3>
+            <span className="text-sm text-gold">
+              {lista.length} {lista.length === 1 ? "sabor" : "sabores"}
+            </span>
+          </div>
           <p className="mb-2 text-sm text-ink-muted">Deslize para o lado para ver todos os sabores →</p>
           <ul
             className={`-mx-6 grid snap-x auto-cols-[10rem] grid-flow-col gap-3 overflow-x-auto px-6 pb-3 [scrollbar-width:none] sm:mx-0 sm:auto-cols-[12rem] sm:px-0 [&::-webkit-scrollbar]:hidden ${
