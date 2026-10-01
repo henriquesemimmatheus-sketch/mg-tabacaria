@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { ComponentType } from "react";
 import { Container } from "./Container";
-import { HookahIcon, LeafIcon, GlassIcon, BeerMugIcon, GiftIcon, SparkleIcon } from "./icons";
+import { GlassIcon, BeerMugIcon, GiftIcon } from "./icons";
 import { whatsappLink } from "@/lib/business";
 
 type Category = {
@@ -25,24 +25,6 @@ const beverages: Category[] = [
     icon: GiftIcon,
     title: "Kits para presentear",
     text: "Combo pronto pra presentear com estilo, sem enrolação.",
-  },
-];
-
-const tobacco: Category[] = [
-  {
-    icon: HookahIcon,
-    title: "Narguilés e acessórios",
-    text: "Aparelho, mangueira, rosh e reposição pra manter o narguilé sempre no ponto.",
-  },
-  {
-    icon: LeafIcon,
-    title: "Essências e carvões",
-    text: "Sabor pra todo gosto e carvão que aguenta o rolê inteiro.",
-  },
-  {
-    icon: SparkleIcon,
-    title: "E mais",
-    text: "Isqueiro, acessório e mais um monte de coisa — só chamar no WhatsApp.",
   },
 ];
 
@@ -76,6 +58,7 @@ function Block({
   description,
   items,
   message,
+  cta,
   children,
 }: {
   id: string;
@@ -84,6 +67,7 @@ function Block({
   description: string;
   items: Category[];
   message: string;
+  cta?: { href: string; label: string };
   children?: React.ReactNode;
 }) {
   return (
@@ -97,10 +81,25 @@ function Block({
             height={550}
             className="-ml-3 h-auto w-48 shrink-0 sm:w-60"
           />
-          <p className="max-w-md leading-relaxed text-ink-muted">{description}</p>
+          {items.length === 0 ? (
+            <div>
+              <p className="max-w-md font-condensed text-3xl uppercase leading-[1.05] tracking-tight text-ink sm:text-4xl">{description}</p>
+              {cta && (
+                <a
+                  href={cta.href}
+                  className="mt-5 inline-flex min-h-12 items-center rounded-full bg-gold px-7 font-medium text-ground transition-colors hover:bg-gold-bright"
+                >
+                  {cta.label}
+                </a>
+              )}
+            </div>
+          ) : (
+            <p className="max-w-md leading-relaxed text-ink-muted">{description}</p>
+          )}
           {children}
         </div>
 
+        {items.length > 0 && (
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map(({ icon: Icon, title, text }) => (
             <a
@@ -119,6 +118,7 @@ function Block({
             </a>
           ))}
         </div>
+        )}
       </Container>
     </section>
   );
@@ -156,9 +156,10 @@ export function Tobacco() {
       id="tabacaria"
       logo="/logo-mg-tabacaria.webp"
       logoAlt="MG Tabacaria"
-      description="Narguilé, essência, carvão e acessório pra deixar tudo no ponto. A gente ajuda a escolher."
-      items={tobacco}
+      description="Do frutado ao mentolado, tem essência pra todo gosto."
+      items={[]}
       message="Gostaria de saber mais sobre"
+      cta={{ href: "#essencias", label: "Conheça as essências" }}
     />
   );
 }
