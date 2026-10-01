@@ -89,6 +89,7 @@ export const fotos: Record<string, string> = {
   "essencia-ziggy-manga-tropical": "/essencias/essencia-ziggy-manga-tropical.webp",
   "essencia-ziggy-morango-e-laranja": "/essencias/essencia-ziggy-morango-e-laranja.webp",
   "essencia-ziggy-morango-tropical": "/essencias/essencia-ziggy-morango-tropical.webp",
+  "essencia-ziggy-pink-lemonade": "/essencias/essencia-ziggy-pink-lemonade.webp",
   "essencia-ziggy-tropical": "/essencias/essencia-ziggy-tropical.webp",
   "essencia-ziggy-watermelon-bomb": "/essencias/essencia-ziggy-watermelon-bomb.webp",
   "essencia-ziggy-yellow": "/essencias/essencia-ziggy-yellow.webp",
