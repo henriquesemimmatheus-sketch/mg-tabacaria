@@ -7,7 +7,6 @@ import { CloseIcon, WhatsAppIcon } from "./icons";
 import { essencias, familias, marcas, type Essencia, type Familia } from "@/lib/essencias";
 import { whatsappLink } from "@/lib/business";
 
-const PASSO = 24;
 
 type Gelado = "todos" | "sim" | "nao";
 type Ordem = "az" | "marca";
@@ -143,7 +142,8 @@ export function EssenceCatalog() {
   const [f, setF] = useState<Filtros>(VAZIO);
   const [ordem, setOrdem] = useState<Ordem>("az");
   const [vista, setVista] = useState<Vista>("grade");
-  const [visiveis, setVisiveis] = useState(PASSO);
+  const [passo, setPasso] = useState(12);
+  const [visiveis, setVisiveis] = useState(12);
   const [gaveta, setGaveta] = useState(false);
   const [produto, setProduto] = useState<Essencia | null>(null);
   const [guiaPasso, setGuiaPasso] = useState<number | null>(null); // null = fechado; 0..2 = perguntas; 3 = resultado
@@ -151,16 +151,25 @@ export function EssenceCatalog() {
   const [semente, setSemente] = useState(0);
   const [naTela, setNaTela] = useState(false);
   const secao = useRef<HTMLElement>(null);
+
+  // No celular a lista começa com menos cartões, pra seção não ficar comprida.
+  useEffect(() => {
+    if (window.matchMedia("(max-width: 639px)").matches) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setPasso(8);
+      setVisiveis(8);
+    }
+  }, []);
   const topoLista = useRef<HTMLDivElement>(null);
   const foco = useRef<HTMLElement | null>(null);
 
   const mudar = (novo: Partial<Filtros>) => {
     setF((atual) => ({ ...atual, ...novo }));
-    setVisiveis(PASSO);
+    setVisiveis(passo);
   };
   const limpar = () => {
     setF(VAZIO);
-    setVisiveis(PASSO);
+    setVisiveis(passo);
   };
   const abrirProduto = (e: Essencia, el: HTMLElement) => {
     foco.current = el;
@@ -231,7 +240,7 @@ export function EssenceCatalog() {
       familias: resp.perfil && resp.perfil !== "any" ? PERFIL_FAMILIAS[resp.perfil] : [],
       gelado: resp.gel === "sim" || resp.gel === "nao" ? resp.gel : "todos",
     });
-    setVisiveis(PASSO);
+    setVisiveis(passo);
     setGuiaPasso(null);
     setTimeout(irParaLista, 50);
   }
@@ -457,7 +466,7 @@ export function EssenceCatalog() {
   const pergunta = guiaPasso !== null && guiaPasso < 3 ? PERGUNTAS[guiaPasso] : null;
 
   return (
-    <section id="essencias" ref={secao} className="relative border-b border-line py-20 sm:py-24">
+    <section id="essencias" ref={secao} className="relative border-b border-line py-12 sm:py-24">
       <Container>
         <SectionHeading
           eyebrow="Tabacaria"
@@ -465,27 +474,27 @@ export function EssenceCatalog() {
           description={`${essencias.length} sabores de ${marcas.length} marcas. Em três passos você encontra a essência certa.`}
         />
 
-        <ol className="mt-8 grid gap-3 sm:grid-cols-3">
+        <ol className="mt-6 grid grid-cols-3 gap-2 sm:mt-8 sm:gap-3">
           {[
-            ["Escolha um perfil", "Toque num dos grupos abaixo para ver o tipo de gosto. Ou deixe o guia ajudar."],
-            ["Refine, se quiser", "Filtre por marca ou só os gelados. Cada opção mostra quantos sabores sobram."],
+            ["Escolha o perfil", "Toque num dos grupos abaixo para ver o tipo de gosto. Ou deixe o guia ajudar."],
+            ["Refine", "Filtre por marca ou só os gelados. Cada opção mostra quantos sabores sobram."],
             ["Toque no sabor", "Veja os detalhes e fale com a loja pelo WhatsApp."],
           ].map(([t, d], i) => (
-            <li key={t} className="flex gap-3 rounded-2xl border border-line bg-surface p-4">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold font-condensed text-lg text-ground">{i + 1}</span>
+            <li key={t} className="flex flex-col items-center gap-2 rounded-2xl border border-line bg-surface p-3 text-center sm:flex-row sm:items-start sm:gap-3 sm:p-4 sm:text-left">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold font-condensed text-base text-ground sm:h-8 sm:w-8 sm:text-lg">{i + 1}</span>
               <div>
-                <p className="font-medium text-ink">{t}</p>
-                <p className="mt-0.5 text-sm leading-snug text-ink-muted">{d}</p>
+                <p className="text-sm font-medium leading-tight text-ink sm:text-base">{t}</p>
+                <p className="mt-0.5 hidden text-sm leading-snug text-ink-muted sm:block">{d}</p>
               </div>
             </li>
           ))}
         </ol>
 
         {/* Me ajude a escolher */}
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-gold/40 bg-surface p-5">
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gold/40 bg-surface p-4 sm:mt-8 sm:gap-4 sm:p-5">
           <div>
             <p className="font-condensed text-3xl uppercase leading-none text-ink">Me ajude a escolher</p>
-            <p className="mt-2 max-w-md text-sm text-ink-muted">Três perguntas rápidas e o guia mostra até 6 sabores da lista.</p>
+            <p className="mt-1 max-w-md text-sm text-ink-muted sm:mt-2">Três perguntas e o guia sugere até 6 sabores.</p>
           </div>
           <button
             onClick={() => {
@@ -500,9 +509,16 @@ export function EssenceCatalog() {
         </div>
 
         {/* Perfis de sabor: cada grupo explicado, com exemplos e cor própria */}
-        <h3 className="mt-10 font-condensed text-3xl uppercase leading-none text-ink">Escolha o perfil de sabor</h3>
-        <p className="mt-2 max-w-xl text-sm text-ink-muted">Cada grupo reúne sabores parecidos. Toque num deles para ver só esses sabores.</p>
-        <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4" role="group" aria-label="Escolher perfil de sabor">
+        <h3 className="mt-8 font-condensed text-3xl uppercase leading-none text-ink sm:mt-10">Escolha o perfil de sabor</h3>
+        <p className="mt-2 max-w-xl text-sm text-ink-muted">
+          Cada grupo reúne sabores parecidos. <span className="sm:hidden">Deslize para o lado e toque num deles.</span>
+          <span className="hidden sm:inline">Toque num deles para ver só esses sabores.</span>
+        </p>
+        <div
+          className="-mx-6 mt-4 flex snap-x gap-3 overflow-x-auto px-6 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden"
+          role="group"
+          aria-label="Escolher perfil de sabor"
+        >
           {familias.map((fa) => {
             const ativo = f.familias.length === 1 && f.familias[0] === fa.id;
             const info = PERFIL_INFO[fa.id];
@@ -514,7 +530,7 @@ export function EssenceCatalog() {
                   mudar({ familias: ativo ? [] : [fa.id] });
                   if (!ativo) setTimeout(irParaLista, 50);
                 }}
-                className={`relative flex min-h-32 flex-col overflow-hidden rounded-2xl border p-3 pt-4 text-left transition-colors sm:p-4 sm:pt-5 ${
+                className={`relative flex min-h-32 w-60 shrink-0 snap-start flex-col overflow-hidden rounded-2xl border p-3 pt-4 text-left transition-colors sm:w-auto sm:p-4 sm:pt-5 ${
                   ativo ? "border-gold bg-gold/15" : "border-line bg-surface hover:border-gold/60"
                 }`}
               >
@@ -522,7 +538,7 @@ export function EssenceCatalog() {
                 <span className="font-condensed text-xl uppercase leading-none tracking-wide text-ink sm:text-2xl">{fa.label}</span>
                 <span className="mt-2 text-xs leading-snug text-ink-muted sm:text-sm">{info.texto}</span>
                 {EXEMPLOS[fa.id]?.length > 0 && (
-                  <span className="mt-2 hidden text-xs text-ink sm:block">Ex.: {EXEMPLOS[fa.id].join(", ")}</span>
+                  <span className="mt-2 text-xs text-ink">Ex.: {EXEMPLOS[fa.id].join(", ")}</span>
                 )}
                 <span className="mt-auto pt-3 text-xs font-medium" style={{ color: info.cor }}>
                   {totalPorFamilia.get(fa.id) ?? 0} sabores
@@ -627,28 +643,51 @@ export function EssenceCatalog() {
             {vista !== "marca" && lista.length > visiveis && (
               <div className="mt-8 text-center">
                 <button
-                  onClick={() => setVisiveis((v) => v + PASSO)}
+                  onClick={() => setVisiveis((v) => v + passo)}
                   className="inline-flex min-h-12 items-center rounded-full border border-gold px-8 text-gold transition-colors hover:text-gold-bright"
                 >
                   Ver mais ({lista.length - visiveis})
                 </button>
               </div>
             )}
+
+            <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6">
+              <button
+                onClick={() => secao.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                className="min-h-11 text-sm text-gold underline hover:text-gold-bright"
+              >
+                Voltar aos grupos de sabor
+              </button>
+              <a
+                href="#sobre"
+                className="inline-flex min-h-11 items-center rounded-full border border-gold px-5 text-sm text-gold hover:text-gold-bright"
+              >
+                Seguir para Sobre a loja
+              </a>
+            </div>
           </div>
         </div>
       </Container>
 
-      {/* Botão fixo de filtros (celular) */}
+      {/* Botões fixos (celular): filtrar e pular a seção */}
       {naTela && !aberto && (
-        <button
-          onClick={() => setGaveta(true)}
-          className="fixed bottom-24 left-1/2 z-30 inline-flex min-h-12 -translate-x-1/2 items-center gap-2 rounded-full border border-gold bg-ground px-6 text-sm font-medium text-gold-bright shadow-lg shadow-black/50 lg:hidden"
-        >
-          Filtrar e ordenar
-          {chipsAplicados.length > 0 && (
-            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1 text-[11px] text-ground">{chipsAplicados.length}</span>
-          )}
-        </button>
+        <div className="fixed bottom-24 left-1/2 z-30 flex -translate-x-1/2 gap-2 lg:hidden">
+          <button
+            onClick={() => setGaveta(true)}
+            className="inline-flex min-h-12 items-center gap-2 rounded-full border border-gold bg-ground px-5 text-sm font-medium text-gold-bright shadow-lg shadow-black/50"
+          >
+            Filtrar e ordenar
+            {chipsAplicados.length > 0 && (
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1 text-[11px] text-ground">{chipsAplicados.length}</span>
+            )}
+          </button>
+          <a
+            href="#sobre"
+            className="inline-flex min-h-12 items-center rounded-full border border-line bg-ground px-4 text-sm text-ink shadow-lg shadow-black/50"
+          >
+            Pular
+          </a>
+        </div>
       )}
 
       {/* Gaveta de filtros (celular) */}
