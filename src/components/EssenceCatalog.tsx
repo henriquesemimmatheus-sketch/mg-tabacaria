@@ -6,6 +6,7 @@ import { Container, SectionHeading } from "./Container";
 import { CloseIcon, WhatsAppIcon } from "./icons";
 import { essencias, familias, marcas, type Essencia, type Familia } from "@/lib/essencias";
 import { whatsappLink } from "@/lib/business";
+import { useCart, formatBRL } from "@/lib/cart";
 
 
 type Gelado = "todos" | "sim" | "nao";
@@ -150,6 +151,7 @@ export function EssenceCatalog() {
   const [resp, setResp] = useState<Respostas>({ gel: null, perfil: null, mix: null });
   const [semente, setSemente] = useState(0);
   const [naTela, setNaTela] = useState(false);
+  const { add, setQty, items, open: abrirCarrinho } = useCart();
   const secao = useRef<HTMLElement>(null);
 
   // No celular a lista começa com menos cartões, pra seção não ficar comprida.
@@ -357,6 +359,8 @@ export function EssenceCatalog() {
       : []),
   ];
 
+  const qtdProduto = produto ? (items.find((i) => i.id === produto.id)?.qty ?? 0) : 0;
+
   const parecidos = produto
     ? essencias
         .filter((e) => e.id !== produto.id && e.familia === produto.familia)
@@ -401,6 +405,7 @@ export function EssenceCatalog() {
           {rotulo(e.familia)}
           {e.mistura && <span className="rounded border border-line px-1.5 text-[11px]">Mistura</span>}
         </p>
+        <p className="mt-2 text-sm font-medium text-gold-bright">{formatBRL(e.preco)}</p>
       </div>
     </button>
   );
@@ -893,7 +898,7 @@ export function EssenceCatalog() {
             >
               <CloseIcon className="h-6 w-6" />
             </button>
-            <div className="relative flex aspect-square w-full items-center justify-center bg-[radial-gradient(circle_at_50%_40%,#2b2620,#171412)]">
+            <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-[radial-gradient(circle_at_50%_40%,#2b2620,#171412)] sm:aspect-square">
               {produto.foto ? (
                 <Image src={produto.foto} alt={`${produto.marca} ${produto.nome}`} fill sizes="448px" className="object-contain" />
               ) : (
@@ -903,6 +908,69 @@ export function EssenceCatalog() {
             <div className="p-5">
               <p className="text-sm text-gold">{produto.marca}</p>
               <h3 className="mt-1 font-condensed text-4xl uppercase leading-none text-ink">{produto.nome}</h3>
+
+              <div className="mt-4">
+                <p className="font-display text-3xl text-gold-bright">
+                  {formatBRL(produto.preco)} <span className="font-sans text-sm text-ink-muted">por unidade</span>
+                </p>
+                {qtdProduto === 0 ? (
+                  <button
+                    onClick={() =>
+                      add({
+                        id: produto.id,
+                        name: `${produto.marca} ${produto.nome}`,
+                        price: produto.preco,
+                        image: produto.foto ?? "/essencia.svg",
+                      })
+                    }
+                    className="mt-3 inline-flex min-h-14 w-full items-center justify-center rounded-full bg-gold text-lg font-semibold text-ground transition-colors hover:bg-gold-bright"
+                  >
+                    Adicionar ao carrinho
+                  </button>
+                ) : (
+                  <div className="mt-3 rounded-2xl border border-gold bg-gold/10 p-3">
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="text-sm font-medium text-gold-bright" aria-live="polite">
+                        Adicionado ao carrinho
+                      </p>
+                      <div className="flex items-center rounded-full border border-gold">
+                        <button
+                          onClick={() => setQty(produto.id, qtdProduto - 1)}
+                          aria-label={`Diminuir quantidade de ${produto.marca} ${produto.nome}`}
+                          className="flex h-11 w-11 items-center justify-center text-lg text-ink"
+                        >
+                          −
+                        </button>
+                        <span className="w-6 text-center text-sm text-ink">{qtdProduto}</span>
+                        <button
+                          onClick={() => setQty(produto.id, qtdProduto + 1)}
+                          aria-label={`Aumentar quantidade de ${produto.marca} ${produto.nome}`}
+                          className="flex h-11 w-11 items-center justify-center text-lg text-ink"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <div className="mt-3 grid grid-cols-2 gap-2">
+                      <button
+                        onClick={() => {
+                          setProduto(null);
+                          abrirCarrinho();
+                        }}
+                        className="min-h-12 rounded-full bg-gold font-medium text-ground hover:bg-gold-bright"
+                      >
+                        Ver carrinho
+                      </button>
+                      <button
+                        onClick={() => setProduto(null)}
+                        className="min-h-12 rounded-full border border-gold font-medium text-gold hover:text-gold-bright"
+                      >
+                        Continuar escolhendo
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
               <p className="mt-3 text-sm leading-relaxed text-ink-muted">
                 Essência de narguilé sabor {produto.nome}, da marca {produto.marca}.
               </p>
@@ -942,10 +1010,10 @@ export function EssenceCatalog() {
                 href={whatsappLink(`Olá! Quero saber sobre a essência ${produto.marca} ${produto.nome}.`)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-gold font-medium text-ground hover:bg-gold-bright"
+                className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm text-gold underline hover:text-gold-bright"
               >
-                <WhatsAppIcon className="h-5 w-5" />
-                Falar no WhatsApp
+                <WhatsAppIcon className="h-4 w-4" />
+                Tirar dúvida no WhatsApp
               </a>
             </div>
           </div>
