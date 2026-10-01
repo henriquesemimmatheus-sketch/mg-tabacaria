@@ -484,10 +484,14 @@ export function EssenceCatalog() {
         <SectionHeading
           eyebrow="Tabacaria"
           title="Essências"
-          description={`${essencias.length} sabores de ${marcas.length} marcas. Em três passos você encontra a essência certa.`}
+          description={`${essencias.length} sabores de ${marcas.length} marcas.`}
         />
 
-        <ol className="mt-6 grid grid-cols-3 gap-2 sm:mt-8 sm:gap-3">
+        <div className="mt-6 rounded-2xl border-2 border-gold-bright bg-gold px-5 py-4 text-center text-ground shadow-[5px_5px_0_var(--color-gold-bright)] sm:mt-8 sm:py-5">
+          <p className="font-condensed text-2xl uppercase leading-tight tracking-wide sm:text-4xl">Em três passos, você encontra a essência certa.</p>
+        </div>
+
+        <ol className="mt-4 grid grid-cols-3 gap-2 sm:mt-5 sm:gap-3">
           {[
             ["Escolha o perfil", "Toque num dos grupos abaixo para ver o tipo de gosto. Ou deixe o guia ajudar."],
             ["Refine", "Filtre por marca ou só os gelados. Cada opção mostra quantos sabores sobram."],
