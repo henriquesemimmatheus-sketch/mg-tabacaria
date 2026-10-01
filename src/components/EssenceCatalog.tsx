@@ -46,7 +46,7 @@ const PERFIL_INFO: Record<Familia, { cor: string; texto: string }> = {
   especiais: { cor: "#d9c7a3", texto: "Misturas exclusivas das marcas, com nomes próprios." },
 };
 
-const DEF_GELADO = "Sabor com sensação refrescante, como gelo ou menta. A fumaça não fica fria de verdade.";
+const DEF_GELADO = "Sabor com sensação refrescante, como gelo ou menta.";
 const DEF_MISTURA = "Combina dois ou mais sabores num só. O contrário é o sabor único.";
 
 const PAISES = ["França", "Argentina", "Brasil", "Espanha", "Itália", "Inglaterra", "Alemanha", "Uruguai"];
