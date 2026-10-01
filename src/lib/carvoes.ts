@@ -29,4 +29,15 @@ export const carvoes: Carvao[] = [
       { peso: "1 kg", preco: 31.99 },
     ],
   },
+  {
+    id: "rari",
+    marca: "Rari",
+    nome: "Carvão Rari",
+    foto: "/carvoes/rari.webp",
+    descricao: "Carvão de coco em formato hexagonal, em dois tamanhos de pacote.",
+    tamanhos: [
+      { peso: "500 g", preco: 17.99 },
+      { peso: "1 kg", preco: 33.99 },
+    ],
+  },
 ];
