@@ -24,12 +24,12 @@ const floaters = [
     w: 264,
     h: 1000,
     className:
-      "-right-4 top-[26%] w-16 opacity-50 sm:-right-5 sm:w-20 sm:opacity-90 lg:right-[7%] lg:top-[24%] lg:w-28 lg:opacity-95",
-    rotate: "14deg",
+      "-right-4 top-[14%] w-16 opacity-50 sm:-right-5 sm:top-[16%] sm:w-20 sm:opacity-90 lg:right-[7%] lg:top-[16%] lg:w-28 lg:opacity-95",
+    rotate: "-16deg",
     dur: "9.5s",
     delay: "-3s",
     speed: -0.12,
-    spin: 0.06,
+    spin: -0.06,
   },
   {
     src: "/whisky/buchanans.webp",
@@ -58,7 +58,7 @@ const floaters = [
     w: 340,
     h: 1000,
     className:
-      "-right-1 top-[50%] w-24 opacity-70 sm:right-6 sm:top-[34%] sm:w-28 sm:opacity-90 lg:right-[1%] lg:top-[14%] lg:w-44 lg:opacity-100",
+      "-right-1 top-[50%] w-24 opacity-70 sm:right-6 sm:top-[34%] sm:w-28 sm:opacity-90 lg:right-[1%] lg:top-[24%] lg:w-44 lg:opacity-100",
     rotate: "6deg",
     dur: "9s",
     delay: "-2s",
