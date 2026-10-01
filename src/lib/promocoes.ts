@@ -26,7 +26,6 @@ export type Promocao = {
 
 // Lista vazia = a barra do topo e a seção de promoções não aparecem.
 export const promocoes: Promocao[] = [
-  { id: "cerveja-quente", texto: "cerveja quente, muié gelada!" },
   {
     id: "rari-2-essencias",
     texto: "2 essências + 500g de carvão Rari por R$ 37,99",
