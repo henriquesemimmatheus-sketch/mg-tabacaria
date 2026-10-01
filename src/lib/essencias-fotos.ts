@@ -112,4 +112,9 @@ export const fotos: Record<string, string> = {
   "essencia-zomo-swiss-alps": "/essencias/essencia-zomo-swiss-alps.webp",
   "essencia-zomo-uva": "/essencias/essencia-zomo-uva.webp",
   "essencia-zomo-uva-max": "/essencias/essencia-zomo-uva-max.webp",
+  "essencia-fm-menta-vermelha": "/essencias/essencia-fm-menta-vermelha.webp",
+  "essencia-ziggy-red-lemonade": "/essencias/essencia-ziggy-red-lemonade.webp",
+  "essencia-primal-melao-com-uva": "/essencias/essencia-primal-melao-com-uva.webp",
+  "essencia-onix-goiaba-maracuja": "/essencias/essencia-onix-goiaba-maracuja.webp",
+  "essencia-onix-danon": "/essencias/essencia-onix-danon.webp",
 };
