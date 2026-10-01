@@ -428,18 +428,31 @@ export function EssenceCatalog() {
       const porMarca = new Map<string, Essencia[]>();
       for (const e of lista) porMarca.set(e.marca, [...(porMarca.get(e.marca) ?? []), e]);
       return (
-        <div className="mt-5 space-y-10">
+        <div className="mt-5 space-y-8">
           {marcas
             .filter((m) => porMarca.has(m))
             .map((m) => (
               <div key={m}>
-                <h3 className="mb-4 flex items-baseline gap-3 border-b border-line pb-2 font-condensed text-3xl uppercase tracking-wide text-ink">
-                  {m}
-                  <small className="font-sans text-sm normal-case tracking-normal text-gold">{porMarca.get(m)!.length} sabores</small>
-                </h3>
-                <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 xl:grid-cols-4">
+                <div className="mb-3 flex items-baseline justify-between gap-3 border-b border-line pb-2">
+                  <h3 className="flex items-baseline gap-3 font-condensed text-3xl uppercase tracking-wide text-ink">
+                    {m}
+                    <small className="font-sans text-sm normal-case tracking-normal text-gold">{porMarca.get(m)!.length} {porMarca.get(m)!.length === 1 ? "sabor" : "sabores"}</small>
+                  </h3>
+                  <button
+                    onClick={() => {
+                      mudar({ marcas: [m] });
+                      setVista("grade");
+                    }}
+                    className="min-h-11 shrink-0 text-sm text-gold underline hover:text-gold-bright"
+                  >
+                    Ver só {m}
+                  </button>
+                </div>
+                <ul className="-mx-6 flex snap-x gap-3 overflow-x-auto px-6 pb-2 [scrollbar-width:none] sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden">
                   {porMarca.get(m)!.map((e) => (
-                    <li key={e.id}>{cartao(e)}</li>
+                    <li key={e.id} className="w-40 shrink-0 snap-start sm:w-48">
+                      {cartao(e)}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -585,6 +598,42 @@ export function EssenceCatalog() {
                     {l}
                   </button>
                 ))}
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <p className="mb-2 text-sm font-medium text-ink">Escolha a marca</p>
+              <div
+                className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:px-0 [&::-webkit-scrollbar]:hidden"
+                role="group"
+                aria-label="Escolher marca"
+              >
+                <button
+                  aria-pressed={f.marcas.length === 0}
+                  onClick={() => mudar({ marcas: [] })}
+                  className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border px-4 text-sm transition-colors ${
+                    f.marcas.length === 0 ? "border-gold bg-gold text-ground" : "border-line text-ink hover:border-gold/60"
+                  }`}
+                >
+                  Todas
+                </button>
+                {marcas.map((m) => {
+                  const ativa = f.marcas.length === 1 && f.marcas[0] === m;
+                  const n = contMarca.get(m) ?? 0;
+                  return (
+                    <button
+                      key={m}
+                      aria-pressed={ativa}
+                      onClick={() => mudar({ marcas: ativa ? [] : [m] })}
+                      className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border px-4 text-sm transition-colors ${
+                        ativa ? "border-gold bg-gold text-ground" : n === 0 ? "border-line text-ink-muted/60" : "border-line text-ink hover:border-gold/60"
+                      }`}
+                    >
+                      {m}
+                      <span className={`text-xs ${ativa ? "text-ground/80" : "text-ink-muted"}`}>{n}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
