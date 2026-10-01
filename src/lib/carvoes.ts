@@ -12,6 +12,8 @@ export type Carvao = {
   descricao?: string;
   /** Foto do pacote em /public (fundo transparente). Sem foto, aparece o nome da marca. */
   foto?: string;
+  /** Proporção da foto (largura / altura), pra moldura acompanhar o formato e a foto preencher quase tudo. */
+  fotoProporcao?: number;
   tamanhos: TamanhoCarvao[];
 };
 
@@ -22,6 +24,7 @@ export const carvoes: Carvao[] = [
     marca: "Chacal",
     nome: "Carvão Chacal",
     foto: "/carvoes/chacal.webp",
+    fotoProporcao: 704 / 464,
     descricao: "Carvão de fibra de coco ecológico, em três tamanhos de pacote.",
     tamanhos: [
       { peso: "250 g", preco: 12.99 },
@@ -34,6 +37,7 @@ export const carvoes: Carvao[] = [
     marca: "Rari",
     nome: "Carvão Rari",
     foto: "/carvoes/rari.webp",
+    fotoProporcao: 465 / 704,
     descricao: "Carvão de coco em formato hexagonal, em dois tamanhos de pacote.",
     tamanhos: [
       { peso: "500 g", preco: 17.99 },
@@ -45,6 +49,7 @@ export const carvoes: Carvao[] = [
     marca: "Unyt",
     nome: "Carvão Unyt",
     foto: "/carvoes/unyt.webp",
+    fotoProporcao: 704 / 493,
     descricao: "Carvão de coco 100% natural para narguilé, em formato hexagonal.",
     tamanhos: [{ peso: "1 kg", preco: 32.99 }],
   },

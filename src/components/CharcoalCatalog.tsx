@@ -54,11 +54,26 @@ export function CharcoalCatalog() {
                 </h3>
 
                 <div className="mt-5 grid gap-5 sm:grid-cols-[minmax(0,16rem)_1fr] sm:gap-10 lg:grid-cols-[minmax(0,20rem)_1fr]">
-                  <div className="relative mx-auto flex aspect-[5/4] w-full max-w-sm items-center justify-center overflow-hidden rounded-2xl border border-line bg-[radial-gradient(circle_at_50%_40%,#2b2620,#171412)] sm:max-w-none">
+                  <div
+                    className="relative mx-auto w-full sm:mx-0"
+                    style={{
+                      aspectRatio: String(c.fotoProporcao ?? 1.25),
+                      // a caixa segue o formato da foto, com altura máxima de 16rem, pra foto e botão caberem na mesma tela
+                      maxWidth: `${16 * (c.fotoProporcao ?? 1.25)}rem`,
+                    }}
+                  >
                     {c.foto ? (
-                      <Image src={c.foto} alt={c.nome} fill sizes="(min-width: 1024px) 320px, (min-width: 640px) 256px, 90vw" className="object-contain p-2 drop-shadow-[0_10px_14px_rgba(0,0,0,0.5)] sm:p-3" />
+                      <div className="absolute inset-0">
+                        <Image
+                          src={c.foto}
+                          alt={c.nome}
+                          fill
+                          sizes="(min-width: 1024px) 320px, (min-width: 640px) 256px, 90vw"
+                          className="object-contain drop-shadow-[0_14px_18px_rgba(0,0,0,0.6)]"
+                        />
+                      </div>
                     ) : (
-                      <span className="px-4 text-center font-condensed text-4xl uppercase leading-none tracking-wide text-gold-bright sm:text-5xl">
+                      <span className="absolute inset-0 flex items-center justify-center px-4 text-center font-condensed text-4xl uppercase leading-none tracking-wide text-gold-bright sm:text-5xl">
                         {c.marca}
                       </span>
                     )}
