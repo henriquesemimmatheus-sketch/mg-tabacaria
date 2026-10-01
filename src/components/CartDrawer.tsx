@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useCart, formatBRL, mensagemPedido } from "@/lib/cart";
@@ -91,13 +92,13 @@ export function CartDrawer() {
           <div className="px-5 py-14 text-center">
             <p className="font-display text-lg text-ink">Seu carrinho está vazio</p>
             <p className="mt-2 text-sm text-ink-muted">Escolha um produto e toque em adicionar.</p>
-            <a
-              href="#whiskies"
+            <Link
+              href="/essencias"
               onClick={close}
               className="mt-6 inline-flex min-h-11 items-center rounded-full bg-gold px-6 py-2.5 text-sm font-medium text-ground hover:bg-gold-bright"
             >
-              Ver whiskies
-            </a>
+              Ver essências
+            </Link>
           </div>
         ) : (
           <>

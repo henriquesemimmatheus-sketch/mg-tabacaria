@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Container, SectionHeading } from "./Container";
+import { Container } from "./Container";
 import { CloseIcon, WhatsAppIcon } from "./icons";
 import { essencias, familias, marcas, type Essencia, type Familia } from "@/lib/essencias";
 import { whatsappLink } from "@/lib/business";
@@ -12,9 +12,18 @@ import { useCart, formatBRL } from "@/lib/cart";
 type Gelado = "todos" | "sim" | "nao";
 type Ordem = "az" | "marca";
 type Vista = "grade" | "lista" | "marca";
-type Filtros = { busca: string; familias: Familia[]; marcas: string[]; gelado: Gelado };
+type Filtros = { busca: string; familias: Familia[]; marcas: string[]; gelado: Gelado; mix: boolean };
 
-const VAZIO: Filtros = { busca: "", familias: [], marcas: [], gelado: "todos" };
+const VAZIO: Filtros = { busca: "", familias: [], marcas: [], gelado: "todos", mix: false };
+
+// Chips principais: cada um reúne um ou mais perfis de sabor dos dados.
+const GRUPOS: { id: string; label: string; cor: string; familias: Familia[] }[] = [
+  { id: "frutados", label: "Frutados", cor: "#e0556a", familias: ["vermelhas", "tropicais", "uvas", "frutas_outras"] },
+  { id: "citricos", label: "Cítricos", cor: "#e3d84a", familias: ["citricos"] },
+  { id: "mentolados", label: "Mentolados", cor: "#4fc3d9", familias: ["mentolado"] },
+  { id: "doces", label: "Doces", cor: "#e8895c", familias: ["doces"] },
+  { id: "especiais", label: "Especiais", cor: "#d9c7a3", familias: ["especiais"] },
+];
 
 const semAcento = (s: string) =>
   s
@@ -26,6 +35,7 @@ const semAcento = (s: string) =>
 function passa(e: Essencia, f: Filtros, ignorar?: "familia" | "marca" | "gelado") {
   if (ignorar !== "familia" && f.familias.length && !f.familias.includes(e.familia)) return false;
   if (ignorar !== "marca" && f.marcas.length && !f.marcas.includes(e.marca)) return false;
+  if (f.mix && !e.mistura) return false;
   if (ignorar !== "gelado" && f.gelado !== "todos" && e.gelado !== (f.gelado === "sim")) return false;
   const q = semAcento(f.busca);
   if (q && !semAcento(`${e.marca} ${e.nome}`).includes(q)) return false;
@@ -49,26 +59,6 @@ const PERFIL_INFO: Record<Familia, { cor: string; texto: string }> = {
 const DEF_GELADO = "Sabor com sensação refrescante, como gelo ou menta.";
 const DEF_MISTURA = "Combina dois ou mais sabores num só. O contrário é o sabor único.";
 
-const PAISES = ["França", "Argentina", "Brasil", "Espanha", "Itália", "Inglaterra", "Alemanha", "Uruguai"];
-// "França (Ruby Crush)" vira "Ruby Crush"; "Mint (Strong Mint)" vira "Mint".
-function nomeCurto(nome: string) {
-  const m = nome.match(/^(.*?)\s*\((.*)\)\s*$/);
-  if (!m) return nome.trim();
-  return PAISES.includes(m[1].trim()) ? m[2].trim() : m[1].trim();
-}
-
-// Três exemplos reais de cada perfil, tirados da própria lista (nomes curtos e sem parênteses).
-const EXEMPLOS: Record<string, string[]> = Object.fromEntries(
-  familias.map((fa) => {
-    const nomes = essencias
-      .filter((e) => e.familia === fa.id)
-      .map((e) => nomeCurto(e.nome))
-      .filter((n, i, arr) => n.length <= 16 && arr.indexOf(n) === i && !/^\d+$/.test(n))
-      .sort((x, y) => x.length - y.length)
-      .slice(0, 3);
-    return [fa.id, nomes];
-  }),
-);
 const alternar = <T,>(lista: T[], item: T) => (lista.includes(item) ? lista.filter((x) => x !== item) : [...lista, item]);
 
 function Opcao({
@@ -151,6 +141,8 @@ export function EssenceCatalog() {
   const [resp, setResp] = useState<Respostas>({ gel: null, perfil: null, mix: null });
   const [semente, setSemente] = useState(0);
   const [naTela, setNaTela] = useState(false);
+  const [adicionadoId, setAdicionadoId] = useState<string | null>(null);
+  const timerAdd = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const { add, setQty, items, open: abrirCarrinho } = useCart();
   const secao = useRef<HTMLElement>(null);
 
@@ -162,6 +154,7 @@ export function EssenceCatalog() {
       setVisiveis(8);
     }
   }, []);
+  useEffect(() => () => clearTimeout(timerAdd.current), []);
   const topoLista = useRef<HTMLDivElement>(null);
   const foco = useRef<HTMLElement | null>(null);
 
@@ -209,13 +202,16 @@ export function EssenceCatalog() {
       }
     return r;
   }, [f]);
-  const totalPorFamilia = useMemo(() => {
-    const m = new Map<Familia, number>();
-    for (const e of essencias) m.set(e.familia, (m.get(e.familia) ?? 0) + 1);
-    return m;
-  }, []);
 
-  const filtrando = !!(f.busca || f.familias.length || f.marcas.length || f.gelado !== "todos");
+  const filtrando = !!(f.busca || f.familias.length || f.marcas.length || f.gelado !== "todos" || f.mix);
+
+  const grupoAtivo = (g: (typeof GRUPOS)[number]) => g.familias.every((x) => f.familias.includes(x));
+  const alternarGrupo = (g: (typeof GRUPOS)[number]) =>
+    mudar({
+      familias: grupoAtivo(g)
+        ? f.familias.filter((x) => !g.familias.includes(x))
+        : [...f.familias, ...g.familias.filter((x) => !f.familias.includes(x))],
+    });
 
   // Resultado do guia: até 6 opções, abrindo um critério de cada vez se houver poucas.
   const sugestoes = useMemo(() => {
@@ -283,20 +279,6 @@ export function EssenceCatalog() {
 
   const painelFiltros = (
     <div className="space-y-6">
-      <div>
-        <label htmlFor="busca-essencia" className="mb-2 block text-sm font-medium text-ink">
-          Buscar
-        </label>
-        <input
-          id="busca-essencia"
-          type="search"
-          value={f.busca}
-          onChange={(e) => mudar({ busca: e.target.value })}
-          placeholder="Sabor ou marca"
-          className="min-h-11 w-full rounded-full border border-line bg-surface px-4 text-ink placeholder:text-ink-muted focus:border-gold focus:outline-none"
-        />
-      </div>
-
       <fieldset>
         <legend className="text-sm font-medium text-ink">Perfil de sabor</legend>
         <p className="mb-1 text-xs text-ink-muted">O tipo de gosto da essência.</p>
@@ -352,7 +334,11 @@ export function EssenceCatalog() {
 
   const chipsAplicados: { chave: string; texto: string; remover: () => void }[] = [
     ...(f.busca ? [{ chave: "busca", texto: `Busca: ${f.busca}`, remover: () => mudar({ busca: "" }) }] : []),
-    ...f.familias.map((x) => ({ chave: `f-${x}`, texto: rotulo(x), remover: () => mudar({ familias: f.familias.filter((y) => y !== x) }) })),
+    ...GRUPOS.filter(grupoAtivo).map((g) => ({ chave: `g-${g.id}`, texto: g.label, remover: () => alternarGrupo(g) })),
+    ...f.familias
+      .filter((x) => !GRUPOS.some((g) => grupoAtivo(g) && g.familias.includes(x)))
+      .map((x) => ({ chave: `f-${x}`, texto: rotulo(x), remover: () => mudar({ familias: f.familias.filter((y) => y !== x) }) })),
+    ...(f.mix ? [{ chave: "mix", texto: "Mix", remover: () => mudar({ mix: false }) }] : []),
     ...f.marcas.map((x) => ({ chave: `m-${x}`, texto: x, remover: () => mudar({ marcas: f.marcas.filter((y) => y !== x) }) })),
     ...(f.gelado !== "todos"
       ? [{ chave: "gelado", texto: f.gelado === "sim" ? "Só gelados" : "Sem gelo", remover: () => mudar({ gelado: "todos" }) }]
@@ -374,21 +360,27 @@ export function EssenceCatalog() {
     : [];
 
   const partesResumo = [
-    f.familias.length ? `do perfil ${f.familias.map(rotulo).join(" ou ").toLowerCase()}` : "",
+    f.familias.length ? `do perfil ${chipsAplicados.filter((c) => /^[gf]-/.test(c.chave)).map((c) => c.texto).join(" ou ").toLowerCase()}` : "",
     f.marcas.length ? `da marca ${f.marcas.join(" ou ")}` : "",
+    f.mix ? "só misturas" : "",
     f.gelado === "sim" ? "só gelados" : f.gelado === "nao" ? "sem gelo" : "",
     f.busca ? `que combinam com “${f.busca}”` : "",
   ].filter(Boolean);
   const resumo = filtrando
     ? `Mostrando ${lista.length} ${lista.length === 1 ? "sabor" : "sabores"} ${partesResumo.join(", ")}.`
-    : `Mostrando todos os ${lista.length} sabores. Use os grupos acima ou os filtros para reduzir a lista.`;
+    : `Mostrando todos os ${lista.length} sabores. Use os chips acima para reduzir a lista.`;
+
+  const adicionarRapido = (e: Essencia) => {
+    add({ id: e.id, name: `${e.marca} ${e.nome}`, price: e.preco, image: e.foto ?? "/essencia.svg" });
+    setAdicionadoId(e.id);
+    clearTimeout(timerAdd.current);
+    timerAdd.current = setTimeout(() => setAdicionadoId(null), 1400);
+  };
 
   const cartao = (e: Essencia) => (
-    <button
-      onClick={(ev) => abrirProduto(e, ev.currentTarget)}
-      className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-line bg-surface text-left transition-colors hover:border-gold/60"
-    >
-      <div className="relative flex aspect-square items-center justify-center border-b border-line bg-[radial-gradient(circle_at_50%_40%,#2b2620,#171412)]">
+    <div className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-colors hover:border-gold/60">
+      <button onClick={(ev) => abrirProduto(e, ev.currentTarget)} className="flex flex-1 flex-col text-left">
+      <div className="relative flex aspect-[5/4] items-center justify-center border-b border-line bg-[radial-gradient(circle_at_50%_40%,#2b2620,#171412)]">
         {e.foto ? (
           <Image src={e.foto} alt="" fill sizes="(min-width: 1280px) 200px, (min-width: 640px) 30vw, 45vw" className="object-contain drop-shadow-[0_8px_10px_rgba(0,0,0,0.5)]" />
         ) : (
@@ -407,7 +399,16 @@ export function EssenceCatalog() {
         </p>
         <p className="mt-2 text-sm font-medium text-gold-bright">{formatBRL(e.preco)}</p>
       </div>
-    </button>
+      </button>
+      <div className="px-3 pb-3 sm:px-4 sm:pb-4">
+        <button
+          onClick={() => adicionarRapido(e)}
+          className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-gold text-sm font-semibold text-ground transition-colors hover:bg-gold-bright"
+        >
+          {adicionadoId === e.id ? "Adicionado" : "Adicionar"}
+        </button>
+      </div>
+    </div>
   );
 
   const linha = (e: Essencia) => (
@@ -511,89 +512,87 @@ export function EssenceCatalog() {
   return (
     <section id="essencias" ref={secao} className="relative border-b border-line py-12 sm:py-24">
       <Container>
-        <SectionHeading
-          eyebrow="Tabacaria"
-          title="Essências"
-          description={`${essencias.length} sabores de ${marcas.length} marcas.`}
-        />
-
-        <div className="mt-6 rounded-2xl border-2 border-gold-bright bg-gold px-5 py-4 text-center text-ground shadow-[5px_5px_0_var(--color-gold-bright)] sm:mt-8 sm:py-5">
-          <p className="font-condensed text-2xl uppercase leading-tight tracking-wide sm:text-4xl">Em três passos, você encontra a essência certa.</p>
-        </div>
-
-        <ol className="mt-4 grid grid-cols-3 gap-2 sm:mt-5 sm:gap-3">
-          {[
-            ["Escolha o perfil", "Toque num dos grupos abaixo para ver o tipo de gosto. Ou deixe o guia ajudar."],
-            ["Refine", "Filtre por marca ou só os gelados. Cada opção mostra quantos sabores sobram."],
-            ["Toque no sabor", "Veja os detalhes e fale com a loja pelo WhatsApp."],
-          ].map(([t, d], i) => (
-            <li key={t} className="flex flex-col items-center gap-2 rounded-2xl border border-line bg-surface p-3 text-center sm:flex-row sm:items-start sm:gap-3 sm:p-4 sm:text-left">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold font-condensed text-base text-ground sm:h-8 sm:w-8 sm:text-lg">{i + 1}</span>
-              <div>
-                <p className="text-sm font-medium leading-tight text-ink sm:text-base">{t}</p>
-                <p className="mt-0.5 hidden text-sm leading-snug text-ink-muted sm:block">{d}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
-        {/* Me ajude a escolher */}
-        <div className="neon-card mt-5 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-surface p-5 sm:mt-8 sm:p-6">
+        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
           <div>
-            <p className="neon-text font-condensed text-4xl uppercase leading-none text-gold-bright sm:text-5xl">Me ajude a escolher</p>
-            <p className="mt-2 max-w-md text-sm text-ink sm:text-base">Responda três perguntas rápidas e o guia sugere até 6 sabores para você.</p>
+            <span className="font-sans text-xs uppercase tracking-[0.2em] text-gold">Tabacaria</span>
+            <h1 className="mt-1 font-condensed text-5xl uppercase leading-none tracking-tight text-ink sm:text-6xl">Essências</h1>
           </div>
-          <button
-            onClick={() => {
-              setResp({ gel: null, perfil: null, mix: null });
-              setSemente(0);
-              setGuiaPasso(0);
-            }}
-            className="neon-btn inline-flex min-h-14 w-full items-center justify-center rounded-full bg-gold-bright px-8 text-lg font-semibold text-ground sm:w-auto"
-          >
-            Começar o guia
-          </button>
+          <p className="text-sm text-ink-muted">
+            {essencias.length} sabores de {marcas.length} marcas
+          </p>
         </div>
 
-        {/* Perfis de sabor: cada grupo explicado, com exemplos e cor própria */}
-        <h3 className="mt-8 font-condensed text-3xl uppercase leading-none text-ink sm:mt-10">Escolha o perfil de sabor</h3>
-        <p className="mt-2 max-w-xl text-sm text-ink-muted">
-          Cada grupo reúne sabores parecidos. <span className="sm:hidden">Deslize para o lado e toque num deles.</span>
-          <span className="hidden sm:inline">Toque num deles para ver só esses sabores.</span>
-        </p>
-        <div
-          className="-mx-6 mt-4 flex snap-x gap-3 overflow-x-auto px-6 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden"
-          role="group"
-          aria-label="Escolher perfil de sabor"
-        >
-          {familias.map((fa) => {
-            const ativo = f.familias.length === 1 && f.familias[0] === fa.id;
-            const info = PERFIL_INFO[fa.id];
+        <div className="mt-5">
+          <label htmlFor="busca-essencia-topo" className="sr-only">
+            Buscar sabor ou marca
+          </label>
+          <input
+            id="busca-essencia-topo"
+            type="search"
+            value={f.busca}
+            onChange={(e) => mudar({ busca: e.target.value })}
+            placeholder="Buscar sabor ou marca"
+            className="min-h-12 w-full rounded-full border border-line bg-surface px-5 text-ink placeholder:text-ink-muted focus:border-gold focus:outline-none sm:max-w-md"
+          />
+        </div>
+
+        <p className="mt-5 text-sm font-medium text-ink">Escolha o perfil de sabor</p>
+        <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label="Escolher perfil de sabor">
+          <button
+            aria-pressed={!filtrando}
+            onClick={limpar}
+            className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium transition-colors ${
+              !filtrando ? "border-gold bg-gold text-ground" : "border-line text-ink hover:border-gold/60"
+            }`}
+          >
+            Ver todas
+          </button>
+          {GRUPOS.map((g) => {
+            const ativo = grupoAtivo(g);
             return (
               <button
-                key={fa.id}
+                key={g.id}
                 aria-pressed={ativo}
-                onClick={() => {
-                  mudar({ familias: ativo ? [] : [fa.id] });
-                  if (!ativo) setTimeout(irParaLista, 50);
-                }}
-                className={`relative flex min-h-32 w-60 shrink-0 snap-start flex-col overflow-hidden rounded-2xl border p-3 pt-4 text-left transition-colors sm:w-auto sm:p-4 sm:pt-5 ${
-                  ativo ? "border-gold bg-gold/15" : "border-line bg-surface hover:border-gold/60"
+                onClick={() => alternarGrupo(g)}
+                className={`inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors ${
+                  ativo ? "border-gold bg-gold text-ground" : "border-line text-ink hover:border-gold/60"
                 }`}
               >
-                <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5" style={{ background: info.cor }} />
-                <span className="font-condensed text-xl uppercase leading-none tracking-wide text-ink sm:text-2xl">{fa.label}</span>
-                <span className="mt-2 text-xs leading-snug text-ink-muted sm:text-sm">{info.texto}</span>
-                {EXEMPLOS[fa.id]?.length > 0 && (
-                  <span className="mt-2 text-xs text-ink">Ex.: {EXEMPLOS[fa.id].join(", ")}</span>
-                )}
-                <span className="mt-auto pt-3 text-xs font-medium" style={{ color: info.cor }}>
-                  {totalPorFamilia.get(fa.id) ?? 0} sabores
-                </span>
+                <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full" style={{ background: g.cor }} />
+                {g.label}
               </button>
             );
           })}
+          <button
+            aria-pressed={f.mix}
+            onClick={() => mudar({ mix: !f.mix })}
+            className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium transition-colors ${
+              f.mix ? "border-gold bg-gold text-ground" : "border-line text-ink hover:border-gold/60"
+            }`}
+          >
+            Mix
+          </button>
+          <button
+            aria-pressed={f.gelado === "sim"}
+            onClick={() => mudar({ gelado: f.gelado === "sim" ? "todos" : "sim" })}
+            className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium transition-colors ${
+              f.gelado === "sim" ? "border-gold bg-gold text-ground" : "border-line text-ink hover:border-gold/60"
+            }`}
+          >
+            Gelados
+          </button>
         </div>
+
+        <button
+          onClick={() => {
+            setResp({ gel: null, perfil: null, mix: null });
+            setSemente(0);
+            setGuiaPasso(0);
+          }}
+          className="neon-btn mt-4 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-gold-bright px-6 text-base font-semibold text-ground sm:w-auto"
+        >
+          Me ajude a escolher
+        </button>
 
         <div ref={topoLista} className="mt-10 scroll-mt-36 lg:grid lg:grid-cols-[16rem_1fr] lg:gap-10">
           <aside className="hidden lg:block">
@@ -602,19 +601,6 @@ export function EssenceCatalog() {
 
           <div>
             <div className="flex flex-wrap items-center gap-3">
-              <div className="lg:hidden">
-                <label htmlFor="busca-rapida" className="sr-only">
-                  Buscar sabor ou marca
-                </label>
-                <input
-                  id="busca-rapida"
-                  type="search"
-                  value={f.busca}
-                  onChange={(e) => mudar({ busca: e.target.value })}
-                  placeholder="Buscar sabor ou marca"
-                  className="min-h-12 w-[calc(100vw-3rem)] max-w-full rounded-full border border-line bg-surface px-5 text-ink placeholder:text-ink-muted focus:border-gold focus:outline-none sm:w-80"
-                />
-              </div>
               <div className="inline-flex overflow-hidden rounded-full border border-line" role="group" aria-label="Forma de ver a lista">
                 {(
                   [
@@ -736,16 +722,16 @@ export function EssenceCatalog() {
 
             <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6">
               <button
-                onClick={() => secao.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                 className="min-h-11 text-sm text-gold underline hover:text-gold-bright"
               >
-                Voltar aos grupos de sabor
+                Voltar ao topo
               </button>
               <a
-                href="#sobre"
+                href="/carvoes"
                 className="inline-flex min-h-11 items-center rounded-full border border-gold px-5 text-sm text-gold hover:text-gold-bright"
               >
-                Seguir para Sobre a loja
+                Ver carvões
               </a>
             </div>
           </div>
@@ -764,12 +750,6 @@ export function EssenceCatalog() {
               <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1 text-[11px] text-ground">{chipsAplicados.length}</span>
             )}
           </button>
-          <a
-            href="#sobre"
-            className="inline-flex min-h-12 items-center rounded-full border border-line bg-ground px-4 text-sm text-ink shadow-lg shadow-black/50"
-          >
-            Pular
-          </a>
         </div>
       )}
 

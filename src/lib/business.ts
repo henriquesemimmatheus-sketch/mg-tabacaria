@@ -7,7 +7,7 @@ export const business = {
   whatsappMessage: "Olá! Vi o site da MG Bebidas & Tabacaria e queria saber mais.",
   instagramUrl: "https://www.instagram.com/mgtabacaria1/",
   instagramHandle: "@mgtabacaria1",
-  address: "Av. Gralha Azul, 680 – Guarujá",
+  address: "Av. Gralha Azul, 680, Guarujá",
   hours: [{ day: "Todos os dias", time: "14h às 01h" }],
 };
 

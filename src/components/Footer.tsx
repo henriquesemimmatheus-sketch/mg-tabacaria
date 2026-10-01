@@ -4,14 +4,14 @@ import { business, whatsappLink } from "@/lib/business";
 
 export function Footer() {
   return (
-    <footer className="border-t border-line py-10">
+    <footer className="border-t border-line pb-28 pt-10">
       <Container className="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
         <div>
           <p className="font-display text-lg text-ink">
             <span className="text-gold-bright">MG</span> Bebidas & Tabacaria
           </p>
           <p className="mt-1 text-xs text-ink-muted">
-            Venda proibida para menores de 18 anos. Se beber, não dirija.
+            Conteúdo destinado exclusivamente a maiores de 18 anos. Venda proibida para menores. Se beber, não dirija.
           </p>
         </div>
 

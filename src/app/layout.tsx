@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Anton, Cinzel, Jost } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart";
+import { SiteShell } from "@/components/SiteShell";
 
 const cinzel = Cinzel({
   variable: "--font-cinzel",
@@ -30,7 +31,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={`${cinzel.variable} ${jost.variable} ${anton.variable}`}>
-      <body className="bg-ground text-ink font-sans antialiased"><CartProvider>{children}</CartProvider></body>
+      <body className="bg-ground text-ink font-sans antialiased"><CartProvider>
+          <SiteShell>{children}</SiteShell>
+        </CartProvider></body>
     </html>
   );
 }

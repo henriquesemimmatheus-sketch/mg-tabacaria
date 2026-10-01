@@ -4,10 +4,6 @@ import { Container } from "./Container";
 import { GlassIcon, BeerMugIcon, GiftIcon } from "./icons";
 import { whatsappLink } from "@/lib/business";
 
-// Medidas da imagem da placa de humor (public/placa-narguileiros.webp)
-const PLACA_W = 600;
-const PLACA_H = 876;
-
 type Category = {
   icon: ComponentType<{ className?: string }>;
   title: string;
@@ -18,7 +14,7 @@ const beverages: Category[] = [
   {
     icon: BeerMugIcon,
     title: "Cerveja geladinha",
-    text: "Sempre na régua certa de temperatura — pega e já abre, sem enrolação.",
+    text: "Sempre na régua certa de temperatura, pega e já abre, sem enrolação.",
   },
   {
     icon: GlassIcon,
@@ -134,7 +130,7 @@ export function Beverages() {
       id="bebidas"
       logo="/logo-mg-bebidas.webp"
       logoAlt="MG Bebidas"
-      description="Cerveja, destilados e kits. Sempre rolando novidade — chama no WhatsApp pra saber o que tá disponível e o preço."
+      description="Cerveja, destilados e kits. Sempre rolando novidade. Chama no WhatsApp pra saber o que tá disponível e o preço."
       items={beverages}
       message="Gostaria de saber mais sobre"
     >
@@ -150,32 +146,6 @@ export function Beverages() {
         tape="-8deg"
         className="right-24 top-0 z-10 hidden lg:block"
       />
-    </Block>
-  );
-}
-
-export function Tobacco() {
-  return (
-    <Block
-      id="tabacaria"
-      logo="/logo-mg-tabacaria.webp"
-      logoAlt="MG Tabacaria"
-      description="Do frutado ao mentolado, tem essência pra todo gosto."
-      items={[]}
-      message="Gostaria de saber mais sobre"
-      cta={{ href: "#essencias", label: "Conheça as essências" }}
-    >
-      {/* Placa de humor, inclinada como se estivesse colada */}
-      <div className="pointer-events-none absolute right-0 top-0 z-10 w-24 rotate-6 rounded-sm bg-white p-1 shadow-2xl sm:w-36 lg:w-44">
-        <Image
-          src="/placa-narguileiros.webp"
-          alt="Placa de humor: atenção, área restrita, somente narguileiros"
-          width={PLACA_W}
-          height={PLACA_H}
-          sizes="176px"
-          className="h-auto w-full"
-        />
-      </div>
     </Block>
   );
 }

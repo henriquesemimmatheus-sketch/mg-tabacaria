@@ -33,7 +33,7 @@ export const promocoes: Promocao[] = [
   {
     id: "hoje-dois-litrao-rosh",
     texto: "Dois litrão + um rosh por R$ 50,00, todos os dias. Para consumir no local",
-    link: "#promocoes",
+    link: "/#promocoes",
     card: {
       titulo: "Dois litrão + um rosh",
       descricao: "Dois litrões de cerveja e um rosh por R$ 50,00. Vale todos os dias, para consumir no local.",
@@ -47,7 +47,7 @@ export const promocoes: Promocao[] = [
   {
     id: "rari-2-essencias",
     texto: "2 essências + 500g de carvão Rari por R$ 37,99",
-    link: "#promocoes",
+    link: "/#promocoes",
     card: {
       titulo: "2 essências + 500g de carvão Rari",
       descricao: "Promoção da MG Tabacaria: duas essências e meio quilo de carvão Rari de coco.",
