@@ -1,10 +1,12 @@
-import { promocoesAtivas } from "@/lib/promocoes";
+"use client";
+
+import { usePromocoesAtivas } from "@/lib/promocoes";
 
 // Cada metade da faixa precisa ser mais larga que a tela, senão aparece um vão na volta.
 const MIN_ITENS = 10;
 
 export function PromoBar() {
-  const ativas = promocoesAtivas();
+  const ativas = usePromocoesAtivas();
   if (ativas.length === 0) return null;
 
   const copias = Math.ceil(MIN_ITENS / ativas.length);

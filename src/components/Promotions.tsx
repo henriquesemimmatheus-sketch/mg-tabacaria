@@ -4,11 +4,13 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Container, SectionHeading } from "./Container";
 import { WhatsAppIcon } from "./icons";
-import { promocoesComCard } from "@/lib/promocoes";
+import { usePromocoesAtivas } from "@/lib/promocoes";
 import { useCart, formatBRL } from "@/lib/cart";
 import { whatsappLink } from "@/lib/business";
 
-type Item = ReturnType<typeof promocoesComCard>[number];
+import type { Promocao } from "@/lib/promocoes";
+
+type Item = Promocao & { card: NonNullable<Promocao["card"]> };
 
 function selo(card: Item["card"]) {
   if (card.preco !== undefined && card.precoAntigo !== undefined && card.precoAntigo > card.preco) {
@@ -18,7 +20,7 @@ function selo(card: Item["card"]) {
 }
 
 export function Promotions() {
-  const lista = promocoesComCard();
+  const lista = usePromocoesAtivas().filter((p): p is Item => !!p.card);
   const { add } = useCart();
   const [justAdded, setJustAdded] = useState<string | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);

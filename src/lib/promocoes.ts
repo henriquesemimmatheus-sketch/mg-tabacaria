@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 export type Promocao = {
   id: string;
   /** Texto curto que aparece na barra do topo. */
@@ -27,6 +29,18 @@ export type Promocao = {
 // Lista vazia = a barra do topo e a seção de promoções não aparecem.
 export const promocoes: Promocao[] = [
   {
+    id: "hoje-dois-litrao-rosh",
+    texto: "Dois litrão + um rosh por R$ 50,00, todos os dias. Para consumir no local",
+    link: "#promocoes",
+    card: {
+      titulo: "Dois litrão + um rosh",
+      descricao: "Dois litrões de cerveja e um rosh por R$ 50,00. Vale todos os dias, para consumir no local.",
+      imagem: "/promo-hoje-litrao.webp",
+      largura: 900,
+      altura: 1230,
+    },
+  },
+  {
     id: "rari-2-essencias",
     texto: "2 essências + 500g de carvão Rari por R$ 37,99",
     link: "#promocoes",
@@ -48,4 +62,17 @@ export function promocoesAtivas(hoje: Date = new Date()): Promocao[] {
 
 export function promocoesComCard(hoje: Date = new Date()) {
   return promocoesAtivas(hoje).filter((p): p is Promocao & { card: NonNullable<Promocao["card"]> } => !!p.card);
+}
+
+/**
+ * Promoções que ainda valem. Começa com todas (é o que o servidor gera) e, ao abrir a página,
+ * tira as vencidas pela data do aparelho. Assim "ate" funciona mesmo sem publicar o site de novo.
+ */
+export function usePromocoesAtivas() {
+  const [lista, setLista] = useState<Promocao[]>(promocoes);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setLista(promocoesAtivas());
+  }, []);
+  return lista;
 }
