@@ -26,13 +26,13 @@ export default function Home() {
         <Hero />
         <Marquee phrases={["MG Bebidas", "MG Tabacaria", "Presentes", "Bom papo", "A loja da noite boa"]} />
         <Promotions />
-        <Beverages />
         <WhiskyCatalog />
         <Marquee phrases={["Whisky", "Cerveja gelada", "Narguilé", "Essências", "Acessórios"]} />
         <Tobacco />
         <EssenceCatalog />
         <About />
         <Location />
+        <Beverages />
       </main>
       <Footer />
       <CartBar />
