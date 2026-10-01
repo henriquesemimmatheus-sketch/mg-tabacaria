@@ -56,7 +56,7 @@ export function Promotions() {
         href={whatsappLink(`Olá! Quero saber mais sobre a promoção: ${card.titulo}.`)}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-6 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-xl border-2 border-gold px-8 font-condensed text-xl uppercase tracking-wide text-gold transition-colors hover:text-gold-bright sm:w-auto"
+        className="mt-6 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-xl border-2 border-ink bg-gold px-8 font-condensed text-xl uppercase tracking-wide text-ground shadow-[5px_5px_0_var(--color-ink)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[2px_2px_0_var(--color-ink)] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none sm:w-auto"
       >
         <WhatsAppIcon className="h-5 w-5" />
         Falar no WhatsApp
