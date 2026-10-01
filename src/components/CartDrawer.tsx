@@ -1,13 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCart, formatBRL, mensagemPedido } from "@/lib/cart";
 import { CloseIcon, CartIcon, WhatsAppIcon } from "./icons";
 import { whatsappLink } from "@/lib/business";
 
+type Passo = "carrinho" | "dados";
+type Erros = { nome?: string; endereco?: string };
+
+const campo =
+  "min-h-12 w-full rounded-xl border bg-surface-2 px-4 text-ink placeholder:text-ink-muted focus:border-gold focus:outline-none";
+
 export function CartDrawer() {
   const { items, count, total, isOpen, close, setQty, remove, clear } = useCart();
+  const [passo, setPasso] = useState<Passo>("carrinho");
+  const [nome, setNome] = useState("");
+  const [endereco, setEndereco] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [erros, setErros] = useState<Erros>({});
 
   useEffect(() => {
     if (!isOpen) return;
@@ -21,17 +32,39 @@ export function CartDrawer() {
     };
   }, [isOpen, close]);
 
+  // Sem itens não há o que preencher: volta pro primeiro passo.
+  useEffect(() => {
+    if (items.length === 0 && passo !== "carrinho") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setPasso("carrinho");
+    }
+  }, [items.length, passo]);
+
   if (!isOpen) return null;
+
+  function enviar(ev: React.FormEvent) {
+    ev.preventDefault();
+    const novos: Erros = {};
+    if (nome.trim().length < 2) novos.nome = "Informe seu nome.";
+    if (endereco.trim().length < 6) novos.endereco = "Informe o endereço completo, com rua, número e bairro.";
+    setErros(novos);
+    if (novos.nome || novos.endereco) return;
+
+    const url = whatsappLink(mensagemPedido(items, total, { nome, endereco, telefone }));
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  const titulo = passo === "carrinho" ? "Seu carrinho" : "Seus dados";
 
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Carrinho">
       <button aria-label="Fechar carrinho" onClick={close} className="absolute inset-0 bg-black/70" />
-      <div className="absolute inset-x-0 bottom-0 flex max-h-[88vh] flex-col rounded-t-2xl border-t border-line bg-surface md:inset-y-0 md:left-auto md:right-0 md:max-h-none md:w-[26rem] md:rounded-none md:border-l md:border-t-0">
+      <div className="absolute inset-x-0 bottom-0 flex max-h-[92vh] flex-col rounded-t-2xl border-t border-line bg-surface md:inset-y-0 md:left-auto md:right-0 md:max-h-none md:w-[26rem] md:rounded-none md:border-l md:border-t-0">
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <h2 className="flex items-center gap-2 font-display text-xl text-ink">
             <CartIcon className="h-5 w-5 text-gold-bright" />
-            Seu carrinho
-            {count > 0 && <span className="text-sm text-ink-muted">({count})</span>}
+            {titulo}
+            {passo === "carrinho" && count > 0 && <span className="text-sm text-ink-muted">({count})</span>}
           </h2>
           <button onClick={close} aria-label="Fechar carrinho" className="-mr-2 p-2 text-ink-muted hover:text-ink">
             <CloseIcon className="h-6 w-6" />
@@ -41,7 +74,7 @@ export function CartDrawer() {
         {items.length === 0 ? (
           <div className="px-5 py-14 text-center">
             <p className="font-display text-lg text-ink">Seu carrinho está vazio</p>
-            <p className="mt-2 text-sm text-ink-muted">Escolha um whisky e toque em adicionar.</p>
+            <p className="mt-2 text-sm text-ink-muted">Escolha um produto e toque em adicionar.</p>
             <a
               href="#whiskies"
               onClick={close}
@@ -52,79 +85,179 @@ export function CartDrawer() {
           </div>
         ) : (
           <>
-            <ul className="flex-1 divide-y divide-line overflow-y-auto px-5">
-              {items.map((item) => (
-                <li key={item.id} className="flex items-center gap-4 py-4">
-                  <div className="relative h-20 w-14 shrink-0 rounded-lg bg-surface-2">
-                    <Image src={item.image} alt="" fill sizes="56px" className="object-contain p-1" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium leading-snug text-ink">{item.name}</p>
-                    <p className="mt-0.5 text-sm text-ink-muted">{formatBRL(item.price)}</p>
-                    <div className="mt-2 flex items-center gap-1">
-                      <button
-                        onClick={() => setQty(item.id, item.qty - 1)}
-                        aria-label={`Diminuir quantidade de ${item.name}`}
-                        className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-lg text-ink hover:border-gold"
-                      >
-                        −
-                      </button>
-                      <span className="w-8 text-center text-sm text-ink" aria-live="polite">
-                        {item.qty}
-                      </span>
-                      <button
-                        onClick={() => setQty(item.id, item.qty + 1)}
-                        aria-label={`Aumentar quantidade de ${item.name}`}
-                        className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-lg text-ink hover:border-gold"
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-end justify-between gap-6 self-stretch">
-                    <p className="text-sm font-medium text-gold-bright">{formatBRL(item.price * item.qty)}</p>
-                    <button
-                      onClick={() => remove(item.id)}
-                      className="min-h-11 px-1 text-xs text-ink-muted underline hover:text-ink"
-                    >
-                      Remover
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <p className="border-b border-line px-5 py-2 text-xs text-ink-muted">
+              <span className={passo === "carrinho" ? "font-medium text-gold-bright" : ""}>1. Carrinho</span>
+              {"  ›  "}
+              <span className={passo === "dados" ? "font-medium text-gold-bright" : ""}>2. Seus dados e envio</span>
+            </p>
 
-            <div className="border-t border-line px-5 py-4">
-              <div className="flex items-baseline justify-between">
-                <span className="text-ink-muted">Total</span>
-                <span className="font-display text-2xl text-ink">{formatBRL(total)}</span>
-              </div>
-              <a
-                href={whatsappLink(mensagemPedido(items, total))}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-gold text-lg font-semibold text-ground transition-colors hover:bg-gold-bright"
-              >
-                <WhatsAppIcon className="h-5 w-5" />
-                Enviar pedido pelo WhatsApp
-              </a>
-              <p className="mt-2 text-center text-xs leading-relaxed text-ink-muted">
-                O pedido vai pronto na conversa, com os itens e o total. A loja confirma a disponibilidade.
-              </p>
-              <div className="mt-1 flex items-center justify-between">
-                <button onClick={clear} className="min-h-11 text-sm text-ink-muted underline hover:text-ink">
-                  Esvaziar carrinho
-                </button>
-                <a
-                  href={whatsappLink("Olá! Tenho uma dúvida sobre os produtos do site.")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center text-sm text-gold hover:text-gold-bright"
-                >
-                  Tirar dúvidas
-                </a>
-              </div>
-            </div>
+            {passo === "carrinho" ? (
+              <>
+                <ul className="flex-1 divide-y divide-line overflow-y-auto px-5">
+                  {items.map((item) => (
+                    <li key={item.id} className="flex items-center gap-4 py-4">
+                      <div className="relative h-20 w-14 shrink-0 rounded-lg bg-surface-2">
+                        <Image src={item.image} alt="" fill sizes="56px" className="object-contain p-1" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium leading-snug text-ink">{item.name}</p>
+                        <p className="mt-0.5 text-sm text-ink-muted">{formatBRL(item.price)}</p>
+                        <div className="mt-2 flex items-center gap-1">
+                          <button
+                            onClick={() => setQty(item.id, item.qty - 1)}
+                            aria-label={`Diminuir quantidade de ${item.name}`}
+                            className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-lg text-ink hover:border-gold"
+                          >
+                            −
+                          </button>
+                          <span className="w-8 text-center text-sm text-ink" aria-live="polite">
+                            {item.qty}
+                          </span>
+                          <button
+                            onClick={() => setQty(item.id, item.qty + 1)}
+                            aria-label={`Aumentar quantidade de ${item.name}`}
+                            className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-lg text-ink hover:border-gold"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-end justify-between gap-6 self-stretch">
+                        <p className="text-sm font-medium text-gold-bright">{formatBRL(item.price * item.qty)}</p>
+                        <button
+                          onClick={() => remove(item.id)}
+                          className="min-h-11 px-1 text-xs text-ink-muted underline hover:text-ink"
+                        >
+                          Remover
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="border-t border-line px-5 py-4">
+                  <div className="flex items-baseline justify-between">
+                    <span className="text-ink-muted">Total dos produtos</span>
+                    <span className="font-display text-2xl text-ink">{formatBRL(total)}</span>
+                  </div>
+                  <button
+                    onClick={() => setPasso("dados")}
+                    className="mt-4 inline-flex min-h-14 w-full items-center justify-center rounded-full bg-gold text-lg font-semibold text-ground transition-colors hover:bg-gold-bright"
+                  >
+                    Continuar
+                  </button>
+                  <p className="mt-2 text-center text-xs leading-relaxed text-ink-muted">
+                    A disponibilidade dos produtos e a entrega no seu endereço são confirmadas pela loja no WhatsApp.
+                  </p>
+                  <div className="mt-1 flex items-center justify-between">
+                    <button onClick={clear} className="min-h-11 text-sm text-ink-muted underline hover:text-ink">
+                      Esvaziar carrinho
+                    </button>
+                    <a
+                      href={whatsappLink("Olá! Tenho uma dúvida sobre os produtos do site.")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-11 items-center text-sm text-gold hover:text-gold-bright"
+                    >
+                      Tirar dúvidas
+                    </a>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <form onSubmit={enviar} noValidate className="flex min-h-0 flex-1 flex-col">
+                <div className="flex-1 space-y-4 overflow-y-auto px-5 py-4">
+                  <p className="rounded-xl border border-gold/40 bg-gold/10 p-3 text-sm leading-relaxed text-ink">
+                    Lembrete: a loja vai conferir se os produtos estão disponíveis e se dá para entregar no seu
+                    endereço. O valor da entrega, se houver, é combinado na conversa.
+                  </p>
+
+                  <div>
+                    <label htmlFor="ck-nome" className="mb-1.5 block text-sm font-medium text-ink">
+                      Seu nome
+                    </label>
+                    <input
+                      id="ck-nome"
+                      value={nome}
+                      onChange={(e) => setNome(e.target.value)}
+                      autoComplete="name"
+                      placeholder="Como podemos te chamar"
+                      aria-invalid={!!erros.nome}
+                      aria-describedby={erros.nome ? "ck-nome-erro" : undefined}
+                      className={`${campo} ${erros.nome ? "border-red-400" : "border-line"}`}
+                    />
+                    {erros.nome && (
+                      <p id="ck-nome-erro" className="mt-1 text-sm text-red-300">
+                        {erros.nome}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="ck-endereco" className="mb-1.5 block text-sm font-medium text-ink">
+                      Endereço para entrega
+                    </label>
+                    <textarea
+                      id="ck-endereco"
+                      value={endereco}
+                      onChange={(e) => setEndereco(e.target.value)}
+                      autoComplete="street-address"
+                      rows={3}
+                      placeholder="Rua, número, bairro e complemento"
+                      aria-invalid={!!erros.endereco}
+                      aria-describedby={erros.endereco ? "ck-endereco-erro" : undefined}
+                      className={`${campo} resize-none py-3 ${erros.endereco ? "border-red-400" : "border-line"}`}
+                    />
+                    {erros.endereco && (
+                      <p id="ck-endereco-erro" className="mt-1 text-sm text-red-300">
+                        {erros.endereco}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="ck-telefone" className="mb-1.5 block text-sm font-medium text-ink">
+                      Telefone <span className="font-normal text-ink-muted">(opcional)</span>
+                    </label>
+                    <input
+                      id="ck-telefone"
+                      type="tel"
+                      inputMode="tel"
+                      value={telefone}
+                      onChange={(e) => setTelefone(e.target.value)}
+                      autoComplete="tel"
+                      placeholder="(45) 90000-0000"
+                      className={`${campo} border-line`}
+                    />
+                  </div>
+
+                  <p className="text-xs leading-relaxed text-ink-muted">
+                    Seus dados ficam só neste aparelho e vão apenas na mensagem que você enviar à loja.
+                  </p>
+                </div>
+
+                <div className="border-t border-line px-5 py-4">
+                  <div className="flex items-baseline justify-between">
+                    <span className="text-ink-muted">Total dos produtos</span>
+                    <span className="font-display text-2xl text-ink">{formatBRL(total)}</span>
+                  </div>
+                  <button
+                    type="submit"
+                    className="mt-3 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-gold text-lg font-semibold text-ground transition-colors hover:bg-gold-bright"
+                  >
+                    <WhatsAppIcon className="h-5 w-5" />
+                    Enviar pedido pelo WhatsApp
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPasso("carrinho")}
+                    className="mt-1 min-h-11 w-full text-sm text-gold underline hover:text-gold-bright"
+                  >
+                    Voltar ao carrinho
+                  </button>
+                </div>
+              </form>
+            )}
           </>
         )}
       </div>

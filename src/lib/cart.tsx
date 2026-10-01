@@ -118,16 +118,27 @@ export function useCart() {
   return ctx;
 }
 
+export type DadosEntrega = { nome: string; endereco: string; telefone?: string };
+
 /** Texto do pedido pronto, para abrir no WhatsApp da loja. */
-export function mensagemPedido(items: CartItem[], total: number) {
+export function mensagemPedido(items: CartItem[], total: number, dados?: DadosEntrega) {
   const linhas = items.map((i) => `• ${i.qty}x ${i.name} - ${formatBRL(i.price * i.qty)}`);
+  const cliente = dados
+    ? [
+        "",
+        `Nome: ${dados.nome.trim()}`,
+        `Endereço: ${dados.endereco.trim().split(/[\r\n]+/).map((l) => l.trim()).filter(Boolean).join(", ")}`,
+        ...(dados.telefone?.trim() ? [`Telefone: ${dados.telefone.trim()}`] : []),
+        "",
+        "Vocês conseguem entregar neste endereço? Podem confirmar também a disponibilidade dos produtos e o valor da entrega?",
+      ]
+    : ["", "Pode confirmar a disponibilidade e como faço a retirada ou o pagamento?"];
   return [
     "Olá! Quero fazer este pedido pelo site:",
     "",
     ...linhas,
     "",
-    `Total: ${formatBRL(total)}`,
-    "",
-    "Pode confirmar a disponibilidade e como faço a retirada ou o pagamento?",
+    `Total dos produtos: ${formatBRL(total)}`,
+    ...cliente,
   ].join(String.fromCharCode(10));
 }

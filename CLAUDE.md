@@ -43,7 +43,7 @@ A loja já tem duas logos definidas (MG Bebidas e MG Tabacaria): fundo preto, le
 ## Dados e catálogo
 
 - Produtos de bebida: `src/lib/whiskies.ts` (nome, preço, foto, notas). Sem `price`, o card mostra "Consultar preço".
-- Carrinho: `src/lib/cart.tsx`. O botão "Enviar pedido pelo WhatsApp" monta o pedido pronto (itens, quantidades e total) e abre a conversa com a loja; não há pagamento no site.
+- Carrinho: `src/lib/cart.tsx`. Dois passos: carrinho e "Seus dados" (nome e endereço obrigatórios, telefone opcional). "Enviar pedido pelo WhatsApp" monta o pedido pronto (itens, total e dados) e pergunta se a loja entrega no endereço; não há pagamento no site e os dados não são guardados.
 - Contato e horário: `src/lib/business.ts`.
 - Fotos de produto vêm recortadas (fundo transparente) em `public/whisky/`. Fotos de loja são preferíveis às de sites de terceiros por causa dos direitos de imagem.
 - Essências: `src/lib/essencias.ts` (118+ sabores, perfis, gelado, mistura) e fotos em `public/essencias/`. O preço (R$ 10 a R$ 18) vem da coluna `preco_interno` da planilha, confirmado pelo dono como valor de venda, e é exibido no site e no carrinho.
