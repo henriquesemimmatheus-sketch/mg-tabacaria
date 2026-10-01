@@ -4,9 +4,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useCart, formatBRL, mensagemPedido } from "@/lib/cart";
 import { CloseIcon, CartIcon, WhatsAppIcon } from "./icons";
-import { whatsappLink } from "@/lib/business";
+import { business, whatsappLink } from "@/lib/business";
 
 type Passo = "carrinho" | "dados";
+type Modo = "entrega" | "retirada";
 type Erros = { nome?: string; endereco?: string };
 
 const campo =
@@ -15,6 +16,7 @@ const campo =
 export function CartDrawer() {
   const { items, count, total, isOpen, close, setQty, remove, clear } = useCart();
   const [passo, setPasso] = useState<Passo>("carrinho");
+  const [modo, setModo] = useState<Modo>("entrega");
   const [nome, setNome] = useState("");
   const [endereco, setEndereco] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -46,11 +48,11 @@ export function CartDrawer() {
     ev.preventDefault();
     const novos: Erros = {};
     if (nome.trim().length < 2) novos.nome = "Informe seu nome.";
-    if (endereco.trim().length < 6) novos.endereco = "Informe o endereço completo, com rua, número e bairro.";
+    if (modo === "entrega" && endereco.trim().length < 6) novos.endereco = "Informe o endereço completo, com rua, número e bairro.";
     setErros(novos);
     if (novos.nome || novos.endereco) return;
 
-    const url = whatsappLink(mensagemPedido(items, total, { nome, endereco, telefone }));
+    const url = whatsappLink(mensagemPedido(items, total, { nome, modo, endereco, telefone }));
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
@@ -147,7 +149,7 @@ export function CartDrawer() {
                     Continuar
                   </button>
                   <p className="mt-2 text-center text-xs leading-relaxed text-ink-muted">
-                    A disponibilidade dos produtos e a entrega no seu endereço são confirmadas pela loja no WhatsApp.
+                    A disponibilidade dos produtos e a entrega são confirmadas pela loja no WhatsApp.
                   </p>
                   <div className="mt-1 flex items-center justify-between">
                     <button onClick={clear} className="min-h-11 text-sm text-ink-muted underline hover:text-ink">
@@ -167,9 +169,38 @@ export function CartDrawer() {
             ) : (
               <form onSubmit={enviar} noValidate className="flex min-h-0 flex-1 flex-col">
                 <div className="flex-1 space-y-4 overflow-y-auto px-5 py-4">
+                  <fieldset>
+                    <legend className="mb-2 text-sm font-medium text-ink">Como você quer receber?</legend>
+                    <div className="grid grid-cols-2 gap-2">
+                      {(
+                        [
+                          ["entrega", "Entrega", "Por motoboy"],
+                          ["retirada", "Retirar na loja", "Sem endereço"],
+                        ] as [Modo, string, string][]
+                      ).map(([v, l, d]) => (
+                        <button
+                          key={v}
+                          type="button"
+                          aria-pressed={modo === v}
+                          onClick={() => {
+                            setModo(v);
+                            setErros({});
+                          }}
+                          className={`min-h-14 rounded-xl border px-3 py-2 text-left transition-colors ${
+                            modo === v ? "border-gold bg-gold text-ground" : "border-line text-ink hover:border-gold/60"
+                          }`}
+                        >
+                          <span className="block text-base font-medium leading-tight">{l}</span>
+                          <span className={`block text-xs ${modo === v ? "text-ground/80" : "text-ink-muted"}`}>{d}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </fieldset>
+
                   <p className="rounded-xl border border-gold/40 bg-gold/10 p-3 text-sm leading-relaxed text-ink">
-                    Lembrete: a loja vai conferir se os produtos estão disponíveis e se dá para entregar no seu
-                    endereço. O valor da entrega, se houver, é combinado na conversa.
+                    {modo === "entrega"
+                      ? "Lembrete: a loja vai conferir se os produtos estão disponíveis e se dá para entregar no seu endereço. A entrega é feita por motoboy e o valor é cotado na hora, na conversa."
+                      : `Lembrete: a loja vai conferir se os produtos estão disponíveis e combinar a retirada. Endereço da loja: ${business.address}, ${business.city}.`}
                   </p>
 
                   <div>
@@ -193,6 +224,7 @@ export function CartDrawer() {
                     )}
                   </div>
 
+                  {modo === "entrega" && (
                   <div>
                     <label htmlFor="ck-endereco" className="mb-1.5 block text-sm font-medium text-ink">
                       Endereço para entrega
@@ -214,6 +246,7 @@ export function CartDrawer() {
                       </p>
                     )}
                   </div>
+                  )}
 
                   <div>
                     <label htmlFor="ck-telefone" className="mb-1.5 block text-sm font-medium text-ink">
@@ -241,6 +274,9 @@ export function CartDrawer() {
                     <span className="text-ink-muted">Total dos produtos</span>
                     <span className="font-display text-2xl text-ink">{formatBRL(total)}</span>
                   </div>
+                  {modo === "entrega" && (
+                    <p className="mt-1 text-xs text-ink-muted">Sem o valor da entrega, que o motoboy cota na hora.</p>
+                  )}
                   <button
                     type="submit"
                     className="mt-3 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-gold text-lg font-semibold text-ground transition-colors hover:bg-gold-bright"

@@ -118,21 +118,46 @@ export function useCart() {
   return ctx;
 }
 
-export type DadosEntrega = { nome: string; endereco: string; telefone?: string };
+export type DadosEntrega = {
+  nome: string;
+  /** "entrega": vai por motoboy, com o valor cotado na hora. "retirada": a pessoa busca na loja. */
+  modo: "entrega" | "retirada";
+  endereco?: string;
+  telefone?: string;
+};
 
 /** Texto do pedido pronto, para abrir no WhatsApp da loja. */
 export function mensagemPedido(items: CartItem[], total: number, dados?: DadosEntrega) {
   const linhas = items.map((i) => `• ${i.qty}x ${i.name} - ${formatBRL(i.price * i.qty)}`);
-  const cliente = dados
-    ? [
-        "",
-        `Nome: ${dados.nome.trim()}`,
-        `Endereço: ${dados.endereco.trim().split(/[\r\n]+/).map((l) => l.trim()).filter(Boolean).join(", ")}`,
-        ...(dados.telefone?.trim() ? [`Telefone: ${dados.telefone.trim()}`] : []),
-        "",
-        "Vocês conseguem entregar neste endereço? Podem confirmar também a disponibilidade dos produtos e o valor da entrega?",
-      ]
-    : ["", "Pode confirmar a disponibilidade e como faço a retirada ou o pagamento?"];
+  const telefone = dados?.telefone?.trim() ? [`Telefone: ${dados.telefone.trim()}`] : [];
+  let cliente: string[];
+  if (!dados) {
+    cliente = ["", "Pode confirmar a disponibilidade e como faço a retirada ou o pagamento?"];
+  } else if (dados.modo === "retirada") {
+    cliente = [
+      "",
+      `Nome: ${dados.nome.trim()}`,
+      ...telefone,
+      "Forma de recebimento: retirar na loja",
+      "",
+      "Podem confirmar a disponibilidade dos produtos e quando posso retirar?",
+    ];
+  } else {
+    const endereco = (dados.endereco ?? "")
+      .split(/[\r\n]+/)
+      .map((l) => l.trim())
+      .filter(Boolean)
+      .join(", ");
+    cliente = [
+      "",
+      `Nome: ${dados.nome.trim()}`,
+      `Endereço: ${endereco}`,
+      ...telefone,
+      "Forma de recebimento: entrega por motoboy",
+      "",
+      "Vocês conseguem entregar neste endereço? Podem confirmar também a disponibilidade dos produtos e o valor da entrega?",
+    ];
+  }
   return [
     "Olá! Quero fazer este pedido pelo site:",
     "",
