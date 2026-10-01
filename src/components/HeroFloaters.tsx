@@ -53,6 +53,18 @@ const floaters = [
     speed: 0.18,
     spin: -0.07,
   },
+  {
+    src: "/narguile-flutuante.webp",
+    w: 340,
+    h: 1000,
+    className:
+      "-right-1 top-[50%] w-24 opacity-70 sm:right-6 sm:top-[34%] sm:w-28 sm:opacity-90 lg:right-[1%] lg:top-[14%] lg:w-44 lg:opacity-100",
+    rotate: "6deg",
+    dur: "9s",
+    delay: "-2s",
+    speed: -0.35,
+    spin: 0.03,
+  },
 ];
 
 export function HeroFloaters() {
