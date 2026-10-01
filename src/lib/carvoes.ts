@@ -40,4 +40,12 @@ export const carvoes: Carvao[] = [
       { peso: "1 kg", preco: 33.99 },
     ],
   },
+  {
+    id: "unyt",
+    marca: "Unyt",
+    nome: "Carvão Unyt",
+    foto: "/carvoes/unyt.webp",
+    descricao: "Carvão de coco 100% natural para narguilé, em formato hexagonal.",
+    tamanhos: [{ peso: "1 kg", preco: 32.99 }],
+  },
 ];

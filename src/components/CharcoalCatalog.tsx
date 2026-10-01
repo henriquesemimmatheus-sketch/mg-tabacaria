@@ -69,7 +69,7 @@ export function CharcoalCatalog() {
                     {c.descricao && <p className="mt-2 max-w-md leading-relaxed text-ink-muted">{c.descricao}</p>}
 
                     <p className="mt-4 text-sm font-medium text-ink">Tamanho do pacote</p>
-                    <div className="mt-2 grid grid-cols-3 gap-2" role="group" aria-label={`Tamanho do ${c.nome}`}>
+                    <div className={`mt-2 grid gap-2 ${c.tamanhos.length === 1 ? "grid-cols-1 sm:max-w-xs" : c.tamanhos.length === 2 ? "grid-cols-2" : "grid-cols-3"}`} role="group" aria-label={`Tamanho do ${c.nome}`}>
                       {c.tamanhos.map((tam, k) => (
                         <button
                           key={tam.peso}
