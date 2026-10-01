@@ -64,20 +64,36 @@ export function Promotions() {
     );
   }
 
-  const arte = (p: Item, priority?: boolean) => {
+  // `fixa`: vários cartões lado a lado usam a MESMA proporção de imagem, pra tudo ficar alinhado.
+  const arte = (p: Item, priority?: boolean, fixa?: boolean) => {
     const { card } = p;
     return (
       <div className="relative">
-        <div className="overflow-hidden rounded-2xl border-[3px] border-gold bg-black shadow-[8px_8px_0_var(--color-gold)] sm:-rotate-1">
-          <Image
-            src={card.imagem}
-            alt={card.titulo}
-            width={card.largura}
-            height={card.altura}
-            priority={priority}
-            sizes="(min-width: 1024px) 416px, (min-width: 640px) 384px, 88vw"
-            className="h-auto w-full"
-          />
+        <div
+          className={`overflow-hidden rounded-2xl border-[3px] border-gold bg-black shadow-[8px_8px_0_var(--color-gold)] sm:-rotate-1 ${
+            fixa ? "relative aspect-[4/5]" : ""
+          }`}
+        >
+          {fixa ? (
+            <Image
+              src={card.imagem}
+              alt={card.titulo}
+              fill
+              priority={priority}
+              sizes="(min-width: 640px) 384px, 88vw"
+              className="object-contain"
+            />
+          ) : (
+            <Image
+              src={card.imagem}
+              alt={card.titulo}
+              width={card.largura}
+              height={card.altura}
+              priority={priority}
+              sizes="(min-width: 1024px) 416px, (min-width: 640px) 384px, 88vw"
+              className="h-auto w-full"
+            />
+          )}
         </div>
         <span
           aria-hidden="true"
@@ -141,13 +157,13 @@ export function Promotions() {
           <ul className="mt-14 flex snap-x snap-mandatory items-stretch gap-8 overflow-x-auto px-1 pb-8 pt-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {lista.map((p) => (
               <li key={p.id} className="flex w-[84%] shrink-0 snap-center flex-col sm:w-[24rem]">
-                {arte(p)}
-                <h3 className="mt-6 font-condensed text-3xl uppercase leading-tight tracking-tight text-ink">
+                {arte(p, false, true)}
+                <h3 className="mt-6 line-clamp-2 min-h-[2.5em] font-condensed text-3xl uppercase leading-tight tracking-tight text-ink">
                   {p.card.titulo}
                 </h3>
-                {validade(p.ate)}
+                <div className="min-h-9">{validade(p.ate)}</div>
                 <div className="mt-auto">
-                  {preco(p)}
+                  <div className="min-h-[5.25rem]">{preco(p)}</div>
                   {acao(p)}
                 </div>
               </li>

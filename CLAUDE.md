@@ -47,3 +47,10 @@ A loja já tem duas logos definidas (MG Bebidas e MG Tabacaria): fundo preto, le
 - Contato e horário: `src/lib/business.ts`.
 - Fotos de produto vêm recortadas (fundo transparente) em `public/whisky/`. Fotos de loja são preferíveis às de sites de terceiros por causa dos direitos de imagem.
 - Essências: `src/lib/essencias.ts` (118+ sabores, perfis, gelado, mistura) e fotos em `public/essencias/`. O preço (R$ 10 a R$ 18) vem da coluna `preco_interno` da planilha, confirmado pelo dono como valor de venda, e é exibido no site e no carrinho.
+
+## Padrão dos cards de promoção (obrigatório)
+
+Toda promoção nova segue o mesmo padrão. Só preencha os dados em `src/lib/promocoes.ts`; não crie layout diferente.
+- Caixa de imagem com a mesma proporção (4/5) quando há vários cards; o título reserva 2 linhas; a validade e o bloco de preço têm altura reservada.
+- O botão fica sempre na mesma linha, embaixo, com o mesmo estilo (dourado cheio, sombra dura). `acao: "whatsapp"` troca só o destino, nunca o visual.
+- Depois de publicar, medir no navegador (celular) que imagem, título, preço e botão estão na mesma posição entre os cards.
