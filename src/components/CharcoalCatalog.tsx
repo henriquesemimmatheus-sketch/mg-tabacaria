@@ -43,10 +43,10 @@ export function CharcoalCatalog() {
 
         <div className="mt-8 space-y-8 sm:mt-12 sm:space-y-12">
           {carvoes.map((c) => {
-            const i = escolhido[c.id] ?? 0;
-            const t = c.tamanhos[i];
-            const idCarrinho = `carvao-${c.id}-${t.peso.replace(/\s/g, "").toLowerCase()}`;
-            const qtd = items.find((x) => x.id === idCarrinho)?.qty ?? 0;
+            const i = escolhido[c.id]; // começa sem tamanho escolhido: o preço só aparece depois do toque
+            const t = i !== undefined ? c.tamanhos[i] : null;
+            const idCarrinho = t ? `carvao-${c.id}-${t.peso.replace(/\s/g, "").toLowerCase()}` : "";
+            const qtd = idCarrinho ? (items.find((x) => x.id === idCarrinho)?.qty ?? 0) : 0;
             return (
               <article key={c.id}>
                 <h3 className="border-b-2 border-gold pb-2 font-condensed text-5xl uppercase leading-none tracking-wide text-ink sm:text-6xl">
@@ -68,7 +68,7 @@ export function CharcoalCatalog() {
                     <h4 className="font-display text-2xl text-ink sm:text-3xl">{c.nome}</h4>
                     {c.descricao && <p className="mt-2 max-w-md leading-relaxed text-ink-muted">{c.descricao}</p>}
 
-                    <p className="mt-4 text-sm font-medium text-ink">Tamanho do pacote</p>
+                    <p className="mt-4 text-sm font-medium text-ink">Escolha o tamanho do pacote</p>
                     <div className="mt-2 grid grid-cols-3 gap-2" role="group" aria-label={`Tamanho do ${c.nome}`}>
                       {c.tamanhos.map((tam, k) => (
                         <button
@@ -80,17 +80,14 @@ export function CharcoalCatalog() {
                           }`}
                         >
                           {tam.peso}
-                          {tam.preco !== undefined && (
-                            <span className={`block text-xs font-normal ${k === i ? "text-ground/80" : "text-ink-muted"}`}>
-                              {formatBRL(tam.preco)}
-                            </span>
-                          )}
                         </button>
                       ))}
                     </div>
 
-                    <div className="mt-4 flex items-center justify-between gap-3 sm:mt-6 sm:justify-start sm:gap-8">
-                      {t.preco !== undefined ? (
+                    <div className="mt-4 flex min-h-14 items-center justify-between gap-3 sm:mt-6 sm:justify-start sm:gap-8">
+                      {t === null ? (
+                        <p className="text-sm text-ink-muted sm:text-base">Toque num tamanho para ver o preço.</p>
+                      ) : t.preco !== undefined ? (
                         <>
                           <p className="font-display text-3xl text-gold-bright sm:text-4xl">{formatBRL(t.preco)}</p>
                           <button

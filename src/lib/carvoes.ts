@@ -21,6 +21,7 @@ export const carvoes: Carvao[] = [
     id: "chacal",
     marca: "Chacal",
     nome: "Carvão Chacal",
+    foto: "/carvoes/chacal.webp",
     descricao: "Carvão de fibra de coco ecológico, em três tamanhos de pacote.",
     tamanhos: [
       { peso: "250 g", preco: 12.99 },
