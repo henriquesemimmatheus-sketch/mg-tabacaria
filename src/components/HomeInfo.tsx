@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "./Container";
 import { PinIcon, ClockIcon, WhatsAppIcon } from "./icons";
 import { business, whatsappLink } from "@/lib/business";
@@ -21,7 +22,17 @@ export function HomeInfo() {
         </div>
 
         <div id="localizacao" className="mt-8 grid scroll-mt-32 gap-4 sm:grid-cols-2">
-          <div className="rounded-2xl border border-line bg-surface p-5">
+          <div className="relative rounded-2xl border border-line bg-surface p-5">
+            <div className="pointer-events-none absolute -top-10 right-3 z-10 w-24 rotate-6 rounded-sm bg-white p-1 shadow-2xl sm:-top-14 sm:w-32">
+              <Image
+                src="/placa-narguileiros.webp"
+                alt="Placa de humor: atenção, área restrita, somente narguileiros"
+                width={600}
+                height={876}
+                sizes="128px"
+                className="h-auto w-full"
+              />
+            </div>
             <PinIcon className="h-6 w-6 text-gold-bright" />
             <h3 className="mt-3 font-display text-lg text-ink">Onde a gente tá</h3>
             <p className="mt-1 text-ink-muted">{business.address}</p>
