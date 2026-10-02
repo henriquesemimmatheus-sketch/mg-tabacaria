@@ -43,7 +43,7 @@ export function PoteCatalog({ topo }: { topo?: ReactNode }) {
                     className="object-contain drop-shadow-[0_8px_10px_rgba(0,0,0,0.5)]"
                   />
                   <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gold" />
-                  <span className="absolute right-2 top-3 rounded-full bg-ground/85 px-2 py-0.5 text-xs text-gold-bright">Pote</span>
+                  <span className="absolute right-2 top-3 rounded-full bg-ground/85 px-2 py-0.5 text-xs text-gold-bright">{p.tamanho ? `Pote ${p.tamanho}` : "Pote"}</span>
                 </div>
                 <div className="flex flex-1 flex-col p-3 sm:p-4">
                   <p className="text-xs text-gold">{p.marca}</p>
