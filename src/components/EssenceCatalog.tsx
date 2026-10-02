@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Container } from "./Container";
 import { CloseIcon, WhatsAppIcon } from "./icons";
 import { essencias, familias, marcas, type Essencia, type Familia } from "@/lib/essencias";
@@ -129,7 +129,7 @@ function embaralhar<T>(lista: T[], semente: number) {
   return r;
 }
 
-export function EssenceCatalog() {
+export function EssenceCatalog({ topo }: { topo?: ReactNode } = {}) {
   const [f, setF] = useState<Filtros>(VAZIO);
   const [ordem, setOrdem] = useState<Ordem>("az");
   const [vista, setVista] = useState<Vista>("grade");
@@ -512,6 +512,7 @@ export function EssenceCatalog() {
   return (
     <section id="essencias" ref={secao} className="relative border-b border-line py-12 sm:py-24">
       <Container>
+        {topo}
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
           <div>
             <span className="font-sans text-xs uppercase tracking-[0.2em] text-gold">Tabacaria</span>

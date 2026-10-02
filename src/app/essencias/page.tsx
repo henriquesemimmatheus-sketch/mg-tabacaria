@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { EssenceCatalog } from "@/components/EssenceCatalog";
+import { EssenciasTabs } from "@/components/EssenciasTabs";
 
 export const metadata: Metadata = {
   title: "Essências | MG Bebidas & Tabacaria",
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function EssenciasPage() {
-  return <EssenceCatalog />;
+  return <EssenciasTabs />;
 }
