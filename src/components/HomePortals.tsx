@@ -31,8 +31,7 @@ const portais: Portal[] = [
     legenda: "Chacal, Rari e Unyt",
     fundo: "radial-gradient(80% 80% at 50% 30%, #6e3b14, #191412 80%)",
     recortes: [
-      { src: "/carvoes/chacal.webp", className: "left-[6%] top-[12%] w-[62%] -rotate-3" },
-      { src: "/carvoes/rari.webp", className: "right-[4%] top-[28%] w-[30%] rotate-6 z-10" },
+      { src: "/carvoes-capa.webp", className: "left-[9%] top-[4%] w-[82%] lg:left-1/2 lg:h-[94%] lg:w-auto lg:-translate-x-1/2", w: 900, h: 862 },
     ],
   },
   {
