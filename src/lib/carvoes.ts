@@ -29,7 +29,7 @@ export const carvoes: Carvao[] = [
     tamanhos: [
       { peso: "250 g", preco: 12.99 },
       { peso: "500 g", preco: 21.99 },
-      { peso: "1 kg", preco: 31.99 },
+      { peso: "1 kg", preco: 39.99 },
     ],
   },
   {
