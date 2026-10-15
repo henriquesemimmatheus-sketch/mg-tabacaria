@@ -15,20 +15,24 @@ export function ItemCatalog({
   descricao,
   itens,
   assunto,
+  secundario = false,
 }: {
   eyebrow: string;
   titulo: string;
   descricao: string;
   itens: Acessorio[];
   assunto: string;
+  /** Seção dentro de outra página: usa h2 e menos espaço no topo. */
+  secundario?: boolean;
 }) {
+  const Titulo = secundario ? "h2" : "h1";
   const { add } = useCart();
 
   return (
-    <section className="py-10 sm:py-16">
+    <section className={secundario ? "pb-10 sm:pb-16" : "py-10 sm:py-16"}>
       <Container>
         <span className="font-sans text-xs uppercase tracking-[0.2em] text-gold">{eyebrow}</span>
-        <h1 className="mt-1 font-condensed text-5xl uppercase leading-none tracking-tight text-ink sm:text-6xl">{titulo}</h1>
+        <Titulo className="mt-1 font-condensed text-5xl uppercase leading-none tracking-tight text-ink sm:text-6xl">{titulo}</Titulo>
         <p className="mt-3 max-w-xl text-sm text-ink-muted">{descricao}</p>
 
         <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
