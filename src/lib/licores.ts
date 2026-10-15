@@ -20,6 +20,11 @@ const lista: Acessorio[] = [
   { id: "eternity-maca-verde", nome: "Eternity Gin Maçã Verde", descricao: "Dry gin sabor maçã verde. 900ml.", foto: "/licores/eternity-maca-verde.webp", preco: 25 },
   { id: "sheridans", nome: "Sheridan's", descricao: "Licor de café em camadas, original irlandês. 700ml.", foto: "/licores/sheridans.webp", preco: 159.99 },
   { id: "beefeater-pink", nome: "Beefeater Pink Strawberry", descricao: "Gin destilado com toque de morango. 700ml.", foto: "/licores/beefeater-pink.webp", preco: 119.99 },
+  { id: "licor-43", nome: "Licor 43 Original", descricao: "Licor espanhol de cítricos e botânicos. 700ml.", foto: "/licores/licor-43.webp", preco: 159.99 },
+  { id: "licor-43-chocolate", nome: "Licor 43 Chocolate", descricao: "Licor 43 original com cacau selecionado. 700ml.", foto: "/licores/licor-43-chocolate.webp", preco: 159.99 },
+  { id: "reservado-cabernet", nome: "Reservado Cabernet Sauvignon", descricao: "Vinho tinto chileno, Concha y Toro.", foto: "/licores/reservado-cabernet.webp", preco: 45 },
+  { id: "reservado-malbec", nome: "Reservado Malbec", descricao: "Vinho tinto chileno, Concha y Toro.", foto: "/licores/reservado-malbec.webp", preco: 45 },
+  { id: "reservado-merlot", nome: "Reservado Merlot", descricao: "Vinho tinto chileno, Concha y Toro.", foto: "/licores/reservado-merlot.webp", preco: 45 },
 ];
 
 // Exibição: itens em promoção (com precoAntigo) primeiro; dentro de cada grupo, do mais caro para o mais barato.
