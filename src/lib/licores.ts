@@ -1,7 +1,7 @@
 import type { Acessorio } from "./acessorios";
 
 // Licores e destilados com foto real da loja. Preço = botão de carrinho.
-export const licores: Acessorio[] = [
+const lista: Acessorio[] = [
   { id: "dreher", nome: "Dreher", descricao: "Tradição centenária, desde 1910. 700ml.", foto: "/licores/dreher.webp", preco: 27.99 },
   { id: "bob-pinga", nome: "Bob Pinga", descricao: "Sabor agave, rum e ervas. 975ml.", foto: "/licores/bob-pinga.webp", preco: 29.99 },
   { id: "baianinha-maracuja", nome: "Baianinha Maracujá", descricao: "Coquetel alcoólico, servir gelado. 900ml.", foto: "/licores/baianinha-maracuja.webp", preco: 20.99 },
@@ -12,3 +12,6 @@ export const licores: Acessorio[] = [
   { id: "jagermeister", nome: "Jägermeister", descricao: "Licor de ervas com 56 botânicos. 1L.", foto: "/licores/jagermeister.webp", preco: 159.99 },
   { id: "ballena", nome: "Ballena Morango", descricao: "Cream tequila de morango, beba bem gelado. 750ml.", foto: "/licores/ballena.webp", preco: 109.9, precoAntigo: 149.99 },
 ];
+
+// Exibição do mais caro para o mais barato (pelo preço de venda).
+export const licores: Acessorio[] = [...lista].sort((a, b) => (b.preco ?? 0) - (a.preco ?? 0));
