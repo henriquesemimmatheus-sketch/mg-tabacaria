@@ -13,5 +13,7 @@ const lista: Acessorio[] = [
   { id: "ballena", nome: "Ballena Morango", descricao: "Cream tequila de morango, beba bem gelado. 750ml.", foto: "/licores/ballena.webp", preco: 109.9, precoAntigo: 149.99 },
 ];
 
-// Exibição do mais caro para o mais barato (pelo preço de venda).
-export const licores: Acessorio[] = [...lista].sort((a, b) => (b.preco ?? 0) - (a.preco ?? 0));
+// Exibição: itens em promoção (com precoAntigo) primeiro; dentro de cada grupo, do mais caro para o mais barato.
+export const licores: Acessorio[] = [...lista].sort(
+  (a, b) => Number(b.precoAntigo !== undefined) - Number(a.precoAntigo !== undefined) || (b.preco ?? 0) - (a.preco ?? 0),
+);
