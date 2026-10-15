@@ -31,6 +31,21 @@ export type Promocao = {
 // Lista vazia = a barra do topo e a seção de promoções não aparecem.
 export const promocoes: Promocao[] = [
   {
+    id: "ballena-super-promocao",
+    texto: "Ballena Cream Tequila 750ml por R$ 109,90. Acima de 3 unidades, R$ 99,90 cada",
+    link: "/#promocoes",
+    ate: "2026-10-18",
+    card: {
+      titulo: "Ballena Cream Tequila 750ml",
+      descricao: "Super promoção da semana, de 13/10 a 18/10: de R$ 159,90 por R$ 109,90. Acima de 3 unidades, R$ 99,90 cada. Enquanto durar o estoque.",
+      imagem: "/promo-ballena.webp",
+      largura: 900,
+      altura: 1350,
+      preco: 109.9,
+      precoAntigo: 159.9,
+    },
+  },
+  {
     id: "hoje-dois-litrao-rosh",
     texto: "Dois litrão + um rosh por R$ 50,00, todos os dias. Para consumir no local",
     link: "/#promocoes",
