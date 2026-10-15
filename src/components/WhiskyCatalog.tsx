@@ -162,7 +162,7 @@ export function WhiskyCatalog() {
             {whisky.price !== undefined ? (
               <>
                 <div className="order-3 mt-3 flex items-center justify-between gap-3 lg:order-5 lg:mt-6 lg:block">
-                  <p className="flex flex-wrap items-baseline gap-x-3">
+                  <p className="flex flex-col items-start">
                     {whisky.precoAntigo !== undefined && (
                       <span className="text-lg text-ink-muted line-through decoration-2">{formatBRL(whisky.precoAntigo)}</span>
                     )}

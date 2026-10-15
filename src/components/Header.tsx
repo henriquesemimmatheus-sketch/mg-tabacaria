@@ -32,7 +32,7 @@ export function Header() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-ground/95 backdrop-blur">
+    <header className="relative border-b border-line bg-ground/95 backdrop-blur">
       <Container className="flex items-center justify-between gap-3 py-2 sm:py-3">
         <Link href="/" className="font-display text-base tracking-wide text-ink sm:text-xl">
           <span className="text-gold-bright">MG</span> Bebidas & Tabacaria

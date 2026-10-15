@@ -87,7 +87,7 @@ export function HeroFloaters() {
   }, []);
 
   return (
-    <div ref={ref} className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div ref={ref} className="pointer-events-none absolute inset-0 overflow-hidden lg:hidden" aria-hidden="true">
       {floaters.map((f) => (
         <div
           key={f.src}

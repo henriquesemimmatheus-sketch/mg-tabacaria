@@ -55,7 +55,7 @@ export function PromoStrip() {
                   <span className="min-w-0 flex-1">
                     <span className="block text-sm font-medium leading-tight text-ink">{card.titulo}</span>
                     {card.preco !== undefined && (
-                      <span className="mt-0.5 flex flex-wrap items-baseline gap-x-2">
+                      <span className="mt-0.5 flex flex-col items-start">
                         {card.precoAntigo !== undefined && (
                           <span className="text-sm text-ink-muted line-through decoration-2">{formatBRL(card.precoAntigo)}</span>
                         )}

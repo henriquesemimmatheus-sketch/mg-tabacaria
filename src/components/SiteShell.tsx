@@ -12,8 +12,10 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <AgeGate />
-      <PromoBar />
-      <Header />
+      <div className="sticky top-0 z-40">
+        <PromoBar />
+        <Header />
+      </div>
       <BackBar />
       <main>{children}</main>
       <Footer />

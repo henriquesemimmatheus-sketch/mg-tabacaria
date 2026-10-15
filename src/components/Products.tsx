@@ -28,29 +28,6 @@ const beverages: Category[] = [
   },
 ];
 
-function Polaroid({
-  src,
-  alt,
-  className,
-  tape,
-}: {
-  src: string;
-  alt: string;
-  className: string;
-  tape: string;
-}) {
-  return (
-    <div className={`pointer-events-none absolute ${className}`}>
-      <div className="relative w-20 bg-[#f4efe4] p-1.5 pb-5 shadow-2xl sm:w-24 sm:p-2 sm:pb-6" style={{ rotate: tape }}>
-        <div className="absolute -top-2 left-1/2 h-5 w-10 -translate-x-1/2 -rotate-2 bg-[rgba(201,162,75,0.35)] backdrop-blur-[1px]" />
-        <div className="relative aspect-square w-full overflow-hidden">
-          <Image src={src} alt={alt} fill sizes="96px" className="object-cover" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Block({
   id,
   logo,
@@ -134,18 +111,6 @@ export function Beverages() {
       items={beverages}
       message="Gostaria de saber mais sobre"
     >
-      <Polaroid
-        src="/heineken.jpg"
-        alt="Heineken gelada"
-        tape="6deg"
-        className="right-2 top-0 z-10 hidden sm:block lg:right-6"
-      />
-      <Polaroid
-        src="/jack-redbull.jpg"
-        alt="Jack Daniel's com Red Bull"
-        tape="-8deg"
-        className="right-24 top-0 z-10 hidden lg:block"
-      />
     </Block>
   );
 }

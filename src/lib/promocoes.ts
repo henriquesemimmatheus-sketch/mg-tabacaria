@@ -35,11 +35,10 @@ export const promocoes: Promocao[] = [
     texto: "Jack Daniel's por R$ 129,99 a garrafa (menos o Blackberry)",
     link: "/bebidas",
     card: {
-      titulo: "Jack Daniel's a R$ 129,99",
+      titulo: "Jack Daniel's (menos Blackberry)",
       descricao: "Todos os Jack Daniel's da casa, menos o Blackberry, por R$ 129,99 a garrafa.",
       preco: 129.99,
       precoAntigo: 159.9,
-      acao: "whatsapp",
     },
   },
   {
@@ -82,6 +81,7 @@ export const promocoes: Promocao[] = [
       largura: 663,
       altura: 726,
       preco: 37.99,
+      precoAntigo: 41.99,
     },
   },
 ];
