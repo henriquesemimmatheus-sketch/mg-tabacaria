@@ -18,6 +18,8 @@ const lista: Acessorio[] = [
   { id: "eternity-dark-berry", nome: "Eternity Gin Royale Dark Berry", descricao: "Dry gin royale com frutas vermelhas escuras. 900ml.", foto: "/licores/eternity-dark-berry.webp", preco: 25 },
   { id: "eternity-tropical", nome: "Eternity Gin Tropical Fruits", descricao: "Dry gin sabor frutas tropicais. 900ml.", foto: "/licores/eternity-tropical.webp", preco: 25 },
   { id: "eternity-maca-verde", nome: "Eternity Gin Maçã Verde", descricao: "Dry gin sabor maçã verde. 900ml.", foto: "/licores/eternity-maca-verde.webp", preco: 25 },
+  { id: "sheridans", nome: "Sheridan's", descricao: "Licor de café em camadas, original irlandês. 700ml.", foto: "/licores/sheridans.webp", preco: 159.99 },
+  { id: "beefeater-pink", nome: "Beefeater Pink Strawberry", descricao: "Gin destilado com toque de morango. 700ml.", foto: "/licores/beefeater-pink.webp", preco: 119.99 },
 ];
 
 // Exibição: itens em promoção (com precoAntigo) primeiro; dentro de cada grupo, do mais caro para o mais barato.
