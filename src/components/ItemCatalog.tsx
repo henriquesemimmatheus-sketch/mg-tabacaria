@@ -40,7 +40,7 @@ export function ItemCatalog({
             <li key={a.id} className="flex flex-col overflow-hidden rounded-2xl border border-line bg-surface">
               <div className="relative flex aspect-square items-center justify-center border-b border-line bg-[radial-gradient(circle_at_50%_40%,#2b2620,#171412)]">
                 {a.foto ? (
-                  <Image src={a.foto} alt="" fill sizes="(min-width: 1024px) 280px, 45vw" className="object-cover" />
+                  <Image src={a.foto} alt="" fill sizes="(min-width: 1024px) 280px, 45vw" className={a.recorte ? "object-contain p-3" : "object-cover"} />
                 ) : (
                   <span className="px-3 text-center font-condensed text-2xl uppercase leading-none tracking-wide text-gold-bright">
                     {a.nome}

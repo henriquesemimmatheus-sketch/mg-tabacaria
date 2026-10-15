@@ -29,6 +29,6 @@ const lista: Acessorio[] = [
 ];
 
 // Exibição: itens em promoção (com precoAntigo) primeiro; dentro de cada grupo, do mais caro para o mais barato.
-export const licores: Acessorio[] = [...lista].sort(
+export const licores: Acessorio[] = [...lista].map((l) => ({ ...l, recorte: true })).sort(
   (a, b) => Number(b.precoAntigo !== undefined) - Number(a.precoAntigo !== undefined) || (b.preco ?? 0) - (a.preco ?? 0),
 );

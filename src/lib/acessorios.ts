@@ -4,6 +4,8 @@ export type Acessorio = {
   descricao: string;
   /** Foto em /public. Sem foto, o card mostra o nome em destaque. */
   foto?: string;
+  /** Foto recortada (fundo transparente): aparece inteira, sem cortar nas bordas. */
+  recorte?: boolean;
   /** Preço em reais. Sem preço, o card leva ao WhatsApp para consultar. */
   preco?: number;
   /** Em promoção: aparece riscado ao lado do preço. */
@@ -95,7 +97,7 @@ export const acessorios: Acessorio[] = [
     preco: 35,
   },
   { id: "fornilhos", nome: "Outros fornilhos", descricao: "Outros modelos de fornilho e rosh. Consulte as opções." },
-  { id: "pratos", nome: "Pratos e bases", descricao: "Pratos e bases para apoiar o fornilho." },
+  { id: "pratos", nome: "Pratos para narguilé", descricao: "Vários modelos e cores de pratos, como o Sultan Curvyzz da foto. Consulte as opções disponíveis.", foto: "/acessorios/prato-sultan-curvyzz.webp", recorte: true },
   { id: "pincas", nome: "Pinças", descricao: "Pinças para manusear o carvão." },
   { id: "isqueiros", nome: "Isqueiros", descricao: "Isqueiros de vários modelos." },
   { id: "cinzeiros", nome: "Cinzeiros", descricao: "Cinzeiros para casa ou para a mesa." },
