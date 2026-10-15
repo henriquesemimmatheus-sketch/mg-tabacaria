@@ -6,6 +6,8 @@ export type Acessorio = {
   foto?: string;
   /** Preço em reais. Sem preço, o card leva ao WhatsApp para consultar. */
   preco?: number;
+  /** Em promoção: aparece riscado ao lado do preço. */
+  precoAntigo?: number;
 };
 
 // Lista provisória: só categorias da vitrine aprovada (acessórios de narguilé, isqueiros e cinzeiros).

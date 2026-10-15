@@ -53,7 +53,12 @@ export function ItemCatalog({
                 <div className="mt-auto pt-3">
                   {a.preco !== undefined ? (
                     <>
-                      <p className="text-sm font-medium text-gold-bright">{formatBRL(a.preco)}</p>
+                      <p className="flex flex-wrap items-baseline gap-x-2 text-sm font-medium text-gold-bright">
+                        {a.precoAntigo !== undefined && (
+                          <span className="text-xs font-normal text-ink-muted line-through decoration-2">{formatBRL(a.precoAntigo)}</span>
+                        )}
+                        {formatBRL(a.preco)}
+                      </p>
                       <button
                         onClick={() => add({ id: a.id, name: a.nome, price: a.preco!, image: a.foto ?? "/logo-mg-tabacaria.webp" })}
                         className="mt-2 inline-flex min-h-11 w-full items-center justify-center rounded-full bg-gold text-sm font-semibold text-ground hover:bg-gold-bright"

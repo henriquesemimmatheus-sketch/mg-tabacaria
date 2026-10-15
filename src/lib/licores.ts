@@ -10,5 +10,5 @@ export const licores: Acessorio[] = [
   { id: "busca-brisa", nome: "Busca Brisa", descricao: "Psico Spirit com rum, cogumelos, agave e botânicos. 1L.", foto: "/licores/busca-brisa.webp", preco: 45 },
   { id: "campari", nome: "Campari", descricao: "Bitter italiano de Milão. 748ml.", foto: "/licores/campari.webp", preco: 59.99 },
   { id: "jagermeister", nome: "Jägermeister", descricao: "Licor de ervas com 56 botânicos. 1L.", foto: "/licores/jagermeister.webp", preco: 159.99 },
-  { id: "ballena", nome: "Ballena Morango", descricao: "Cream tequila de morango, beba bem gelado. 750ml.", foto: "/licores/ballena.webp", preco: 149.99 },
+  { id: "ballena", nome: "Ballena Morango", descricao: "Cream tequila de morango, beba bem gelado. 750ml.", foto: "/licores/ballena.webp", preco: 109.9, precoAntigo: 149.99 },
 ];
