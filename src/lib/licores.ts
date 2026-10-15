@@ -11,6 +11,13 @@ const lista: Acessorio[] = [
   { id: "campari", nome: "Campari", descricao: "Bitter italiano de Milão. 748ml.", foto: "/licores/campari.webp", preco: 59.99 },
   { id: "jagermeister", nome: "Jägermeister", descricao: "Licor de ervas com 56 botânicos. 1L.", foto: "/licores/jagermeister.webp", preco: 159.99 },
   { id: "ballena", nome: "Ballena Morango", descricao: "Cream tequila de morango, beba bem gelado. 750ml.", foto: "/licores/ballena.webp", preco: 109.9, precoAntigo: 149.99 },
+  { id: "smirnoff", nome: "Smirnoff Nº 21", descricao: "Vodka número 1 do mundo, dez vezes filtrada.", foto: "/licores/smirnoff.webp", preco: 45 },
+  { id: "jurupinga", nome: "Jurupinga Dinalle", descricao: "Vinho branco de mesa suave. Servir gelado. 975ml.", foto: "/licores/jurupinga.webp", preco: 35 },
+  { id: "eternity-watermelon", nome: "Eternity Gin Melancia", descricao: "Dry gin sabor watermelon. 900ml.", foto: "/licores/eternity-watermelon.webp", preco: 25 },
+  { id: "eternity-strawberry", nome: "Eternity Gin Morango", descricao: "Dry gin sabor strawberry. 900ml.", foto: "/licores/eternity-strawberry.webp", preco: 25 },
+  { id: "eternity-dark-berry", nome: "Eternity Gin Royale Dark Berry", descricao: "Dry gin royale com frutas vermelhas escuras. 900ml.", foto: "/licores/eternity-dark-berry.webp", preco: 25 },
+  { id: "eternity-tropical", nome: "Eternity Gin Tropical Fruits", descricao: "Dry gin sabor frutas tropicais. 900ml.", foto: "/licores/eternity-tropical.webp", preco: 25 },
+  { id: "eternity-maca-verde", nome: "Eternity Gin Maçã Verde", descricao: "Dry gin sabor maçã verde. 900ml.", foto: "/licores/eternity-maca-verde.webp", preco: 25 },
 ];
 
 // Exibição: itens em promoção (com precoAntigo) primeiro; dentro de cada grupo, do mais caro para o mais barato.
