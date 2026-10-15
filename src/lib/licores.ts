@@ -25,6 +25,7 @@ const lista: Acessorio[] = [
   { id: "reservado-cabernet", nome: "Reservado Cabernet Sauvignon", descricao: "Vinho tinto chileno, Concha y Toro.", foto: "/licores/reservado-cabernet.webp", preco: 45 },
   { id: "reservado-malbec", nome: "Reservado Malbec", descricao: "Vinho tinto chileno, Concha y Toro.", foto: "/licores/reservado-malbec.webp", preco: 45 },
   { id: "reservado-merlot", nome: "Reservado Merlot", descricao: "Vinho tinto chileno, Concha y Toro.", foto: "/licores/reservado-merlot.webp", preco: 45 },
+  { id: "beefeater-dry", nome: "Beefeater London Dry", descricao: "O gin mais premiado do mundo, destilado em Londres. 700ml.", foto: "/licores/beefeater-dry.webp", preco: 119.99 },
 ];
 
 // Exibição: itens em promoção (com precoAntigo) primeiro; dentro de cada grupo, do mais caro para o mais barato.
