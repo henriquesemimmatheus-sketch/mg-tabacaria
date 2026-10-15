@@ -5,6 +5,7 @@ export type Whisky = {
   origin: string;
   age?: string;
   price?: number; // em reais; sem preço, o card só convida a consultar
+  precoAntigo?: number; // em promoção: aparece riscado ao lado do preço
   notes: string[];
   blurb: string;
   image: string;
@@ -18,7 +19,8 @@ export const whiskies: Whisky[] = [
     name: "Jack Daniel's Old No. 7",
     kind: "Tennessee Whiskey",
     origin: "Estados Unidos",
-    price: 159.9,
+    price: 129.99,
+    precoAntigo: 159.9,
     notes: ["Baunilha", "Caramelo", "Toque defumado"],
     blurb: "Filtrado em carvão de bordo antes de envelhecer. O clássico pra tomar puro, com gelo ou com cola.",
     image: "/whisky/jack7.webp",
@@ -29,7 +31,8 @@ export const whiskies: Whisky[] = [
     name: "Jack Daniel's Honey",
     kind: "Whiskey com mel",
     origin: "Estados Unidos",
-    price: 159.9,
+    price: 129.99,
+    precoAntigo: 159.9,
     notes: ["Mel", "Baunilha", "Suave"],
     blurb: "O Tennessee Whiskey com mel. Doce na medida, bom pra quem tá começando no whisky.",
     image: "/whisky/honey.webp",
@@ -40,7 +43,8 @@ export const whiskies: Whisky[] = [
     name: "Jack Daniel's Fire",
     kind: "Whiskey com canela",
     origin: "Estados Unidos",
-    price: 159.9,
+    price: 129.99,
+    precoAntigo: 159.9,
     notes: ["Canela", "Calor", "Doce picante"],
     blurb: "Tennessee Whiskey com licor de canela. Esquenta a garganta e pede uma dose gelada.",
     image: "/whisky/fire.webp",
@@ -62,7 +66,8 @@ export const whiskies: Whisky[] = [
     name: "Jack Daniel's Maçã Verde",
     kind: "Whiskey com maçã",
     origin: "Estados Unidos",
-    price: 159.9,
+    price: 129.99,
+    precoAntigo: 159.9,
     notes: ["Maçã verde", "Fresco", "Levemente ácido"],
     blurb: "Tennessee Whiskey com licor de maçã verde. Refrescante, combina com gelo e limão.",
     image: "/whisky/apple.webp",

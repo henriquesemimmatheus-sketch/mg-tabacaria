@@ -26,7 +26,7 @@ export function PromoStrip() {
 
   function adicionar(p: Item) {
     if (p.card.preco === undefined) return;
-    add({ id: `promo-${p.id}`, name: p.card.titulo, price: p.card.preco, image: p.card.imagem });
+    add({ id: `promo-${p.id}`, name: p.card.titulo, price: p.card.preco, image: p.card.imagem ?? "/logo-mg-bebidas.webp" });
     setAdicionado(p.id);
     clearTimeout(timer.current);
     timer.current = setTimeout(() => setAdicionado(null), 1600);
@@ -46,13 +46,20 @@ export function PromoStrip() {
               return (
                 <li key={p.id} className="flex items-center gap-3 p-3">
                   <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-black">
-                    <Image src={card.imagem} alt="" fill sizes="64px" className="object-cover" />
+                    {card.imagem ? (
+                      <Image src={card.imagem} alt="" fill sizes="64px" className="object-cover" />
+                    ) : (
+                      <Image src="/logo-mg-bebidas.webp" alt="" fill sizes="64px" className="object-contain p-1.5" />
+                    )}
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-sm font-medium leading-tight text-ink">{card.titulo}</span>
                     {card.preco !== undefined && (
-                      <span className="mt-0.5 block font-condensed text-2xl leading-none text-gold-bright">
-                        {formatBRL(card.preco)}
+                      <span className="mt-0.5 flex flex-wrap items-baseline gap-x-2">
+                        {card.precoAntigo !== undefined && (
+                          <span className="text-sm text-ink-muted line-through decoration-2">{formatBRL(card.precoAntigo)}</span>
+                        )}
+                        <span className="font-condensed text-2xl leading-none text-gold-bright">{formatBRL(card.preco)}</span>
                       </span>
                     )}
                   </span>

@@ -162,7 +162,12 @@ export function WhiskyCatalog() {
             {whisky.price !== undefined ? (
               <>
                 <div className="order-3 mt-3 flex items-center justify-between gap-3 lg:order-5 lg:mt-6 lg:block">
-                  <p className="font-display text-3xl text-gold-bright">{formatBRL(whisky.price)}</p>
+                  <p className="flex flex-wrap items-baseline gap-x-3">
+                    {whisky.precoAntigo !== undefined && (
+                      <span className="text-lg text-ink-muted line-through decoration-2">{formatBRL(whisky.precoAntigo)}</span>
+                    )}
+                    <span className="font-display text-3xl text-gold-bright">{formatBRL(whisky.price)}</span>
+                  </p>
                   <button
                     onClick={addToCart}
                     className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-gold px-5 text-base font-medium text-ground transition-colors hover:bg-gold-bright lg:mt-4 lg:px-8"

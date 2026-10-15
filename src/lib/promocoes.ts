@@ -15,11 +15,11 @@ export type Promocao = {
   card?: {
     titulo: string;
     descricao?: string;
-    /** Arte da promoção, em /public. */
-    imagem: string;
+    /** Arte da promoção, em /public. Sem arte, o card mostra a logo da MG Bebidas no lugar. */
+    imagem?: string;
     /** Proporção da arte, pra reservar o espaço antes de carregar. */
-    largura: number;
-    altura: number;
+    largura?: number;
+    altura?: number;
     /** Preço promocional em reais. Sem preço, o card só mostra o botão do WhatsApp. */
     preco?: number;
     precoAntigo?: number;
@@ -30,6 +30,18 @@ export type Promocao = {
 
 // Lista vazia = a barra do topo e a seção de promoções não aparecem.
 export const promocoes: Promocao[] = [
+  {
+    id: "jack-daniels-129",
+    texto: "Jack Daniel's por R$ 129,99 a garrafa (menos o Blackberry)",
+    link: "/bebidas",
+    card: {
+      titulo: "Jack Daniel's a R$ 129,99",
+      descricao: "Todos os Jack Daniel's da casa, menos o Blackberry, por R$ 129,99 a garrafa.",
+      preco: 129.99,
+      precoAntigo: 159.9,
+      acao: "whatsapp",
+    },
+  },
   {
     id: "ballena-super-promocao",
     texto: "Ballena Cream Tequila 750ml por R$ 109,90. Acima de 3 unidades, R$ 99,90 cada",
