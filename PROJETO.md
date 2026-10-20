@@ -1,46 +1,47 @@
-# MG Bebidas & Tabacaria — Site institucional
+# MG Bebidas & Tabacaria: site
 
-## Sobre o negócio
+Atualizado em 20/10/2026. Fonte viva do projeto; regras de trabalho e de conformidade estão em `CLAUDE.md` e `DESIGN.md`.
+
+## Negócio
 - Nome: MG Bebidas & Tabacaria
-- Ramo: narguilé, essências/carvões, destilados selecionados, kits de presente
-- Localização: Av. Gralha Azul, 680 – Guarujá, Cascavel - PR
+- Ramo: essências e carvões de narguilé, acessórios, bebidas (whisky, licores, cerveja), kits de presente
+- Endereço: Av. Gralha Azul, 680, Guarujá, Cascavel - PR
 - Horário: todos os dias, 14h às 01h
-- WhatsApp: (45) 9133-7191
+- WhatsApp: (45) 99133-7191
 - Instagram: @mgtabacaria1
-- Restrição: venda proibida para menores de 18 anos
+- Venda proibida para menores de 18 anos
+- Dados de contato e horário: `src/lib/business.ts` (única fonte; o site e o SEO leem dali)
 
-## Stack técnica
-- Next.js 16 (App Router, Turbopack)
-- TypeScript + Tailwind CSS
-- Sem banco de dados — site institucional estático, sem carrinho/checkout
-- Contato/pedido feito via link direto pro WhatsApp (wa.me)
+## Endereços e publicação
+- Site: https://www.mgtabacaria.com (a versão sem `www` redireciona para ela)
+- Repositório: https://github.com/henriquesemimmatheus-sketch/mg-tabacaria, branch `main`
+- Hospedagem: Vercel, ligada ao GitHub. Todo push na `main` publica sozinho
+- Identidade git local: "MG Tabacaria" / Mgtabacaria1@gmail.com (não é a conta pessoal do Matheus)
+- A branch `reorganizacao-home` já foi mesclada na `main`; pode ser apagada
+- Registro do domínio: conta do dono (não verificado aqui)
 
-## Estrutura do site (src/components)
-- `AgeGate.tsx` — modal de confirmação de maioridade (18+) antes de mostrar o site
-- `Header.tsx` — menu com Produtos / Sobre / Localização + botão WhatsApp
-- `Hero.tsx` — título principal ("Tudo pronto pra iniciar o fim de semana"), CTA de WhatsApp e "Ver produtos", foto de narguilé em moldura circular, e um polaroid decorativo (cliente com Jack Daniel's) sobreposto ao círculo
-- `Differentials.tsx` — seção "Por que a MG" com diferenciais da loja
-- `Products.tsx` — catálogo em cards: Narguilés e acessórios / Essências e carvões / Destilados selecionados / Kits para presentear / E mais — cada card manda pro WhatsApp com mensagem pré-preenchida
-- `About.tsx` — seção "Sobre a loja" ("O point de quem sabe curtir o fim de semana"), com foto de garrafas Antarctica em moldura circular
-- `Location.tsx` — seção "Onde a gente tá" com cards de Endereço e Horário; tem um polaroid (Woody segurando narguilé) sobreposto ao card de Endereço, estilo "foto colada com fita"
-- `Footer.tsx` — rodapé com aviso legal e redes sociais
-- `WhatsAppFab.tsx` — botão flutuante de WhatsApp
+## Stack
+- Next.js 16 (App Router), React 19, TypeScript, Tailwind 4
+- Sem banco de dados e sem pagamento no site. O pedido é montado no carrinho e enviado pelo WhatsApp; nada é guardado
 
-## Estilo visual
-- Tema escuro, dourado (`gold` / `gold-bright`) como cor de destaque
-- Fonte serifada (display) pros títulos, sans nos textos
-- Fotos reais tratadas em molduras circulares com vinheta escura nas bordas, e algumas em estilo "polaroid" (fundo bege, fita adesiva dourada, leve rotação) pra dar um toque descontraído
+## Páginas (`src/app`)
+- `/` home: Hero, faixa de promoções, portais das categorias, informações (sobre e localização), vitrine
+- `/essencias` (118+ sabores, filtros por perfil, marca e gelado), `/carvoes`, `/bebidas`, `/acessorios` (Tabacaria), `/presentes`
+- Estrutura comum em `SiteShell`: portão 18+, faixa de promoções, menu, carrinho e botão de WhatsApp
 
-## Imagens usadas (em /public)
-- `narguile-hero.jpg` — narguilé montado (Hero)
-- `bebida-icon.jpg` — garrafas Antarctica (About)
-- `woody-jack.jpg` — Woody com Jack Daniel's, P&B (Hero, polaroid)
-- `woody-narguile.jpg` — Woody com narguilé (Location, polaroid)
+## Dados
+- `essencias.ts`, `carvoes.ts`, `potes.ts`, `acessorios.ts`, `presentes.ts`, `whiskies.ts`, `licores.ts`, `promocoes.ts`
+- Fotos de produto em `public/` (essencias, carvoes, acessorios, licores, whisky), recortadas com fundo transparente
+- Padrão obrigatório dos cards de promoção: ver `CLAUDE.md`
 
-## Deploy
-- Repositório: https://github.com/henriquesemimmatheus-sketch/mg-tabacaria
-- Hospedagem: Vercel (conectada ao GitHub — todo push pra `main` atualiza o site automaticamente)
-- Domínio: em processo de compra/configuração
+## Visual
+- Preto, prata e dourado, como nas logos (`public/logo-mg-bebidas.webp`, `public/logo-mg-tabacaria.webp`)
+- Fontes: Cinzel (títulos), Jost (texto), Anton (destaques)
 
-## Como pedir alterações
-Qualquer ajuste de texto, imagem, cor ou posicionamento pode ser pedido em linguagem natural (ex: "muda o título do Hero", "troca essa foto", "aumenta esse elemento e move mais pra esquerda"). As edições são feitas direto no código e o site atualiza sozinho após o próximo `git push`.
+## Pendências
+- Fotos de essências a refazer: `FOTOS-ESSENCIAS-PARA-REFAZER.md`
+- Fotos dos whiskies vêm do Wikimedia (CC BY-SA): trocar por fotos da loja
+- Confirmar com o advogado o que pode aparecer na vitrine
+- Google Analytics (GA4): falta o ID de medição
+- Google Meu Negócio: conferir ficha e link do site
+- Artes de divulgação ficam em `artes/`

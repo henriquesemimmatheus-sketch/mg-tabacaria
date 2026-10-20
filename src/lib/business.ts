@@ -1,6 +1,7 @@
-// Placeholders below (city, phone, address, hours) need the real data from MG Bebidas & Tabacaria before this goes live.
+// Dados reais da loja. O site e o SEO (JSON-LD) leem daqui.
 export const business = {
   name: "MG Bebidas & Tabacaria",
+  url: "https://www.mgtabacaria.com",
   city: "Cascavel - PR",
   whatsappNumber: "5545991337191",
   whatsappDisplay: "(45) 99133-7191",
