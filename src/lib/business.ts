@@ -9,7 +9,25 @@ export const business = {
   instagramUrl: "https://www.instagram.com/mgtabacaria1/",
   instagramHandle: "@mgtabacaria1",
   address: "Av. Gralha Azul, 680, Guarujá",
-  hours: [{ day: "Todos os dias", time: "14h às 01h" }],
+  // Horário igual ao da ficha do Google (conferido em 20/10/2026). Segunda fechado.
+  hours: [
+    { day: "Segunda", time: "Fechado" },
+    { day: "Terça", time: "14h às 02h" },
+    { day: "Quarta", time: "14h às 23h" },
+    { day: "Quinta", time: "14h às 03h" },
+    { day: "Sexta", time: "14h às 04h" },
+    { day: "Sábado", time: "14h às 04h" },
+    { day: "Domingo", time: "10h às 00h30" },
+  ],
+  // Mesmo horário em formato schema.org (dados estruturados para o Google).
+  schedule: [
+    { dayOfWeek: "Tuesday", opens: "14:00", closes: "02:00" },
+    { dayOfWeek: "Wednesday", opens: "14:00", closes: "23:00" },
+    { dayOfWeek: "Thursday", opens: "14:00", closes: "03:00" },
+    { dayOfWeek: "Friday", opens: "14:00", closes: "04:00" },
+    { dayOfWeek: "Saturday", opens: "14:00", closes: "04:00" },
+    { dayOfWeek: "Sunday", opens: "10:00", closes: "00:30" },
+  ],
 };
 
 export function whatsappLink(message: string = business.whatsappMessage) {

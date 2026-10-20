@@ -27,7 +27,7 @@ export default function OpengraphImage() {
           Narguilé, essências e bebidas em Cascavel - PR
         </div>
         <div style={{ display: "flex", fontSize: 26, marginTop: 20, color: "#a39a8a" }}>
-          Todos os dias, 14h às 01h
+          Aberto de terça a domingo
         </div>
       </div>
     ),

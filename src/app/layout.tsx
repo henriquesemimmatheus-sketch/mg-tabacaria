@@ -55,7 +55,10 @@ const lojaJsonLd = {
   image: `${business.url}/logo-mg-tabacaria.webp`,
   sameAs: [business.instagramUrl],
   areaServed: { "@type": "City", name: "Cascavel" },
-  // O horário por dia ainda não foi confirmado (a ficha do Google difere do site): fica de fora até o dono confirmar.
+  openingHoursSpecification: business.schedule.map((s) => ({
+    "@type": "OpeningHoursSpecification",
+    ...s,
+  })),
   address: {
     "@type": "PostalAddress",
     streetAddress: business.address,

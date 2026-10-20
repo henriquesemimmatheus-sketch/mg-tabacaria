@@ -6,7 +6,8 @@ Atualizado em 20/10/2026. Fonte viva do projeto; regras de trabalho e de conform
 - Nome: MG Bebidas & Tabacaria
 - Ramo: essências e carvões de narguilé, acessórios, bebidas (whisky, licores, cerveja), kits de presente
 - Endereço: Av. Gralha Azul, 680, Guarujá, Cascavel - PR
-- Horário: todos os dias, 14h às 01h
+- Horário (igual ao da ficha do Google, 20/10/2026): segunda fechado; terça 14h às 02h; quarta 14h às 23h; quinta 14h às 03h; sexta e sábado 14h às 04h; domingo 10h às 00h30
+- Ficha do Google: "Bar com tabacaria", mais de 5 mil avaliações; o link do site nela já é o `www`
 - WhatsApp: (45) 99133-7191
 - Instagram: @mgtabacaria1
 - Venda proibida para menores de 18 anos
@@ -43,5 +44,5 @@ Atualizado em 20/10/2026. Fonte viva do projeto; regras de trabalho e de conform
 - Fotos dos whiskies vêm do Wikimedia (CC BY-SA): trocar por fotos da loja
 - Confirmar com o advogado o que pode aparecer na vitrine
 - Google Analytics (GA4): falta o ID de medição
-- Google Meu Negócio: conferir ficha e link do site
+- Search Console: propriedade verificada por arquivo HTML em `public/` (não apagar), sitemap enviado em 20/10/2026
 - Artes de divulgação ficam em `artes/`
