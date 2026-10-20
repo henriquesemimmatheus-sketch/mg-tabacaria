@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { Container } from "./Container";
-import { WhatsAppIcon, CartIcon } from "./icons";
+import { WhatsAppIcon, CartIcon, InstagramIcon } from "./icons";
 import { business, whatsappLink } from "@/lib/business";
 import { useCart } from "@/lib/cart";
 
@@ -39,6 +39,15 @@ export function Header() {
         </Link>
 
         <div className="flex items-center gap-1 sm:gap-3">
+          <a
+            href={business.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram da MG Bebidas & Tabacaria"
+            className="flex h-11 w-11 items-center justify-center text-ink-muted transition-colors hover:text-gold-bright"
+          >
+            <InstagramIcon className="h-5 w-5" />
+          </a>
           <a
             href={whatsappLink()}
             target="_blank"

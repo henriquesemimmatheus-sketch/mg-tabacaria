@@ -51,20 +51,18 @@ const lojaJsonLd = {
   name: business.name,
   url: business.url,
   telephone: "+" + business.whatsappNumber,
+  description,
   image: `${business.url}/logo-mg-tabacaria.webp`,
   sameAs: [business.instagramUrl],
+  areaServed: { "@type": "City", name: "Cascavel" },
+  // Rua ou Avenida e o horário por dia ainda não foram confirmados (a ficha do Google difere do site):
+  // por isso ficam de fora até o dono confirmar.
   address: {
     "@type": "PostalAddress",
-    streetAddress: business.address,
     addressLocality: "Cascavel",
     addressRegion: "PR",
+    postalCode: "85804-260",
     addressCountry: "BR",
-  },
-  openingHoursSpecification: {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    opens: "14:00",
-    closes: "01:00",
   },
 };
 
