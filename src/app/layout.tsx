@@ -55,10 +55,10 @@ const lojaJsonLd = {
   image: `${business.url}/logo-mg-tabacaria.webp`,
   sameAs: [business.instagramUrl],
   areaServed: { "@type": "City", name: "Cascavel" },
-  // Rua ou Avenida e o horário por dia ainda não foram confirmados (a ficha do Google difere do site):
-  // por isso ficam de fora até o dono confirmar.
+  // O horário por dia ainda não foi confirmado (a ficha do Google difere do site): fica de fora até o dono confirmar.
   address: {
     "@type": "PostalAddress",
+    streetAddress: business.address,
     addressLocality: "Cascavel",
     addressRegion: "PR",
     postalCode: "85804-260",
