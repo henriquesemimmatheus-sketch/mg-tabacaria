@@ -50,9 +50,10 @@ const lojaJsonLd = {
   "@type": "Store",
   name: business.name,
   url: business.url,
-  telephone: "+" + business.whatsappNumber,
-  description,
-  image: `${business.url}/logo-mg-tabacaria.webp`,
+  telephone: "+55-45-99133-7191",
+  description: "Narguilé, essências, carvões, acessórios, bebidas e presentes em Cascavel - PR.",
+  image: `${business.url}/opengraph-image`,
+  logo: `${business.url}/logo-mg-tabacaria.webp`,
   sameAs: [business.instagramUrl],
   areaServed: { "@type": "City", name: "Cascavel" },
   openingHoursSpecification: business.schedule.map((s) => ({
@@ -61,7 +62,7 @@ const lojaJsonLd = {
   })),
   address: {
     "@type": "PostalAddress",
-    streetAddress: business.address,
+    streetAddress: "Av. Gralha Azul, 680",
     addressLocality: "Cascavel",
     addressRegion: "PR",
     postalCode: "85804-260",
