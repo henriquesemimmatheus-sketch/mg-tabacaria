@@ -9,6 +9,12 @@ export const business = {
   instagramUrl: "https://www.instagram.com/mgtabacaria1/",
   instagramHandle: "@mgtabacaria1",
   address: "Av. Gralha Azul, 680, Guarujá",
+  neighborhood: "Guarujá",
+  // Ficha da loja no Google (place id lido da busca em 22/10/2026).
+  googlePlaceId: "ChIJG56wqqLX85QR9jHPQlWROXg",
+  googleMapsUrl: "https://www.google.com/maps/place/?q=place_id:ChIJG56wqqLX85QR9jHPQlWROXg",
+  googleReviewsUrl: "https://search.google.com/local/reviews?placeid=ChIJG56wqqLX85QR9jHPQlWROXg",
+  googleWriteReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJG56wqqLX85QR9jHPQlWROXg",
   // Horário igual ao da ficha do Google (conferido em 20/10/2026). Segunda fechado.
   hours: [
     { day: "Segunda", time: "Fechado" },

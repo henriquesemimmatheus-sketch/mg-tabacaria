@@ -29,7 +29,7 @@ const description =
 export const metadata: Metadata = {
   metadataBase: new URL(business.url),
   title: {
-    default: "MG Bebidas & Tabacaria | Narguilé, essências e bebidas em Cascavel - PR",
+    default: "MG Bebidas & Tabacaria | Narguilé, essências e bebidas no Guarujá, Cascavel - PR",
     template: "%s",
   },
   description,
@@ -55,6 +55,7 @@ const lojaJsonLd = {
   image: `${business.url}/opengraph-image`,
   logo: `${business.url}/logo-mg-tabacaria.webp`,
   sameAs: [business.instagramUrl],
+  hasMap: business.googleMapsUrl,
   areaServed: { "@type": "City", name: "Cascavel" },
   openingHoursSpecification: business.schedule.map((s) => ({
     "@type": "OpeningHoursSpecification",

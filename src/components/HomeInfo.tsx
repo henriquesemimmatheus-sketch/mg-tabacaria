@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Container } from "./Container";
 import { PinIcon, ClockIcon, WhatsAppIcon } from "./icons";
 import { business, whatsappLink } from "@/lib/business";
+import { GoogleFicha } from "./GoogleFicha";
 
 // Rodapé da home: sobre a loja, localização, horário e WhatsApp.
 export function HomeInfo() {
@@ -61,6 +62,8 @@ export function HomeInfo() {
             <p className="mt-2 text-xs text-ink-muted">Em feriados pode mudar. Confirme no WhatsApp antes de vir.</p>
           </div>
         </div>
+
+        <GoogleFicha />
 
         <a
           href={whatsappLink()}
