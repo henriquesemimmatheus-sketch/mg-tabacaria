@@ -53,4 +53,17 @@ export const carvoes: Carvao[] = [
     descricao: "Carvão de coco 100% natural para narguilé, em formato hexagonal.",
     tamanhos: [{ peso: "1 kg", preco: 32.99 }],
   },
+  {
+    id: "rainbow",
+    marca: "Rainbow",
+    nome: "Carvão Rainbow Jumbo",
+    foto: "/carvoes/rainbow.webp",
+    fotoProporcao: 704 / 561,
+    descricao: "Carvão de coco premium em formato hexagonal, do pacote de 9 pedras à caixa de 1 kg.",
+    tamanhos: [
+      { peso: "9 pedras", preco: 8 },
+      { peso: "500 g", preco: 21 },
+      { peso: "1 kg", preco: 38 },
+    ],
+  },
 ];
