@@ -32,3 +32,30 @@ const lista: Acessorio[] = [
 export const licores: Acessorio[] = [...lista].map((l) => ({ ...l, recorte: true })).sort(
   (a, b) => Number(b.precoAntigo !== undefined) - Number(a.precoAntigo !== undefined) || (b.preco ?? 0) - (a.preco ?? 0),
 );
+
+export type SubDestilado = "licor" | "gin" | "vodka" | "diversos";
+
+// Subfiltros de Destilados e itens de Drinks prontos. Item que não estiver aqui cai em "diversos".
+const DRINKS_PRONTOS = ["baianinha-maracuja", "baianinha-amendoim"];
+const SUB: Record<string, SubDestilado> = {
+  campari: "licor",
+  jagermeister: "licor",
+  "licor-43": "licor",
+  "licor-43-chocolate": "licor",
+  "licor-1985": "licor",
+  sheridans: "licor",
+  ballena: "licor",
+  smirnoff: "vodka",
+  "beefeater-pink": "gin",
+  "beefeater-dry": "gin",
+  "eternity-watermelon": "gin",
+  "eternity-strawberry": "gin",
+  "eternity-dark-berry": "gin",
+  "eternity-tropical": "gin",
+  "eternity-maca-verde": "gin",
+};
+
+export const drinksProntos: Acessorio[] = licores.filter((l) => DRINKS_PRONTOS.includes(l.id));
+export const destilados: (Acessorio & { sub: SubDestilado })[] = licores
+  .filter((l) => !DRINKS_PRONTOS.includes(l.id))
+  .map((l) => ({ ...l, sub: SUB[l.id] ?? "diversos" }));

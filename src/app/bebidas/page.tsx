@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { WhiskyCatalog } from "@/components/WhiskyCatalog";
-import { ItemCatalog } from "@/components/ItemCatalog";
-import { licores } from "@/lib/licores";
+import { BebidasCatalog } from "@/components/BebidasCatalog";
 import { Beverages } from "@/components/Products";
 import { CategoryAbout } from "@/components/CategoryAbout";
 
 export const metadata: Metadata = {
-  title: "Whisky, licores e cerveja gelada em Cascavel | MG Bebidas, Guarujá",
+  title: "Whisky, licores, gin, vodka, cerveja e drinks prontos em Cascavel | MG Bebidas, Guarujá",
   description:
     "Whisky, licores, destilados, vinhos e cerveja gelada em Cascavel - PR, no Guarujá. Jack Daniel's, Johnnie Walker, Chivas Regal e mais. Venda proibida para menores de 18 anos.",
 };
@@ -14,15 +12,7 @@ export const metadata: Metadata = {
 export default function BebidasPage() {
   return (
     <>
-      <WhiskyCatalog />
-      <ItemCatalog
-        secundario
-        eyebrow="Licores e destilados"
-        titulo="Pra beber gelado"
-        descricao="Rótulos da casa com preço. Adicione ao carrinho e finalize pelo WhatsApp."
-        itens={licores}
-        assunto="licores"
-      />
+      <BebidasCatalog />
       <Beverages />
       <CategoryAbout titulo="Bebidas em Cascavel">
         A MG Bebidas & Tabacaria, no bairro Guarujá, em Cascavel - PR, tem whiskies como Jack Daniel&apos;s, Johnnie
