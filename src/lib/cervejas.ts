@@ -25,7 +25,7 @@ export const cervejas: Cerveja[] = [
   pack("budweiser-12x350", "Budweiser", "Budweiser, 12 latas", "Lager. Pack com 12 latas de 350 ml.", 51.9),
   pack("original-12x350", "Original", "Original, 12 latas", "Antarctica Original pilsen. Pack com 12 latas de 350 ml.", 54.9),
   pack("heineken-12x350", "Heineken", "Heineken, 12 latas", "Lager puro malte. Pack com 12 latas de 350 ml.", 63.9),
-  pack("original-8x269", "Original", "Original, 8 latas", "Antarctica Original pilsen. Pack com 8 latas de 269 ml."),
+  pack("original-8x269", "Original", "Original, 8 latas", "Antarctica Original pilsen. Pack com 8 latas de 269 ml.", 28.9),
 ];
 
 export const marcasCerveja = ["Heineken", "Skol", "Brahma", "Original", "Amstel", "Budweiser", "Colônia"];
