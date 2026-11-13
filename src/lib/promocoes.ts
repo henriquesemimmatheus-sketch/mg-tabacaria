@@ -23,7 +23,7 @@ export type Promocao = {
     /** Preço promocional em reais. Sem preço, o card só mostra o botão do WhatsApp. */
     preco?: number;
     precoAntigo?: number;
-    /** "whatsapp" mostra o preço mas o botão leva à conversa (ex.: consumo no local). Padrão: "carrinho". */
+    /** "whatsapp" mostra o preço mas o botão leva à conversa (ex.: combinar a entrega). Padrão: "carrinho". */
     acao?: "carrinho" | "whatsapp";
   };
 };
@@ -57,20 +57,6 @@ export const promocoes: Promocao[] = [
       altura: 1350,
       preco: 109.9,
       precoAntigo: 159.9,
-    },
-  },
-  {
-    id: "hoje-dois-litrao-rosh",
-    texto: "Dois litrão + um rosh por R$ 50,00, todos os dias. Para consumir no local",
-    link: "/#promocoes",
-    card: {
-      titulo: "Dois litrão + um rosh",
-      descricao: "Dois litrões de cerveja e um rosh por R$ 50,00. Vale todos os dias, para consumir no local.",
-      imagem: "/promo-hoje-litrao.webp",
-      largura: 900,
-      altura: 1230,
-      preco: 50,
-      acao: "whatsapp",
     },
   },
   {

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Container } from "./Container";
 import { ItemCatalog } from "./ItemCatalog";
 import { WhiskyCatalog } from "./WhiskyCatalog";
-import { cervejas } from "@/lib/cervejas";
+import { cervejas, marcasCerveja } from "@/lib/cervejas";
 import { destilados, drinksProntos, type SubDestilado } from "@/lib/licores";
 
 type Tipo = "todos" | "destilados" | "cervejas" | "drinks";
@@ -74,6 +74,7 @@ function Chips<T extends string>({
 export function BebidasCatalog() {
   const [tipo, setTipo] = useState<Tipo>("todos");
   const [sub, setSub] = useState<Sub>("todos");
+  const [marca, setMarca] = useState("todas");
 
   const mostraDestilados = tipo === "todos" || tipo === "destilados";
   const todosSub = tipo === "todos" || sub === "todos";
@@ -83,6 +84,7 @@ export function BebidasCatalog() {
   function escolherTipo(t: Tipo) {
     setTipo(t);
     setSub("todos");
+    setMarca("todas");
   }
 
   return (
@@ -93,7 +95,21 @@ export function BebidasCatalog() {
           <h1 className="mt-1 mb-5 font-condensed text-5xl uppercase leading-none tracking-tight text-ink sm:text-6xl">
             Escolha o que vai gelar
           </h1>
+          <p className="mb-4 max-w-xl text-sm text-ink-muted">
+            Atendimento no esquema pegue e leve. Não há consumo no local.
+          </p>
           <Chips opcoes={TIPOS} valor={tipo} onChange={escolherTipo} rotulo="Tipo de bebida" />
+          {tipo === "cervejas" && (
+            <div className="mt-3">
+              <Chips
+                opcoes={[["todas", "Todas"], ...marcasCerveja.map((m): [string, string] => [m, m])]}
+                valor={marca}
+                onChange={setMarca}
+                rotulo="Marca da cerveja"
+                pequeno
+              />
+            </div>
+          )}
           {tipo === "destilados" && (
             <div className="mt-3">
               <Chips opcoes={SUBS} valor={sub} onChange={setSub} rotulo="Tipo de destilado" pequeno />
@@ -124,7 +140,7 @@ export function BebidasCatalog() {
             eyebrow="Cervejas"
             titulo="Packs gelados"
             descricao="Packs de latas e long neck. Adicione ao carrinho e finalize pelo WhatsApp."
-            itens={cervejas}
+            itens={tipo === "cervejas" && marca !== "todas" ? cervejas.filter((c) => c.marca === marca) : cervejas}
             assunto="cervejas"
           />
         </div>

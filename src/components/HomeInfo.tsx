@@ -14,11 +14,11 @@ export function HomeInfo() {
         <div id="sobre" className="scroll-mt-32 max-w-2xl">
           <span className="font-sans text-xs uppercase tracking-[0.2em] text-gold">Sobre a loja</span>
           <h2 className="mt-2 font-condensed text-3xl uppercase leading-none tracking-tight text-ink sm:text-5xl">
-            O point de quem sabe curtir o fim de semana
+            Escolha na loja e leve pra casa
           </h2>
           <p className="mt-3 leading-relaxed text-ink-muted">
-            Aqui a galera se reúne, escolhe a essência certa pro narguilé e abre um rótulo especial pra comemorar. Sem
-            enrolação: você chega e a gente ajuda a montar.
+            Aqui o sistema é pegue e leve: você escolhe a essência certa pro narguilé ou um rótulo especial, e a gente
+            ajuda a montar o pedido. Não há consumo no local.
           </p>
         </div>
 
